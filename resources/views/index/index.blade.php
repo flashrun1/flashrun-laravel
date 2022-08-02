@@ -358,39 +358,7 @@
         </main>
         <!-- end of main content -->
         <!-- footer -->
-        <footer class="footer">
-            <div class="footer-main">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-2 col-md-3 text-center text-md-left">
-                            <div class="copy">©2022 FLASHRUN</div>
-                        </div>
-                        <div class="col-lg-8 col-md-6">
-                            <ul class="nav nav-menu navbar-wrap justify-content-center">
-                                <li>
-                                    <a href="#registration" class="nav-link">РЕЄСТРАЦІЯ</a>
-                                </li>
-                                <li>
-                                    <a href="#events" class="nav-link ">ЗАХОДИ</a>
-                                </li>
-                                <li>
-                                    <a href="#catalog" class="nav-link ">МЕРЧ</a>
-                                </li>
-                                <li>
-                                    <a href="#gallery" class="nav-link ">ГАЛЕРЕЯ</a>
-                                </li>
-                                <li>
-                                    <a href="#contacts" class="nav-link ">Контакти</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-2 col-md-3 text-center text-md-right">
-                            <div id="up-btn">НАВЕРХ</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        @include('partials.footer')
         <!-- end of footer -->
         <!-- modals -->
         <div class="modal fade " id="registr_modal" tabindex="-1" aria-labelledby="registr_modal" aria-modal="true"
@@ -405,6 +373,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="price text-right">До 07.08 <strong>400грн</strong></div>
+                        <div class="price text-right">З 8.08 по 14.08 <strong>500грн</strong></div>
+                        <div class="price text-right">З 15.08 по 19.08 <strong>600грн</strong></div>
+                        <div class="price text-right">Реєстрація в день старту <strong>700грн</strong></div>
                         <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <input type="hidden" name="race_name" value="Воля FEST">
