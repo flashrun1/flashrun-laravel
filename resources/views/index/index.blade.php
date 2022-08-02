@@ -12,14 +12,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="{{ asset('/css/style.css') }}"/>
     <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <!-- OG -->
     <meta property="og:title" content="FLASHRUN - перший біговий клуб у Хмельницькому!">
     <meta property="og:url" content="FLASHRUN, RUNNING CLUB, біговий клуб у Хмельницькому">
     <meta property="og:description" content="FLASHRUN - перший біговий клуб у Хмельницькому!">
-    <meta property="og:image" content="images/logo.svg">
+    <meta property="og:image" content="/images/logo.svg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="500">
     <meta property="og:image:height" content="300">
@@ -35,7 +35,7 @@
                 <div class="row align-items-center   justify-content-between ">
                     <div class="logo-wrap col-lg-4 col-md-6 col-9">
                         <a href="index.html" class="logo">
-                            <img  src="images/logo.svg" class="" alt="FLASHRUN">
+                            <img  src="{{ asset('/images/logo.svg') }}" class="" alt="FLASHRUN">
                         </a>
                     </div>
                     <div class="menu-wrap navbar-expand-lg col-lg-8 col-md-6 col-3">
@@ -76,7 +76,7 @@
                         <div id="yt-player"></div>
                     </div>
                 </div>
-                <div class="video-bg-overlay" style="background-image: url('images/bg1.png');">
+                <div class="video-bg-overlay" style="background-image: url('/images/bg1.png');">
                 </div>
                 <div class="video-bg-content">
                     <h1>
@@ -89,7 +89,7 @@
             <section class="section about">
                 <div class="container">
                     <div class="text-center icon-decorate">
-                        <img src="images/icon-flash.svg" alt="icon" class="">
+                        <img src="{{ asset('/images/icon-flash.svg') }}" alt="icon" class="">
                     </div>
                     <h2 class="section-title">«FLASHRUN»</h2>
                     <p class="text-center custom-color">
@@ -110,7 +110,7 @@
                                 <div class="row">
                                     <div class="col-sm-5">
                                         <div class="img-wrap">
-                                            <img src="images/category1.jpg" alt="category" class="bg-image-pos">
+                                            <img src="{{ asset('/images/category1.jpg') }}" alt="category" class="bg-image-pos">
                                         </div>
                                     </div>
                                     <div class="col-sm-7">
@@ -126,7 +126,7 @@
                                 <div class="row">
                                     <div class="col-sm-5">
                                         <div class="img-wrap">
-                                            <img src="images/category2.jpg" alt="category" class="bg-image-pos">
+                                            <img src="{{ asset('/images/category2.jpg') }}" alt="category" class="bg-image-pos">
                                         </div>
                                     </div>
                                     <div class="col-sm-7">
@@ -142,7 +142,7 @@
                                 <div class="row">
                                     <div class="col-sm-5">
                                         <div class="img-wrap">
-                                            <img src="images/category3.jpg" alt="category" class="bg-image-pos">
+                                            <img src="{{ asset('/images/category3.jpg') }}" alt="category" class="bg-image-pos">
                                         </div>
                                     </div>
                                     <div class="col-sm-7">
@@ -158,7 +158,7 @@
                                 <div class="row">
                                     <div class="col-sm-5">
                                         <div class="img-wrap">
-                                            <img src="images/category4.jpg" alt="category" class="bg-image-pos">
+                                            <img src="{{ asset('/images/category4.jpg') }}" alt="category" class="bg-image-pos">
                                         </div>
                                     </div>
                                     <div class="col-sm-7">
@@ -405,35 +405,41 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class=" " action="/" method="post" enctype="multipart/form-data">
+                        <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="race_name" value="Воля FEST">
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
-                                <input id="registr_modal_form_cb_name" type="text" name="registr_modal_user_name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
+                                <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input id="email" type="email" name="email" placeholder="Введіть електронну пошту" value="" required="" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_phone">Номер телефону</label>
-                                <input id="registr_modal_form_cb_phone" type="tel" name="registr_modal_user_phone" placeholder="Введіть номер телефону" required="" class="form-control">
+                                <input id="registr_modal_form_cb_phone" type="tel" name="phone" placeholder="Введіть номер телефону" required="" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_clubname">Ваш клуб</label>
-                                <input id="registr_modal_form_cb_clubname" type="text" name="registr_modal_club_name" placeholder="Введіть клуб" value="" required="" class="form-control">
+                                <input id="registr_modal_form_cb_clubname" type="text" name="club" placeholder="Введіть клуб" value="" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_sity">Ваше місто</label>
-                                <input id="registr_modal_form_cb_sity" type="text" name="registr_modal_user_name" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
+                                <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
                             </div>
                             <div class="form-group">
                                 <div class="label-wrap">
                                     <label for="">Дистанції</label>
                                 </div>
                                 <div class="custon-radio-group">
-                                    <input id="registr_modal_form_cb_option1" type="radio" name="registr_modal_distance"  class="custon-radio-btn" checked>
+                                    <input id="registr_modal_form_cb_option1" type="radio" name="distance" value="3000"  class="custon-radio-btn" checked>
                                     <label for="registr_modal_form_cb_option1">3 км</label>
-                                    <input id="registr_modal_form_cb_option2" type="radio" name="registr_modal_distance"  class="custon-radio-btn" >
+                                    <input id="registr_modal_form_cb_option2" type="radio" name="distance" value="5000"  class="custon-radio-btn" >
                                     <label for="registr_modal_form_cb_option2">5 км</label>
-                                    <input id="registr_modal_form_cb_option3" type="radio" name="registr_modal_distance"  class="custon-radio-btn">
+                                    <input id="registr_modal_form_cb_option3" type="radio" name="distance" value="10000"  class="custon-radio-btn">
                                     <label for="registr_modal_form_cb_option3">10 км</label>
-                                    <input id="registr_modal_form_cb_option4" type="radio" name="registr_modal_distance"  class="custon-radio-btn">
+                                    <input id="registr_modal_form_cb_option4" type="radio" name="distance" value="15000"  class="custon-radio-btn">
                                     <label for="registr_modal_form_cb_option4">15 км</label>
                                 </div>
                             </div>
@@ -442,9 +448,9 @@
                                     <label for="">Дитячі дистанції</label>
                                 </div>
                                 <div class="custon-radio-group">
-                                    <input id="registr_modal_form_cb_option6" type="radio" name="registr_modal_distance"  class="custon-radio-btn" >
+                                    <input id="registr_modal_form_cb_option6" type="radio" value="1000" name="registr_modal_distance"  class="custon-radio-btn" >
                                     <label for="registr_modal_form_cb_option6">1 км</label>
-                                    <input id="registr_modal_form_cb_option7" type="radio" name="registr_modal_distance"  class="custon-radio-btn">
+                                    <input id="registr_modal_form_cb_option7" type="radio" value="100" name="registr_modal_distance"  class="custon-radio-btn">
                                     <label for="registr_modal_form_cb_option7">100 м</label>
                                 </div>
                             </div>
@@ -672,6 +678,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js" integrity="sha512-/bOVV1DV1AQXcypckRwsR9ThoCj7FqTV2/0Bm79bL3YSyLkVideFLE3MIZkq1u5t28ke1c0n31WYCOrO01dsUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.27/dist/fancybox.umd.min.js"></script>
 <link  rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
-<script src="js/common.js"></script>
+<script src="{{ asset('/js/common.js') }}"></script>
 </body>
 </html>

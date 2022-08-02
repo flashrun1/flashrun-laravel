@@ -14,3 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\IndexController::class, 'index']);
+
+Route::post('/race-register', [\App\Http\Controllers\RaceController::class, 'register'])
+    ->name('race-register');
+
+Route::post('/liqpay/callback', [\App\Http\Controllers\OrderController::class, 'callbackStatus'])
+    ->name('callback-status');
