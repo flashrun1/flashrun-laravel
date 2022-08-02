@@ -456,8 +456,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="btn-wrap text-center">
-                                    <button type="submit" class="btn  ">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    <a href="#" target="_blank" class="btn btn-invert">Положення змагань</a>
+                                    <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
+                                    <a href="{{ asset('/files/Положення.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
                                 </div>
                             </div>
                         </form>
