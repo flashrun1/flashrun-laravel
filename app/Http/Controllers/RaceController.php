@@ -11,6 +11,7 @@ class RaceController extends Controller
 {
     public function register(Request $request) {
 
+        $description = $request->race_name . ' | ' . $request->name . ' | ' . $request->email . ' | ' . $request->distance . 'm';
         // create order with unpaid status
         $newOrder = Order::createFromRequest($request);
 
@@ -21,7 +22,7 @@ class RaceController extends Controller
             'action' => 'pay',
             'amount' => '300',
             'currency' => LiqPay::CURRENCY_UAH,
-            'description' => $request->race_name . ' | ' . $request->name . ' | ' . $request->email,
+            'description' => $description,
             'order_id' => $newOrder->id
         ];
 
@@ -50,7 +51,7 @@ class RaceController extends Controller
             'currency'       => 'UAH',
 
             // призначення платежу
-            'description'    => $request->race_name . ' | ' . $request->name . ' | ' . $request->email,
+            'description'    => $description,
             'order_id'       => $newOrder->id,
             'version'        => '3',
             'result_url'     => env('APP_URL'),
