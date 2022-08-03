@@ -15,7 +15,7 @@ class Race extends Model
     ];
 
 
-    protected $static_races = [
+    protected static $static_races = [
         'volya_fest' => [
             'amount' => 300,
             'description' => 'Воля-fest'

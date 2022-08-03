@@ -23,8 +23,12 @@ class Order extends Model
 
         $order = new self();
         $order->email = $request->email;
+        $order->name = $request->name;
+        $order->phone = $request->phone;
+        $order->distance = $request->distance;
+        $order->race_name = $request->race_name;
         $order->currency = self::DEFAULT_CURRENCY;
-        $order->amount = 30000;
+        $order->amount = 400;
         $order->transaction_id = '';
 
         $order->save();

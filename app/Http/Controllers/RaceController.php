@@ -26,7 +26,7 @@ class RaceController extends Controller
             'public_key' => config('liqpay.public_key'),
             'version' => '3',
             'action' => 'pay',
-            'amount' => '300',
+            'amount' => '400',
             'currency' => LiqPay::CURRENCY_UAH,
             'description' => $description,
             'order_id' => $newOrder->id
