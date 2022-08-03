@@ -27,6 +27,11 @@
     <!--END OF OG -->
 </head>
 <body class="">
+@if(session('success'))
+    <div class="alert alert-success">
+        {!! session('success') !!}
+    </div>
+@endif
 <div id="page-wrapper" class="page-wrapper ">
     <div id="page-body" class="page-body">
         <!-- header -->

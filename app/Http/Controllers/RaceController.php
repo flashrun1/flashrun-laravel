@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RaceRegistered;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use LiqPay;
 use Termwind\Components\Li;
 
@@ -12,6 +14,10 @@ class RaceController extends Controller
     public function register(Request $request) {
 
         $description = $request->race_name . ' | ' . $request->name . ' | ' . $request->email . ' | ' . $request->distance . 'm';
+
+        // send email
+        Mail::to($request->email)->send(new RaceRegistered($request));
+
         // create order with unpaid status
         $newOrder = Order::createFromRequest($request);
 
@@ -59,7 +65,8 @@ class RaceController extends Controller
             'server_url' => route('callback-status')
         ));
 
-        return $html;
+        return redirect()->to('/')->with('success', 'Дякуємо за реєстрацію, перевірте будь ласка пошту '. $request->email);
+//        return $html;
 
 
         //Статус операції буде відправлений на server_url.
