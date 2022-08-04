@@ -15,11 +15,11 @@ class RaceController extends Controller
 
         $description = $request->race_name . ' | ' . $request->name . ' | ' . $request->email . ' | ' . $request->distance . 'm';
 
-        // send email
-        Mail::to($request->email)->send(new RaceRegistered($request));
-
         // create order with unpaid status
         $newOrder = Order::createFromRequest($request);
+
+        // send email
+        Mail::to($request->email)->send(new RaceRegistered($request));
 
         //json_string = {"public_key":"i00000000","version":"3","action":"pay","amount":"3","currency":"UAH","description":"test","order_id":"000001"}
         $paymentRequest = [

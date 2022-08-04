@@ -137,7 +137,7 @@
                                     <div class="col-sm-7">
                                         <h3 class="title">ВЕЛО</h3>
                                         <div class="descr custom-color">Подолай трасу на шосейному велосипеді. Дистанція - 20 км.</div>
-                                        <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal2">ЗАРЕЄСТРУВАТИСЬ</button>
+                                        <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal2" disabled>ЗАРЕЄСТРУВАТИСЬ</button>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@
                                     <div class="col-sm-7">
                                         <h3 class="title">ДУАТЛОН</h3>
                                         <div class="descr custom-color">Поєднання бігу та вело - пробіжи та проїдь. Дистанція - 5/10/5 км.</div>
-                                        <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal3">ЗАРЕЄСТРУВАТИСЬ</button>
+                                        <button  type="button" class="btn" data-toggle="modal" disabled data-target="#registr_modal3">ЗАРЕЄСТРУВАТИСЬ</button>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                                     <div class="col-sm-7">
                                         <h3 class="title">СКАНДИНАВСЬКА ХОДЬБА</h3>
                                         <div class="descr custom-color">Пройди пішки використовуючи спорядження.</div>
-                                        <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal4">ЗАРЕЄСТРУВАТИСЬ</button>
+                                        <button  type="button" class="btn" data-toggle="modal" disabled data-target="#registr_modal4">ЗАРЕЄСТРУВАТИСЬ</button>
                                     </div>
                                 </div>
                             </div>
@@ -233,7 +233,7 @@
                                     <div class="price">410 грн</div>
                                 </div>
                                 <div class="btn-wrap text-center">
-                                    <button  type="button" class="btn" data-toggle="modal" data-target="#buy_modal">КУПИТИ</button>
+                                    <button disabled  type="button" class="btn" data-toggle="modal" data-target="#buy_modal">КУПИТИ</button>
                                 </div>
                             </div>
                         </div>
@@ -247,7 +247,7 @@
                                     <div class="price">80 грн</div>
                                 </div>
                                 <div class="btn-wrap text-center">
-                                    <button  type="button" class="btn" data-toggle="modal" data-target="#buy_modal">КУПИТИ</button>
+                                    <button disabled  type="button" class="btn" data-toggle="modal" data-target="#buy_modal">КУПИТИ</button>
                                 </div>
                             </div>
                         </div>
@@ -261,7 +261,7 @@
                                     <div class="price"> 450 грн</div>
                                 </div>
                                 <div class="btn-wrap text-center">
-                                    <button  type="button" class="btn" data-toggle="modal" data-target="#buy_modal">КУПИТИ</button>
+                                    <button disabled  type="button" class="btn" data-toggle="modal" data-target="#buy_modal">КУПИТИ</button>
                                 </div>
                             </div>
                         </div>
@@ -425,9 +425,9 @@
                                     <label for="">Дитячі дистанції</label>
                                 </div>
                                 <div class="custon-radio-group">
-                                    <input id="registr_modal_form_cb_option6" type="radio" value="1000" name="registr_modal_distance"  class="custon-radio-btn" >
+                                    <input id="registr_modal_form_cb_option6" type="radio" value="1000" name="distance"  class="custon-radio-btn" >
                                     <label for="registr_modal_form_cb_option6">1 км</label>
-                                    <input id="registr_modal_form_cb_option7" type="radio" value="100" name="registr_modal_distance"  class="custon-radio-btn">
+                                    <input id="registr_modal_form_cb_option7" type="radio" value="100" name="distance"  class="custon-radio-btn">
                                     <label for="registr_modal_form_cb_option7">100 м</label>
                                 </div>
                             </div>
