@@ -39,7 +39,7 @@
             <div class="container">
                 <div class="row align-items-center   justify-content-between ">
                     <div class="logo-wrap col-lg-4 col-md-6 col-9">
-                        <a href="index.html" class="logo">
+                        <a href="{{ route('home') }}" class="logo">
                             <img  src="{{ asset('/images/logo.svg') }}" class="" alt="FLASHRUN">
                         </a>
                     </div>
@@ -177,189 +177,13 @@
                     </div>
                 </div>
             </section>
-            <section class="section events" id="events">
-                <div class="container">
-                    <h2 class="section-title">НАШІ ЗАХОДИ</h2>
-                    <p class="section-descr custom-color">Ми організували 4 маштабні заходи на міському рівні, три із них - були благодійними: ми допомогали тваринам, діткам та нашим захисникам. </p>
-                    <div class="row events-row equal-wrap">
-                        <div class="col-lg-3 col-6">
-                            <div class="events-card">
-                                <a href="#" class="img-wrap">
-                                    <img src="images/event1.png" alt="Ardoise" class="product-image equal">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <div class="events-card">
-                                <a href="#" class="img-wrap">
-                                    <img src="images/event2.png" alt="Ardoise" class="product-image equal">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <div class="events-card">
-                                <a href="#" class="img-wrap">
-                                    <img src="images/event3.png" alt="Ardoise" class="product-image equal">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <div class="events-card">
-                                <a href="#" class="img-wrap">
-                                    <img src="images/event4.png" alt="Ardoise" class="product-image equal">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn-wrap text-center">
-                        <a href="https://instagram.com/flashrun_khm" target="_blank" class="btn">ПЕРЕЙТИ В ІНСТАГРАМ</a>
-                    </div>
+            @include('partials.our-events')
 
+            @include('partials.merch-catalog')
 
-                </div>
-            </section>
-            <section class="section catalog " id="catalog">
-                <div class="container">
-                    <h2 class="section-title">ФІРМОВИЙ ОДЯГ <span class="sub-title">«FLASHRUN»</span></h2>
+            @include('partials.gallery-section')
 
-                    <div class="row catalog-row">
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="catalog-card">
-                                <a href="#" class="img-wrap">
-                                    <img src="images/product-card1.png" alt="КЛУБНА ФУТБОЛКА" class="product-image equal">
-                                </a>
-                                <div class="catalog-card-descr ">
-                                    <div class="catalog-card-title">КЛУБНА ФУТБОЛКА</div>
-                                    <div class="price">410 грн</div>
-                                </div>
-                                <div class="btn-wrap text-center">
-                                    <button disabled  type="button" class="btn" data-toggle="modal" data-target="#buy_modal">КУПИТИ</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="catalog-card">
-                                <a href="#" class="img-wrap">
-                                    <img src="images/product-card2.png" alt="КЛУБНІ НОСКИ" class="product-image equal">
-                                </a>
-                                <div class="catalog-card-descr ">
-                                    <div class="catalog-card-title">КЛУБНІ НОСКИ</div>
-                                    <div class="price">80 грн</div>
-                                </div>
-                                <div class="btn-wrap text-center">
-                                    <button disabled  type="button" class="btn" data-toggle="modal" data-target="#buy_modal">КУПИТИ</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="catalog-card">
-                                <a href="#" class="img-wrap">
-                                    <img src="images/product-card3.png" alt="КЛУБНИЙ ЛОНГСЛІВ" class="product-image equal">
-                                </a>
-                                <div class="catalog-card-descr ">
-                                    <div class="catalog-card-title">КЛУБНИЙ ЛОНГСЛІВ</div>
-                                    <div class="price"> 450 грн</div>
-                                </div>
-                                <div class="btn-wrap text-center">
-                                    <button disabled  type="button" class="btn" data-toggle="modal" data-target="#buy_modal">КУПИТИ</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="section gallery" id="gallery">
-                <div class="container">
-                    <h2 class="section-title">галерея</h2>
-                    <div class="row gallery-row grid">
-                        <div class="grid-item col-md-4 col-6">
-                            <a href="images/gallery1.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery1.jpg" alt="gallery">
-                            </a>
-                        </div>
-                        <div class="grid-item col-md-4 col-6">
-                            <a href="images/gallery2.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery2.jpg" alt="gallery">
-                            </a>
-                        </div>
-                        <div class="grid-item col-md-4 col-6">
-                            <a href="images/gallery3.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery3.jpg" alt="gallery">
-                            </a>
-                        </div>
-                        <div class="grid-item col-md-4 col-6" >
-                            <a href="images/gallery5.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery5.jpg" alt="gallery">
-                            </a>
-                        </div>
-                        <div class="grid-item col-md-4 col-6" >
-                            <a href="images/gallery4.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery4.jpg" alt="gallery">
-                            </a>
-                        </div>
-                        <div class="grid-item col-md-4 col-6" >
-                            <a href="images/gallery6.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery6.jpg" alt="gallery">
-                            </a>
-                        </div>
-                        <div class="grid-item col-md-4 col-6" >
-                            <a href="images/gallery7.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery7.jpg" alt="gallery">
-                            </a>
-                        </div>
-                        <div class="grid-item col-md-4 col-6" >
-                            <a href="images/gallery9.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery9.jpg" alt="gallery">
-                            </a>
-                        </div>
-                        <div class="grid-item col-md-4 col-6" >
-                            <a href="images/gallery8.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery8.jpg" alt="gallery">
-                            </a>
-                        </div>
-                        <div class="grid-item col-md-4 col-6" >
-                            <a href="images/gallery10.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery10.jpg" alt="gallery">
-                            </a>
-                        </div>
-                        <div class="grid-item col-md-4 col-6" >
-                            <a href="images/gallery12.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery12.jpg" alt="gallery">
-                            </a>
-                        </div>
-                        <div class="grid-item col-md-4 col-6" >
-                            <a href="images/gallery11.jpg"  data-fancybox="gallery">
-                                <img src="images/gallery11.jpg" alt="gallery">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="section contacts" id="contacts">
-                <div class="container">
-                    <h2 class="section-title">Контакти</h2>
-                    <div class="row contacts-row">
-                        <div class="col-md-3 ">
-                            <div class="inner">
-                                <div class="title">INSTAGRAM</div>
-                                <a href="https://instagram.com/flashrun_khm" target="_blank">flashrun_khm</a>
-                            </div>
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <div class="inner">
-                                <div class="title">E-MAIL:</div>
-                                <a href="mailto:rybak.snizhana@gmail.com">rybak.snizhana@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="col-md-3 text-md-right">
-                            <div class="inner">
-                                <div class="title">PHONE</div>
-                                <a class="phone-call" href="tel:+380977464301">+380 97 746 43 01</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            @include('partials.contacts-section')
         </main>
         <!-- end of main content -->
         <!-- footer -->

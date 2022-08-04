@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\IndexController::class, 'index']);
+Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
 
 Route::post('/race-register', [\App\Http\Controllers\RaceController::class, 'register'])
     ->name('race-register');
