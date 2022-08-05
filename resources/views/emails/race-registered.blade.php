@@ -11,6 +11,10 @@
     Після оплати будь ласка напишіть на <a href="mailto:rybak.snizhana@gmail.com">пошту rybak.snizhana@gmail.com</a> або в <a href="https://www.instagram.com/flashrun_khm/">instagram @flashrun_khm</a>
     <br>
 </p>
+<p style="font-size: 18pt;">
+    QR-код для зручної оплати <br>
+    <img src="{{ asset('/images/qr.png') }}" width="200" alt="">
+</p>
 
 Дякуємо, Слава Україні!
 <hr>
