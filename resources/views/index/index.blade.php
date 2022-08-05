@@ -152,7 +152,7 @@
                                     </div>
                                     <div class="col-sm-7">
                                         <h3 class="title">КРОС ДУАТЛОН</h3>
-                                        <div class="descr custom-color">Поєднання бігу та вело - пробіжи та проїдь. Дистанція - 5/10/5 км.</div>
+                                        <div class="descr custom-color">Поєднання бігу та вело - пробіжи та проїдь. Дистанція - 3/10/1 км.</div>
                                         <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal3">ЗАРЕЄСТРУВАТИСЬ</button>
                                     </div>
                                 </div>
