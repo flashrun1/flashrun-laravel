@@ -8,7 +8,7 @@
     Код отримувача: 44225232 <br>
     Рахунок: UA033154050000026009052337925 <br>
     Назва банку: ХМЕЛЬНИЦЬКА ФIЛIЯ АТ КБ "ПРИВАТБАНК" <br> <br>
-    Після оплати будь ласка напишіть на <a href="mailto:rybak.snizhana@gmail.com">пошту</a> або в <a href="https://www.instagram.com/flashrun_khm/">instagram</a>
+    Після оплати будь ласка напишіть на <a href="mailto:rybak.snizhana@gmail.com">пошту rybak.snizhana@gmail.com</a> або в <a href="https://www.instagram.com/flashrun_khm/">instagram @flashrun_khm</a>
     <br>
 </p>
 

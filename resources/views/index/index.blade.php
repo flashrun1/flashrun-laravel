@@ -151,7 +151,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-7">
-                                        <h3 class="title">ДУАТЛОН</h3>
+                                        <h3 class="title">КРОС ДУАТЛОН</h3>
                                         <div class="descr custom-color">Поєднання бігу та вело - пробіжи та проїдь. Дистанція - 5/10/5 км.</div>
                                         <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal3">ЗАРЕЄСТРУВАТИСЬ</button>
                                     </div>
@@ -206,30 +206,7 @@
                         <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
 
                             <div class="form-group prices my-4">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="register-event-price-block py-3" style="font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.1);display: flex;align-items: center;justify-content: center;">
-                                                ДО 07.08 -&nbsp;<span class="event-date-price">400грн</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="register-event-price-block py-3" style="font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.1);display: flex;align-items: center;justify-content: center;">
-                                                8.08 - 14.08 - <span class="event-date-price">500грн</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="register-event-price-block py-3" style="font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.1);display: flex;align-items: center;justify-content: center;">
-                                                15.08 - 19.08 - <span class="event-date-price">400грн</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="register-event-price-block py-3" style="font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.1);;display: flex;align-items: center;justify-content: center;">
-                                                21.08 - <span class="event-date-price">700грн</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('partials.event-prices-block')
                             </div>
 
                             {{ csrf_field() }}
@@ -305,10 +282,9 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="price text-right">До 07.08 <strong>400грн</strong></div>
-                        <div class="price text-right">З 8.08 по 14.08 <strong>500грн</strong></div>
-                        <div class="price text-right">З 15.08 по 19.08 <strong>600грн</strong></div>
-                        <div class="price text-right">Реєстрація в день старту <strong>700грн</strong></div>
+                        <div class="form-group prices my-4">
+                            @include('partials.event-prices-block')
+                        </div>
                         <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <input type="hidden" name="race_name" value="Воля FEST">
@@ -362,16 +338,13 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 class="section-title">РЕЄСТРАЦІЯ <span class="sub-title">«ВОЛЯ FEST»</span></h2>
-                        <h3 class="title">ДУАТЛОН</h3>
+                        <h3 class="title">КРОС ДУАТЛОН</h3>
                         <button type="button" class="close" aria-label="Close" data-dismiss="modal">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="price text-right">До 07.08 <strong>400грн</strong></div>
-                        <div class="price text-right">З 8.08 по 14.08 <strong>500грн</strong></div>
-                        <div class="price text-right">З 15.08 по 19.08 <strong>600грн</strong></div>
-                        <div class="price text-right">Реєстрація в день старту <strong>700грн</strong></div>
+                        @include('partials.event-prices-block')
                         <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <input type="hidden" name="race_name" value="Воля FEST">
@@ -401,8 +374,8 @@
                                     <label for="">Дистанції</label>
                                 </div>
                                 <div class="custon-radio-group">
-                                    <input id="registr_modal3_form_cb_option1" type="radio" name="distance" value="2000/8000/1000"  class="custon-radio-btn" checked>
-                                    <label for="registr_modal3_form_cb_option1">2 КМ / 8КМ / 1КМ</label>
+                                    <input id="registr_modal3_form_cb_option1" type="radio" name="distance" value="3000/10000/1000"  class="custon-radio-btn" checked>
+                                    <label for="registr_modal3_form_cb_option1">3 КМ / 10КМ / 1КМ</label>
 
                                 </div>
                             </div>
@@ -430,10 +403,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="price text-right">До 07.08 <strong>400грн</strong></div>
-                        <div class="price text-right">З 8.08 по 14.08 <strong>500грн</strong></div>
-                        <div class="price text-right">З 15.08 по 19.08 <strong>600грн</strong></div>
-                        <div class="price text-right">Реєстрація в день старту <strong>700грн</strong></div>
+                        @include('partials.event-prices-block')
                         <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <input type="hidden" name="race_name" value="Воля FEST">
