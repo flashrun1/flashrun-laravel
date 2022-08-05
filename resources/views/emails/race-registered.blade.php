@@ -13,7 +13,7 @@
 </p>
 <p style="font-size: 18pt;">
     QR-код для зручної оплати <br>
-    <img src="{{ asset('/images/qr.png') }}" width="200" alt="">
+    <img src="{{ asset('/images/qr.png') }}" height="200" width="200" alt="">
 </p>
 
 Дякуємо, Слава Україні!
