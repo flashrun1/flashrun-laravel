@@ -137,7 +137,7 @@
                                     <div class="col-sm-7">
                                         <h3 class="title">ВЕЛО</h3>
                                         <div class="descr custom-color">Подолай трасу на шосейному велосипеді. Дистанція - 20 км.</div>
-                                        <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal2" disabled>ЗАРЕЄСТРУВАТИСЬ</button>
+                                        <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal2">ЗАРЕЄСТРУВАТИСЬ</button>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@
                                     <div class="col-sm-7">
                                         <h3 class="title">ДУАТЛОН</h3>
                                         <div class="descr custom-color">Поєднання бігу та вело - пробіжи та проїдь. Дистанція - 5/10/5 км.</div>
-                                        <button  type="button" class="btn" data-toggle="modal" disabled data-target="#registr_modal3">ЗАРЕЄСТРУВАТИСЬ</button>
+                                        <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal3">ЗАРЕЄСТРУВАТИСЬ</button>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                                     <div class="col-sm-7">
                                         <h3 class="title">СКАНДИНАВСЬКА ХОДЬБА</h3>
                                         <div class="descr custom-color">Пройди пішки використовуючи спорядження.</div>
-                                        <button  type="button" class="btn" data-toggle="modal" disabled data-target="#registr_modal4">ЗАРЕЄСТРУВАТИСЬ</button>
+                                        <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal4">ЗАРЕЄСТРУВАТИСЬ</button>
                                     </div>
                                 </div>
                             </div>
@@ -234,6 +234,7 @@
 
                             {{ csrf_field() }}
                             <input type="hidden" name="race_name" value="Воля FEST">
+                            <input type="hidden" name="type" value="running with obstacles">
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
                                 <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
@@ -304,38 +305,49 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class=" " action="/" method="post" enctype="multipart/form-data">
+                        <div class="price text-right">До 07.08 <strong>400грн</strong></div>
+                        <div class="price text-right">З 8.08 по 14.08 <strong>500грн</strong></div>
+                        <div class="price text-right">З 15.08 по 19.08 <strong>600грн</strong></div>
+                        <div class="price text-right">Реєстрація в день старту <strong>700грн</strong></div>
+                        <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="race_name" value="Воля FEST">
+                            <input type="hidden" name="type" value="bicycle">
                             <div class="form-group">
-                                <label for="registr_modal3_form_cb_name">Ім’я та прізвище</label>
-                                <input id="registr_modal3_form_cb_name" type="text" name="registr_modal3_user_name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
+                                <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
+                                <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="registr_modal3_form_cb_phone">Номер телефону</label>
-                                <input id="registr_modal3_form_cb_phone" type="tel" name="registr_modal3_user_phone" placeholder="Введіть номер телефону" required="" class="form-control">
+                                <label for="email">E-mail</label>
+                                <input id="email" type="email" name="email" placeholder="Введіть електронну пошту" value="" required="" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="registr_modal3_form_cb_clubname">Ваш клуб</label>
-                                <input id="registr_modal3_form_cb_clubname" type="text" name="registr_modal3_club_name" placeholder="Введіть клуб" value="" required="" class="form-control">
+                                <label for="registr_modal_form_cb_phone">Номер телефону</label>
+                                <input id="registr_modal_form_cb_phone" type="tel" name="phone" placeholder="Введіть номер телефону" required="" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="registr_modal3_form_cb_sity">Ваше місто</label>
-                                <input id="registr_modal3_form_cb_sity" type="text" name="registr_modal3_user_name" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
+                                <label for="registr_modal_form_cb_clubname">Ваш клуб</label>
+                                <input id="registr_modal_form_cb_clubname" type="text" name="club" placeholder="Введіть клуб" value="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="registr_modal_form_cb_sity">Ваше місто</label>
+                                <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
                             </div>
                             <div class="form-group">
                                 <div class="label-wrap">
                                     <label for="">Дистанції</label>
                                 </div>
                                 <div class="custon-radio-group">
-                                    <input id="registr_modal3_form_cb_option1" type="radio" name="registr_modal3_distance"  class="custon-radio-btn" checked>
+                                    <input id="registr_modal3_form_cb_option1" type="radio" value="15000" name="distance" class="custon-radio-btn" checked>
                                     <label for="registr_modal3_form_cb_option1">ЖІНКИ - 15 КМ</label>
-                                    <input id="registr_modal3_form_cb_option2" type="radio" name="registr_modal3_distance"  class="custon-radio-btn" >
+                                    <input id="registr_modal3_form_cb_option2" type="radio" value="20000" name="distance" class="custon-radio-btn" >
                                     <label for="registr_modal3_form_cb_option2">ЧОЛОВІКИ - 20 КМ</label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="btn-wrap text-center">
-                                    <button type="submit" class="btn  ">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    <a href="#" target="_blank" class="btn btn-invert">Положення змагань</a>
+                                    <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
+                                    <a href="{{ asset('/files/Положення.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
                                 </div>
                             </div>
                         </form>
@@ -356,37 +368,48 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class=" " action="/" method="post" enctype="multipart/form-data">
+                        <div class="price text-right">До 07.08 <strong>400грн</strong></div>
+                        <div class="price text-right">З 8.08 по 14.08 <strong>500грн</strong></div>
+                        <div class="price text-right">З 15.08 по 19.08 <strong>600грн</strong></div>
+                        <div class="price text-right">Реєстрація в день старту <strong>700грн</strong></div>
+                        <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="race_name" value="Воля FEST">
+                            <input type="hidden" name="type" value="duathlon">
                             <div class="form-group">
-                                <label for="registr_modal3_form_cb_name">Ім’я та прізвище</label>
-                                <input id="registr_modal3_form_cb_name" type="text" name="registr_modal3_user_name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
+                                <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
+                                <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="registr_modal3_form_cb_phone">Номер телефону</label>
-                                <input id="registr_modal3_form_cb_phone" type="tel" name="registr_modal3_user_phone" placeholder="Введіть номер телефону" required="" class="form-control">
+                                <label for="email">E-mail</label>
+                                <input id="email" type="email" name="email" placeholder="Введіть електронну пошту" value="" required="" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="registr_modal3_form_cb_clubname">Ваш клуб</label>
-                                <input id="registr_modal3_form_cb_clubname" type="text" name="registr_modal3_club_name" placeholder="Введіть клуб" value="" required="" class="form-control">
+                                <label for="registr_modal_form_cb_phone">Номер телефону</label>
+                                <input id="registr_modal_form_cb_phone" type="tel" name="phone" placeholder="Введіть номер телефону" required="" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="registr_modal3_form_cb_sity">Ваше місто</label>
-                                <input id="registr_modal3_form_cb_sity" type="text" name="registr_modal3_user_name" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
+                                <label for="registr_modal_form_cb_clubname">Ваш клуб</label>
+                                <input id="registr_modal_form_cb_clubname" type="text" name="club" placeholder="Введіть клуб" value="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="registr_modal_form_cb_sity">Ваше місто</label>
+                                <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
                             </div>
                             <div class="form-group">
                                 <div class="label-wrap">
                                     <label for="">Дистанції</label>
                                 </div>
                                 <div class="custon-radio-group">
-                                    <input id="registr_modal3_form_cb_option1" type="radio" name="registr_modal3_distance"  class="custon-radio-btn" checked>
+                                    <input id="registr_modal3_form_cb_option1" type="radio" name="distance" value="2000/8000/1000"  class="custon-radio-btn" checked>
                                     <label for="registr_modal3_form_cb_option1">2 КМ / 8КМ / 1КМ</label>
 
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="btn-wrap text-center">
-                                    <button type="submit" class="btn  ">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    <a href="#" target="_blank" class="btn btn-invert">Положення змагань</a>
+                                    <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
+                                    <a href="{{ asset('/files/Положення.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
                                 </div>
                             </div>
                         </form>
@@ -407,36 +430,47 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class=" " action="/" method="post" enctype="multipart/form-data">
+                        <div class="price text-right">До 07.08 <strong>400грн</strong></div>
+                        <div class="price text-right">З 8.08 по 14.08 <strong>500грн</strong></div>
+                        <div class="price text-right">З 15.08 по 19.08 <strong>600грн</strong></div>
+                        <div class="price text-right">Реєстрація в день старту <strong>700грн</strong></div>
+                        <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="race_name" value="Воля FEST">
+                            <input type="hidden" name="type" value="walking">
                             <div class="form-group">
-                                <label for="registr_modal4_form_cb_name">Ім’я та прізвище</label>
-                                <input id="registr_modal4_form_cb_name" type="text" name="registr_modal3_user_name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
+                                <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
+                                <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="registr_modal4_form_cb_phone">Номер телефону</label>
-                                <input id="registr_modal4_form_cb_phone" type="tel" name="registr_modal3_user_phone" placeholder="Введіть номер телефону" required="" class="form-control">
+                                <label for="email">E-mail</label>
+                                <input id="email" type="email" name="email" placeholder="Введіть електронну пошту" value="" required="" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="registr_modal4_form_cb_clubname">Ваш клуб</label>
-                                <input id="registr_modal4_form_cb_clubname" type="text" name="registr_modal3_club_name" placeholder="Введіть клуб" value="" required="" class="form-control">
+                                <label for="registr_modal_form_cb_phone">Номер телефону</label>
+                                <input id="registr_modal_form_cb_phone" type="tel" name="phone" placeholder="Введіть номер телефону" required="" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="registr_modal4_form_cb_sity">Ваше місто</label>
-                                <input id="registr_modal4_form_cb_sity" type="text" name="registr_modal3_user_name" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
+                                <label for="registr_modal_form_cb_clubname">Ваш клуб</label>
+                                <input id="registr_modal_form_cb_clubname" type="text" name="club" placeholder="Введіть клуб" value="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="registr_modal_form_cb_sity">Ваше місто</label>
+                                <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
                             </div>
                             <div class="form-group">
                                 <div class="label-wrap">
                                     <label for="">Дистанції</label>
                                 </div>
                                 <div class="custon-radio-group">
-                                    <input id="registr_modal4_form_cb_option1" type="radio" name="registr_modal4_distance"  class="custon-radio-btn" checked>
+                                    <input id="registr_modal4_form_cb_option1" type="radio" name="distance" value="3000" class="custon-radio-btn" checked>
                                     <label for="registr_modal4_form_cb_option1">3 КМ</label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="btn-wrap text-center">
-                                    <button type="submit" class="btn  ">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    <a href="#" target="_blank" class="btn btn-invert">Положення змагань</a>
+                                    <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
+                                    <a href="{{ asset('/files/Положення.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
                                 </div>
                             </div>
                         </form>
