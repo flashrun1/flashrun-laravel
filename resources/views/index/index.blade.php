@@ -202,11 +202,36 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="price text-right">До 07.08 <strong>400грн</strong></div>
-                        <div class="price text-right">З 8.08 по 14.08 <strong>500грн</strong></div>
-                        <div class="price text-right">З 15.08 по 19.08 <strong>600грн</strong></div>
-                        <div class="price text-right">Реєстрація в день старту <strong>700грн</strong></div>
+
                         <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
+
+                            <div class="form-group prices my-4">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="register-event-price-block py-3" style="font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.1);display: flex;align-items: center;justify-content: center;">
+                                                ДО 07.08 -&nbsp;<span class="event-date-price">400грн</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="register-event-price-block py-3" style="font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.1);display: flex;align-items: center;justify-content: center;">
+                                                8.08 - 14.08 - <span class="event-date-price">500грн</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="register-event-price-block py-3" style="font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.1);display: flex;align-items: center;justify-content: center;">
+                                                15.08 - 19.08 - <span class="event-date-price">400грн</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="register-event-price-block py-3" style="font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.1);;display: flex;align-items: center;justify-content: center;">
+                                                21.08 - <span class="event-date-price">700грн</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             {{ csrf_field() }}
                             <input type="hidden" name="race_name" value="Воля FEST">
                             <div class="form-group">
