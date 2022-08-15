@@ -120,7 +120,7 @@
                                     </div>
                                     <div class="col-sm-7">
                                         <h3 class="title">БІГ З ПЕРЕШКОДАМИ</h3>
-                                        <div class="descr custom-color">Спеціально спроектована траса із перешкодами. Дистанції - 5 та 10км.</div>
+                                        <div class="descr custom-color">Спеціально спроектована траса із перешкодами. Дистанції - від 3 та 15км.</div>
                                         <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal">ЗАРЕЄСТРУВАТИСЬ</button>
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@
                                     </div>
                                     <div class="col-sm-7">
                                         <h3 class="title">ВЕЛО</h3>
-                                        <div class="descr custom-color">Подолай трасу на шосейному велосипеді. Дистанція - 20 км.</div>
+                                        <div class="descr custom-color">Подолай трасу на шосейному велосипеді. Дистанція - 15 км/20 км.</div>
                                         <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal2">ЗАРЕЄСТРУВАТИСЬ</button>
                                     </div>
                                 </div>

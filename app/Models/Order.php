@@ -11,7 +11,7 @@ class Order extends Model
     use HasFactory;
     const DEFAULT_CURRENCY = 'UAH';
 
-    protected $fillable = ['email', 'status', 'currency', 'amount', 'transaction_id', 'notes', 'type'];
+    protected $fillable = ['email', 'status', 'currency', 'amount', 'transaction_id', 'notes', 'type', 'club'];
 
     public static function createFromRequest(Request $request) {
 
@@ -28,6 +28,7 @@ class Order extends Model
         $order->distance = $request->distance;
         $order->race_name = $request->race_name;
         $order->type = $request->type;
+        $order->club = $request->club;
         $order->currency = self::DEFAULT_CURRENCY;
         $order->amount = 400;
         $order->transaction_id = '';
