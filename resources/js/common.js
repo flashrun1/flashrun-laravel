@@ -131,8 +131,6 @@ window.addEventListener('load', () => {
       });
     });
 });
-  
-
 
 // mobile  menu
 function displayMenu(event) {
@@ -148,7 +146,6 @@ function displayMenu(event) {
     }
 }
 
-
 $(document).ready(function() {
     // equal height for items in row
     $('.equal-wrap .equal').matchHeight({
@@ -157,4 +154,10 @@ $(document).ready(function() {
         target: null,
         remove: false
     });
+
+    $('.nav-menu .nav-link').click(function() {
+        $('#navbar-toggler').trigger('click');
+    });
 });
+
+
