@@ -45,10 +45,14 @@ class OrderController extends Controller
             ->get()
         ;
         $ordersCount = Order::where('status', '!=', Order::STATUS_DELETED)->count();
+        $paidOrderCount = Order::where('status', Order::STATUS_REGISTERED_PAID)->count();
+        $unpaidOrderCount = Order::where('status', '!=', Order::STATUS_REGISTERED_PAID)->count();
 
         return view('orders.index', [
             'orders' => $orders,
-            'ordersCount' => $ordersCount
+            'ordersCount' => $ordersCount,
+            'paidOrdersCount' => $paidOrderCount,
+            'unpaidOrdersCount' => $unpaidOrderCount
         ]);
     }
 

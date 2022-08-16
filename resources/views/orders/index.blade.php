@@ -7,8 +7,15 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-primary">
-                            <h4 class="card-title">Учасники ({{ $ordersCount }})</h4>
-                            <p class="card-category"> Список учасників в системі</p>
+                            <h4 class="card-title">Учасники: Всього - {{ $ordersCount }}</h4>
+                            <p class="card-category">
+                                <span class="d-block">
+                                    <span class="badge badge-success">оплочено</span> - {{ $paidOrdersCount }}
+                                </span>
+                                <span class="d-block">
+                                    <span class="badge badge-danger">не оплочено</span> - {{ $unpaidOrdersCount }}
+                                </span>
+                            </p>
                         </div>
                         <div class="card-footer ml-auto mr-auto">
                             <a href="{{ route('orders.create') }}" class="btn btn-primary">{{ __('Зареєструвати нового учасника') }}</a>
