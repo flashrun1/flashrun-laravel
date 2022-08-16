@@ -64,6 +64,12 @@ class Order extends Model
         return $this;
     }
 
+    public function setUnpaid() {
+        $this->status = self::STATUS_REGISTERED_NOT_PAID;
+        $this->save();
+        return $this;
+    }
+
     public function setDeleted() {
         $this->status = self::STATUS_DELETED;
         $this->save();

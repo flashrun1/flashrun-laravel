@@ -76,6 +76,11 @@ class OrderController extends Controller
         return redirect()->route('orders');
     }
 
+    public function setUnpaid(Order $order, Request $request) {
+        $order->setUnpaid();
+        return redirect()->route('orders');
+    }
+
     public function setDeleted(Order $order, Request $request) {
         $order->setDeleted();
         return redirect()->route('orders');

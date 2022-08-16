@@ -84,6 +84,16 @@
                                                             </form>
                                                         </li>
                                                         @endif
+                                                            @if($order->isPaid())
+                                                                <li class="dropdown-item">
+                                                                    <a href="#" onclick="event.preventDefault();(confirm('Ви змінюєте статус платежа, все вірно?')) ? document.getElementById('set-order-status-unpaid-form-{{$order->id}}').submit() : '';">Позначити як не оплочено</a>
+                                                                    <form class="d-none" id="set-order-status-unpaid-form-{{$order->id}}" action="{{ route('admin.orders.set-unpaid', ['order' => $order]) }}" method="post">
+                                                                        <input type="hidden" name="status" value="{{ \App\Models\Order::STATUS_REGISTERED_NOT_PAID }}">
+                                                                        @csrf
+                                                                        @method('post')
+                                                                    </form>
+                                                                </li>
+                                                            @endif
                                                         @if(!$order->isDeleted())
                                                         <li class="dropdown-item">
                                                             <a href="#" onclick="event.preventDefault();(confirm('Ви видаляєте учасника, все вірно?')) ? document.getElementById('delete-order-form-{{$order->id}}').submit() : '';">Видалити</a>
