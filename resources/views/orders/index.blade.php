@@ -7,7 +7,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-primary">
-                            <h4 class="card-title">Учасники</h4>
+                            <h4 class="card-title">Учасники ({{ $ordersCount }})</h4>
                             <p class="card-category"> Список учасників в системі</p>
                         </div>
                         <div class="card-footer ml-auto mr-auto">
