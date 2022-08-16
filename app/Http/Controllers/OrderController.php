@@ -40,7 +40,10 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Order::all()->where('status', '!=', \App\Models\Order::STATUS_DELETED);
+        $orders = Order::all()
+            ->where('status', '!=', \App\Models\Order::STATUS_DELETED)
+            ->orderBy('name');
+        ;
         $ordersCount = Order::where('status', '!=', Order::STATUS_DELETED)->count();
 
         return view('orders.index', [
