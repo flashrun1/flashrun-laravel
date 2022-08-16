@@ -26,7 +26,7 @@ class RaceController extends Controller
             'public_key' => config('liqpay.public_key'),
             'version' => '3',
             'action' => 'pay',
-            'amount' => '400',
+            'amount' => '600',
             'currency' => LiqPay::CURRENCY_UAH,
             'description' => $description,
             'order_id' => $newOrder->id,
@@ -53,7 +53,7 @@ class RaceController extends Controller
         $liqpay = new LiqPay(config('liqpay.public_key'), config('liqpay.private_key'));
         $html = $liqpay->cnb_form([
                                       'action' => 'pay',
-                                      'amount' => '400',
+                                      'amount' => '600',
                                       'currency' => 'UAH',
 
                                       // призначення платежу

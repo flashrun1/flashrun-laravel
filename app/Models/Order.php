@@ -10,6 +10,10 @@ class Order extends Model
 {
     use HasFactory;
     const DEFAULT_CURRENCY = 'UAH';
+    const STATUS_REGISTERED_NOT_PAID = 0;
+    const STATUS_REGISTERED_PAYMENT_PENDING = 1;
+    const STATUS_REGISTERED_PAID = 2;
+    const STATUS_DELETED = 3;
 
     protected $fillable = ['email', 'status', 'currency', 'amount', 'transaction_id', 'notes', 'type', 'club'];
 
@@ -36,5 +40,37 @@ class Order extends Model
         $order->save();
 
         return $order;
+    }
+
+    public function getStatus() {
+        $status = '';
+        if ($this->status == self::STATUS_REGISTERED_NOT_PAID) {
+            $status = 'не оплочено';
+        }
+        return $status;
+    }
+
+    public function isNotPaid() {
+        return $this->status === self::STATUS_REGISTERED_NOT_PAID;
+    }
+
+    public function isPaid() {
+        return $this->status == self::STATUS_REGISTERED_PAID;
+    }
+
+    public function setPaid() {
+        $this->status = self::STATUS_REGISTERED_PAID;
+        $this->save();
+        return $this;
+    }
+
+    public function setDeleted() {
+        $this->status = self::STATUS_DELETED;
+        $this->save();
+        return $this;
+    }
+
+    public function isDeleted() {
+        return $this->status === self::STATUS_DELETED;
     }
 }

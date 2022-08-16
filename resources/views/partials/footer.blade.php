@@ -20,7 +20,7 @@
                             <a href="#gallery" class="nav-link ">ГАЛЕРЕЯ</a>
                         </li>
                         <li>
-                            <a href="{{ asset('/files/oferta.pdf') }}" class="nav-link ">ОФЕРТА</a>
+                            <a href="{{ asset('/files/oferta.docx') }}" class="nav-link ">ОФЕРТА</a>
                         </li>
                         <li>
                             <a href="#contacts" class="nav-link ">Контакти</a>
