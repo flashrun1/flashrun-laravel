@@ -69,7 +69,7 @@ document.querySelector('#up-btn').onclick = function() {
 }
 // menu scroll
 window.addEventListener('load', () => {
-    document.querySelectorAll('.nav-link').forEach((element) => {
+    document.querySelectorAll('.nav-link').not('.oferta').forEach((element) => {
       element.addEventListener('click', () => {
         event.preventDefault();
         let anchor = element.getAttribute('href');
