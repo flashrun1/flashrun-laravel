@@ -51,9 +51,9 @@
                             <li>
                                 <a href="#events" class="nav-link ">ЗАХОДИ</a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="#catalog" class="nav-link ">МЕРЧ</a>
-                            </li>
+                            </li>-->
                             <li>
                                 <a href="#gallery" class="nav-link ">ГАЛЕРЕЯ</a>
                             </li>
@@ -179,7 +179,7 @@
             </section>
             @include('partials.our-events')
 
-            @include('partials.merch-catalog')
+            <!--@include('partials.merch-catalog')-->
 
             @include('partials.gallery-section')
 
