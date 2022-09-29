@@ -23,6 +23,12 @@
                             <a href="{{ asset('/files/oferta.docx') }}" class="nav-link oferta">ОФЕРТА</a>
                         </li>
                         <li>
+                            <a href="#rules" data-toggle="modal" data-target="#rules" class="nav-link">ПРАВИЛА ТА УМОВИ</a>
+                        </li>
+                        <li>
+                            <a href="#policy" data-toggle="modal" data-target="#policy" class="nav-link">ПОЛІТИКА КОНФІДЕНЦІЙНОСТІ</a>
+                        </li>
+                        <li>
                             <a href="#contacts" class="nav-link ">Контакти</a>
                         </li>
                     </ul>
