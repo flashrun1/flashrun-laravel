@@ -33,6 +33,7 @@
                                     <th>Місто</th>
                                     <th>Тип</th>
                                     <th>Дистанція</th>
+                                    <th>Промокод</th>
                                     <th></th>
                                     </thead>
                                     <tbody>
@@ -69,6 +70,9 @@
                                             </td>
                                             <td>
                                                 {{ $order->distance }}
+                                            </td>
+                                            <td>
+                                                {{ $order->promocode }}
                                             </td>
                                             <td>
                                                 <div class="dropdown show d-inline-block widget-dropdown">

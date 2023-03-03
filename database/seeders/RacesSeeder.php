@@ -16,13 +16,19 @@ class RacesSeeder extends Seeder
      */
     public function run()
     {
-        // volya-fest
-        $volyaFest = new Race();
-        $volyaFest->name = 'Воля FEST';
-        $volyaFest->slug = Str::slug($volyaFest->name);
-        $exists = Race::where('name', $volyaFest->name)->count();
-        if ($exists == 0) {
-            $volyaFest->save();
+        $racesNames = [
+            'Воля FEST',
+            'ПроскурівRUN'
+        ];
+
+        foreach ($racesNames as $racesName) {
+            $r = Race::where('name', $racesName)->first();
+            if (!$r) {
+                $r = new Race();
+                $r->name = $racesName;
+                $r->slug = Str::slug($r->name);
+                $r->save();
+            }
         }
     }
 }

@@ -62,6 +62,33 @@ imagesLoaded( document.querySelector('.grid'), function( instance ) {
     });
 });
 
+document.querySelector('.race-subtype-content').innerHTML = document.querySelector('.regular-subtype-wrapper').innerHTML;
+
+document.querySelector('.regular-race-subtype').onclick = function(e){
+    document.querySelectorAll('.regular-race-subtype,.relay-race-subtype,.kids-race-subtype').forEach(function(elm){
+        elm.classList.remove('active-brand-color');
+    });
+    e.target.classList.add('active-brand-color');
+    document.querySelector('.race-subtype-content').innerHTML = document.querySelector('.regular-subtype-wrapper').innerHTML;
+}
+
+document.querySelector('.relay-race-subtype').onclick = function(e){
+    document.querySelectorAll('.regular-race-subtype,.relay-race-subtype,.kids-race-subtype').forEach(function(elm){
+        elm.classList.remove('active-brand-color');
+    });
+    e.target.classList.add('active-brand-color');
+    document.querySelector('.race-subtype-content').innerHTML = document.querySelector('.relay-subtype-wrapper').innerHTML;
+}
+
+document.querySelector('.kids-race-subtype').onclick = function(e){
+    document.querySelectorAll('.regular-race-subtype,.relay-race-subtype,.kids-race-subtype').forEach(function(elm){
+        elm.classList.remove('active-brand-color');
+    });
+    //classList.remove('active-brand-color');
+    e.target.classList.add('active-brand-color');
+    document.querySelector('.race-subtype-content').innerHTML = document.querySelector('.kids-subtype-wrapper').innerHTML;
+}
+
 
 // up btn scroll
 document.querySelector('#up-btn').onclick = function() {
@@ -69,7 +96,7 @@ document.querySelector('#up-btn').onclick = function() {
 }
 // menu scroll
 window.addEventListener('load', () => {
-    document.querySelectorAll('.nav-link').not('.oferta').forEach((element) => {
+    document.querySelectorAll('.nav-link').forEach((element) => {
       element.addEventListener('click', () => {
         event.preventDefault();
         let anchor = element.getAttribute('href');

@@ -36,6 +36,7 @@ class Order extends Model
         $order->currency = self::DEFAULT_CURRENCY;
         $order->amount = 400;
         $order->transaction_id = '';
+        $order->promocode = $request->promocode;
 
         $order->save();
 
