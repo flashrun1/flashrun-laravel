@@ -18,15 +18,12 @@ class RaceController extends Controller
         // create order with unpaid status
         $newOrder = Order::createFromRequest($request);
 
-        // send email
-        Mail::to($request->email)->send(new RaceRegistered($request));
-
         //json_string = {"public_key":"i00000000","version":"3","action":"pay","amount":"3","currency":"UAH","description":"test","order_id":"000001"}
         $paymentRequest = [
             'public_key' => config('liqpay.public_key'),
             'version' => '3',
             'action' => 'pay',
-            'amount' => '600',
+            'amount' => $request->price,
             'currency' => LiqPay::CURRENCY_UAH,
             'description' => $description,
             'order_id' => $newOrder->id,
@@ -53,7 +50,7 @@ class RaceController extends Controller
         $liqpay = new LiqPay(config('liqpay.public_key'), config('liqpay.private_key'));
         $html = $liqpay->cnb_form([
                                       'action' => 'pay',
-                                      'amount' => '600',
+                                      'amount' => $request->price,
                                       'currency' => 'UAH',
 
                                       // призначення платежу
@@ -65,11 +62,14 @@ class RaceController extends Controller
                                       'server_url' => route('callback-status'),
                                   ]);
 
-        return redirect()->to('/')->with(
-            'success',
-            'Дякуємо за реєстрацію, перевірте будь ласка пошту ' . $request->email
-        );
-//        return $html;
+//        return redirect()->to('/')->with(
+//            'success',
+//            'Дякуємо за реєстрацію, перевірте будь ласка пошту ' . $request->email
+//        );
+        // send email
+        //Mail::to($request->email)->send(new RaceRegistered($request));
+
+        return $html;
 
 
         //Статус операції буде відправлений на server_url.

@@ -348,6 +348,7 @@ body.fixed{overflow: hidden; }
 
 .active-brand-color {
     background-color: #FF8306;
+    color: #FFFFFF;
 }
 
 /*media*/

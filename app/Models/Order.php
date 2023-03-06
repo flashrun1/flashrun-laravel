@@ -34,7 +34,7 @@ class Order extends Model
         $order->type = $request->type;
         $order->club = $request->club;
         $order->currency = self::DEFAULT_CURRENCY;
-        $order->amount = 400;
+        $order->amount = $request->price;
         $order->transaction_id = '';
         $order->promocode = $request->promocode;
 

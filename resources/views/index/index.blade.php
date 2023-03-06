@@ -203,7 +203,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
 
                             <div class="form-group prices my-4">
                                 @include('partials.event-subtype-switcher')
@@ -229,6 +229,7 @@
 
                         <div class="regular-subtype-wrapper d-none">
                             <input type="hidden" name="type" value="regular">
+                            <input type="hidden" name="price" value="550">
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
                                 <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">

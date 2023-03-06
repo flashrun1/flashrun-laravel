@@ -21,6 +21,7 @@ Route::controller(OrderController::class)->group(function () {
     Route::get('/order/create', 'create')->name('orders.create');
     Route::post('/orders', 'store')->name('orders.store');
     Route::post('/liqpay/callback', 'callbackStatus')->name('callback-status');
+    Route::get('/liq-pay/payment-result', 'paymentResult')->name('payment-result');
     Route::post('/admin/orders/{order}/set-paid', 'setPaid')->name('admin.orders.set-paid');
     Route::post('/admin/orders/{order}/set-unpaid', 'setUnpaid')->name('admin.orders.set-unpaid');
     Route::post('/admin/orders/{order}/set-deleted', 'setDeleted')->name('admin.orders.set-deleted');

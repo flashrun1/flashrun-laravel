@@ -38,6 +38,11 @@ class OrderController extends Controller
         Log::debug($request->toArray());
     }
 
+    public function paymentResult(Request $request) {
+        Log::debug('payment-result');
+        Log::debug($request);
+    }
+
     public function index()
     {
         $orders = Order::where('status', '!=', \App\Models\Order::STATUS_DELETED)
