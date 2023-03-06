@@ -34,7 +34,7 @@ class OrderController extends Controller
         $req_sign = $request->signature;
 
         if ($sign == $req_sign) {
-            $data = base64_decode($request->data);
+            $data = json_decode(base64_decode($request->data));
             $order = Order::where('id', $data->order_id)->first();
             if ($order) {
                 if ($data->status == 'success') {
@@ -64,6 +64,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::where('status', '!=', \App\Models\Order::STATUS_DELETED)
+            ->orderBy('ceated_at', 'desc')
             ->orderBy('name')
             ->get()
         ;

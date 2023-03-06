@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
 
-Route::controller(OrderController::class)->group(function () {
+Route::controller(OrderController::class)->group(,function () {
     Route::get('/orders', 'index')->name('orders');
     Route::get('/order/create', 'create')->name('orders.create');
-    Route::post('/orders', 'store')->name('orders.store');
+    Route::post('/orders',['middleware' => 'throttle:5,1'], 'store')->name('orders.store');
     Route::post('/liqpay/callback', 'callbackStatus')->name('callback-status');
     Route::get('/liq-pay/payment-result', 'paymentResult')->name('payment-result');
     Route::post('/admin/orders/{order}/set-paid', 'setPaid')->name('admin.orders.set-paid');
