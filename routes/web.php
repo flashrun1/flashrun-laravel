@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\IndexController::class, 'index'])->name('home');
 
-Route::controller(OrderController::class)->group(,function () {
+Route::controller(OrderController::class)->group(function () {
     Route::get('/orders', 'index')->name('orders');
     Route::get('/order/create', 'create')->name('orders.create');
     Route::post('/orders',['middleware' => 'throttle:5,1'], 'store')->name('orders.store');
