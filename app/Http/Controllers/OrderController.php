@@ -64,7 +64,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::where('status', '!=', \App\Models\Order::STATUS_DELETED)
-            ->orderBy('ceated_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->orderBy('name')
             ->get()
         ;
