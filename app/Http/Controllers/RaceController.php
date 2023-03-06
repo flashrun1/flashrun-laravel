@@ -67,7 +67,7 @@ class RaceController extends Controller
 //            'Дякуємо за реєстрацію, перевірте будь ласка пошту ' . $request->email
 //        );
         // send email
-        //Mail::to($request->email)->send(new RaceRegistered($request));
+        Mail::to($request->email)->send(new RaceRegistered($request));
 
         return $html;
 

@@ -28,14 +28,32 @@ class OrderController extends Controller
      */
     public function callbackStatus(Request $request)
     {
-        /**
-         * $sign = base64_encode( sha1(
-         * $private_key .
-         * $data .
-         * $private_key
-         * , 1 ));
-         */
-        Log::debug($request->toArray());
+        $private_key = config('liqpay.private_key');
+        $public_key = config('liqpay.public_key');
+        $sign = base64_encode( sha1($private_key . $request->data . $private_key, 1));
+        $req_sign = $request->signature;
+
+        if ($sign == $req_sign) {
+            $data = base64_decode($request->data);
+            $order = Order::where('id', $data->order_id)->first();
+            if ($order) {
+                if ($data->status == 'success') {
+                    $order->setPaid();
+                    $order->save();
+                    return redirect()->to('/')->with(
+                        'success',
+                        'Дякуємо за реєстрацію, перевірте будь ласка пошту ' . $order->email
+                    );
+                }
+            }
+        } else {
+            return redirect()->to('/')->with(
+                'danger',
+                'Дякуємо за реєстрацію, перевірте будь ласка пошту, вказану при реэстрації, для подальших інструкцій'
+            );
+        }
+        //dd($sign,$request->toArray(),$req_sign);
+        //Log::debug($request->toArray());
     }
 
     public function paymentResult(Request $request) {
