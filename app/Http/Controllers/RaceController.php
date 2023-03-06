@@ -57,7 +57,7 @@ class RaceController extends Controller
                                       'description' => $description,
                                       'order_id' => $newOrder->id,
                                       'version' => '3',
-                                      'result_url' => env('APP_URL'),
+                                      'result_url' => route('callback-status'),
                                       'sender_last_name' => $request->name,
                                       'server_url' => route('callback-status'),
                                   ]);
