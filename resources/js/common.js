@@ -91,19 +91,19 @@ document.querySelector('.kids-race-subtype').onclick = function(e){
 
 
 // up btn scroll
-document.querySelector('#up-btn').onclick = function() {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-}
+// document.querySelector('#up-btn').onclick = function() {
+//     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+// }
 // menu scroll
-window.addEventListener('load', () => {
-    document.querySelectorAll('.nav-link').forEach((element) => {
-      element.addEventListener('click', () => {
-        event.preventDefault();
-        let anchor = element.getAttribute('href');
-        window.scrollTo({ top: document.querySelector(anchor).offsetTop, left: 0, behavior: 'smooth' });
-      })
-    })
-});
+// window.addEventListener('load', () => {
+//     document.querySelectorAll('.nav-link').forEach((element) => {
+//       element.addEventListener('click', () => {
+//         event.preventDefault();
+//         let anchor = element.getAttribute('href');
+//         window.scrollTo({ top: document.querySelector(anchor).offsetTop, left: 0, behavior: 'smooth' });
+//       })
+//     })
+// });
 
 // modal without jquery
 function closeModal(modal) {
@@ -182,9 +182,9 @@ $(document).ready(function() {
         remove: false
     });
 
-    $('.nav-menu .nav-link').click(function() {
-        $('#navbar-toggler').trigger('click');
-    });
+    // $('.nav-menu .nav-link').click(function() {
+    //     $('#navbar-toggler').trigger('click');
+    // });
 });
 
 

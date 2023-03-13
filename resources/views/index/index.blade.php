@@ -290,7 +290,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_promocode">Промокод</label>
-                                <input id="registr_modal_form_cb_promocode" type="text" name="promocode" placeholder="Введіть Промокод" value="" required="" class="form-control">
+                                <input id="registr_modal_form_cb_promocode" type="text" name="promocode" placeholder="Введіть Промокод" value="" class="form-control">
                             </div>
                             <input type="hidden" name="distance" value="0">
 {{--                            <div class="form-group">--}}
@@ -310,6 +310,7 @@
 
                         <div class="kids-subtype-wrapper d-none">
                             <input type="hidden" name="type" value="kids">
+                            <input type="hidden" name="price" value="0">
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_name">Ім"я та прізвище дитини</label>
                                 <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
@@ -332,7 +333,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_promocode">Промокод</label>
-                                <input id="registr_modal_form_cb_promocode" type="text" name="promocode" placeholder="Введіть Промокод" value="" required="" class="form-control">
+                                <input id="registr_modal_form_cb_promocode" type="text" name="promocode" placeholder="Введіть Промокод" value="" class="form-control">
                             </div>
                             <div class="form-group">
                                 <div class="label-wrap">
