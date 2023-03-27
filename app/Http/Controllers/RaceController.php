@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\RaceRegistered;
 use App\Models\Order;
+use App\Models\Promocode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use LiqPay;
@@ -15,6 +16,23 @@ class RaceController extends Controller
         $description = $request->race_name . ' | ' . $request->name . ' | ' . $request->email . ' | ' .
             $request->distance . 'm';
 
+        $price = $request->price;
+
+        // if promocode entered - apply to price
+        if ($request->has('code') && !empty($request->code)) {
+            $code = $request->code;
+            $promocode = Promocode::findByCode($code);
+            $description .= ' | promo entered: ' . $code;
+
+            if ($promocode && $promocode->isValid()) {
+                $price = $promocode->applyTo($price);
+                $request->merge([
+                    'amount' => $price,
+                    'price' => $price
+                ]);
+            }
+        }
+
         // create order with unpaid status
         $newOrder = Order::createFromRequest($request);
 
@@ -23,7 +41,7 @@ class RaceController extends Controller
             'public_key' => config('liqpay.public_key'),
             'version' => '3',
             'action' => 'pay',
-            'amount' => $request->price,
+            'amount' => $price,
             'currency' => LiqPay::CURRENCY_UAH,
             'description' => $description,
             'order_id' => $newOrder->id,

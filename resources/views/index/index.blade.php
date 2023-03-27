@@ -229,7 +229,7 @@
 
                         <div class="regular-subtype-wrapper d-none">
                             <input type="hidden" name="type" value="regular">
-                            <input type="hidden" name="price" value="550">
+                            <input type="hidden" name="price" value="650">
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
                                 <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
@@ -249,6 +249,10 @@
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_sity">Ваше місто</label>
                                 <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="registr_modal_form_cb_promocode">Промокод</label>
+                                <input id="registr_modal_form_cb_promocode" type="text" name="code" placeholder="Введіть промокод" value="" class="form-control">
                             </div>
                             <div class="form-group">
                                 <div class="label-wrap">

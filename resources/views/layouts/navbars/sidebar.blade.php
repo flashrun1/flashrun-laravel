@@ -51,6 +51,12 @@
             <p>{{ __('Учасники') }}</p>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
+          <a class="nav-link" href="{{ route('promocodes') }}">
+              <i class="material-icons">content_paste</i>
+              <p>{{ __('Промокоди') }}</p>
+          </a>
+      </li>
       <!--
       <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('typography') }}">

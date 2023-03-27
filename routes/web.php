@@ -27,6 +27,11 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('/admin/orders/{order}/set-deleted', 'setDeleted')->name('admin.orders.set-deleted');
 });
 
+Route::controller(\App\Http\Controllers\PromocodeController::class)->group(function(){
+    Route::get('/promocodes', 'index')->name('promocodes');
+    Route::post('/promocodes', 'store')->name('promocodes.store');
+});
+
 Route::post('/race-register', [\App\Http\Controllers\RaceController::class, 'register'])
     ->name('race-register');
 
