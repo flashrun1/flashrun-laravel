@@ -271,7 +271,7 @@
 
                         <div class="relay-subtype-wrapper d-none">
                             <input type="hidden" name="type" value="relay">
-                            <input type="hidden" name="price" value="2750">
+                            <input type="hidden" name="price" value="3250">
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_name">Імена та прізвища усіх учасників (через кому)</label>
                                 <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
