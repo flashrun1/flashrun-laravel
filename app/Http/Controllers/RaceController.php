@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\RaceRegistered;
 use App\Models\Order;
 use App\Models\Promocode;
+use App\Models\Race;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use LiqPay;
@@ -99,5 +100,11 @@ class RaceController extends Controller
 //        ]);
 
 
+    }
+
+    public function participants($raceId) {
+        $race = Race::findOrFail($raceId);
+        $orders = $race->participants();
+        return view('orders.race-participants', compact('orders'));
     }
 }

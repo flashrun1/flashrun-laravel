@@ -80,4 +80,14 @@ class Order extends Model
     public function isDeleted() {
         return $this->status === self::STATUS_DELETED;
     }
+
+    public function displayTypeForParticipantsList() {
+        if ($this->type == Race::TYPE_RELAY) {
+            return 'Естафета';
+        } elseif($this->type == Race::TYPE_REGULAR) {
+            return 'Звичайний забіг';
+        } else {
+            return '';
+        }
+    }
 }

@@ -122,6 +122,7 @@
                                         <h3 class="title" style="text-transform: none;">ПроскурівRUN</h3>
                                         <div class="descr custom-color">Весняний крос, який відбудеться 23 квітня 2023 року в дендропарку.</div>
                                         <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal">ЗАРЕЄСТРУВАТИСЬ</button>
+                                        <a class="mt-2 text-decoration-underline" href="{{ route('race-participants', ['raceId' => 2]) }}">Список учасників</a>
                                     </div>
                                 </div>
                             </div>

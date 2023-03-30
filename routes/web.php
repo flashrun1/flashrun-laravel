@@ -35,6 +35,8 @@ Route::controller(\App\Http\Controllers\PromocodeController::class)->group(funct
 Route::post('/race-register', [\App\Http\Controllers\RaceController::class, 'register'])
     ->name('race-register');
 
+Route::get('/races/{raceId}/participants', [\App\Http\Controllers\RaceController::class, 'participants'])->name('race-participants');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -9,6 +9,9 @@ class Race extends Model
 {
     use HasFactory;
 
+    const TYPE_RELAY = 'relay';
+    const TYPE_REGULAR = 'regular';
+
     protected $table = 'races';
     protected $fillable = [
         'name', 'slug', 'type', 'distance'
@@ -21,6 +24,14 @@ class Race extends Model
             'description' => 'Воля-fest'
         ]
     ];
+
+    public function participants() {
+        $participants = Order::where('race_name', $this->name)
+            ->where('status', Order::STATUS_REGISTERED_PAID)
+            ->get()
+        ;
+        return $participants;
+    }
 
 
 
