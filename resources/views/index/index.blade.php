@@ -180,6 +180,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="categories-card">
                                 <div class="row">
@@ -213,7 +214,7 @@
         <!-- end of footer -->
         <!-- modals -->
 
-        <div class="modal fade" id="registr_modal3" tabindex="-1" aria-labelledby="registr_modal" aria-modal="true"
+        <div class="modal fade" id="registr_modal3" tabindex="-1" aria-labelledby="registr_modal3" aria-modal="true"
              role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
