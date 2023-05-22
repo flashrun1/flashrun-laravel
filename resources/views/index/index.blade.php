@@ -121,7 +121,7 @@
                                     <div class="col-sm-7">
                                         <h3 class="title" style="text-transform: none;">ПроскурівRUN</h3>
                                         <div class="descr custom-color">Весняний крос, який відбудеться 23 квітня 2023 року в дендропарку.</div>
-                                        <button  type="button" class="btn" data-toggle="modal" data-target="#registr_modal">ЗАРЕЄСТРУВАТИСЬ</button>
+                                        <button disabled type="button" class="btn" data-toggle="modal" data-target="#registr_modal">ЗАРЕЄСТРУВАТИСЬ</button>
                                         <a class="mt-2 text-decoration-underline" href="{{ route('race-participants', ['raceId' => 2]) }}">Список учасників</a>
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@
                                     </div>
                                     <div class="col-sm-7">
                                         <h3 class="title">UKRAINERUN</h3>
-                                        <div class="descr custom-color">11.06.23 - Патріотичний фановий, який відбудеться в парку.</div>
+                                        <div class="descr custom-color">18.06.23 - Патріотичний фановий, який відбудеться в парку.</div>
                                         <button disabled="disabled" type="button" class="btn" data-toggle="modal" data-target="#registr_modal2">ЗАРЕЄСТРУВАТИСЬ</button>
                                     </div>
                                 </div>
@@ -157,7 +157,7 @@
                                         <div class="descr custom-color">30.04.23
                                             Благодійний забіг заради Валерія Одайника
                                             Збір коштів на реабілітацію важкопораненому на Бахмутському напрямку військовослужбовцю кам‘янчанину</div>
-                                        <button type="button" class="btn" data-toggle="modal" data-target="#registr_modal3">ЗАРЕЄСТРУВАТИСЬ</button>
+                                        <button disabled type="button" class="btn" data-toggle="modal" data-target="#registr_modal3">ЗАРЕЄСТРУВАТИСЬ</button>
                                         <a class="mt-2 text-decoration-underline" href="{{ route('race-participants', ['raceId' => 3]) }}">Список учасників</a>
                                     </div>
                                 </div>
