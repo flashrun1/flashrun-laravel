@@ -40,6 +40,10 @@ class OrderController extends Controller
                 if ($data->status == 'success') {
                     $order->setPaid();
                     $order->save();
+
+                    // send sms
+                    $this->sendSms(null, $order->phone);
+
                     return redirect()->to('/')->with(
                         'success',
                         'Дякуємо за реєстрацію, перевірте будь ласка пошту ' . $order->email
@@ -108,5 +112,52 @@ class OrderController extends Controller
     public function setDeleted(Order $order, Request $request) {
         $order->setDeleted();
         return redirect()->route('orders');
+    }
+
+    public function sendSms($text = null, $number) {
+        $service_plan_id = "5fbb5faf86f54f95907a5a0aacc50c48";
+        $bearer_token = "d070eb326b90474dab78483cf0ee434e";
+
+        if ($text == null) {
+            $text = 'Вітаємо з реєстрацією! (flashrun)';
+        }
+
+//Any phone number assigned to your API
+        $send_from = "+380976534373";
+//May be several, separate with a comma ,
+        $recipient_phone_numbers = $number;
+        $message = "$text";
+
+// Check recipient_phone_numbers for multiple numbers and make it an array.
+        if(stristr($recipient_phone_numbers, ',')){
+            $recipient_phone_numbers = explode(',', $recipient_phone_numbers);
+        }else{
+            $recipient_phone_numbers = [$recipient_phone_numbers];
+        }
+
+// Set necessary fields to be JSON encoded
+        $content = [
+            'to' => array_values($recipient_phone_numbers),
+            'from' => $send_from,
+            'body' => $message
+        ];
+
+        $data = json_encode($content);
+
+        $ch = curl_init("https://us.sms.api.sinch.com/xms/v1/{$service_plan_id}/batches");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BEARER);
+        curl_setopt($ch, CURLOPT_XOAUTH2_BEARER, $bearer_token);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $result = curl_exec($ch);
+
+        if(curl_errno($ch)) {
+            Log::debug('Curl error: ' . curl_error($ch));
+        }
+        curl_close($ch);
     }
 }

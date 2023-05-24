@@ -62,32 +62,32 @@ imagesLoaded( document.querySelector('.grid'), function( instance ) {
     });
 });
 
-document.querySelector('#registr_modal .race-subtype-content').innerHTML = document.querySelector('#registr_modal .regular-subtype-wrapper').innerHTML;
-document.querySelector('#registr_modal3 .race-subtype-content').innerHTML = document.querySelector('#registr_modal3 .regular-subtype-wrapper').innerHTML;
+document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .regular-subtype-wrapper').innerHTML;
+// document.querySelector('#registr_modal3 .race-subtype-content').innerHTML = document.querySelector('#registr_modal3 .regular-subtype-wrapper').innerHTML;
 
-document.querySelector('#registr_modal .regular-race-subtype').onclick = function(e){
-    document.querySelectorAll('#registr_modal .regular-race-subtype, #registr_modal .relay-race-subtype, #registr_modal .kids-race-subtype').forEach(function(elm){
+document.querySelector('#registr_modal5 .regular-race-subtype').onclick = function(e){
+    document.querySelectorAll('#registr_modal5 .regular-race-subtype, #registr_modal5 .kids-race-subtype').forEach(function(elm){
         elm.classList.remove('active-brand-color');
     });
     e.target.classList.add('active-brand-color');
-    document.querySelector('#registr_modal .race-subtype-content').innerHTML = document.querySelector('#registr_modal .regular-subtype-wrapper').innerHTML;
+    document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .regular-subtype-wrapper').innerHTML;
 }
 
-document.querySelector('#registr_modal .relay-race-subtype').onclick = function(e){
-    document.querySelectorAll('#registr_modal .regular-race-subtype, #registr_modal .relay-race-subtype, #registr_modal .kids-race-subtype').forEach(function(elm){
-        elm.classList.remove('active-brand-color');
-    });
-    e.target.classList.add('active-brand-color');
-    document.querySelector('#registr_modal .race-subtype-content').innerHTML = document.querySelector('#registr_modal .relay-subtype-wrapper').innerHTML;
-}
+// document.querySelector('#registr_modal5 .relay-race-subtype').onclick = function(e){
+//     document.querySelectorAll('#registr_modal5 .regular-race-subtype, #registr_modal5 .relay-race-subtype, #registr_modal5 .kids-race-subtype').forEach(function(elm){
+//         elm.classList.remove('active-brand-color');
+//     });
+//     e.target.classList.add('active-brand-color');
+//     document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .relay-subtype-wrapper').innerHTML;
+// }
 
-document.querySelector('#registr_modal .kids-race-subtype').onclick = function(e){
-    document.querySelectorAll('#registr_modal .regular-race-subtype, #registr_modal .relay-race-subtype, #registr_modal .kids-race-subtype').forEach(function(elm){
+document.querySelector('#registr_modal5 .kids-race-subtype').onclick = function(e){
+    document.querySelectorAll('#registr_modal5 .regular-race-subtype, #registr_modal5 .kids-race-subtype').forEach(function(elm){
         elm.classList.remove('active-brand-color');
     });
     //classList.remove('active-brand-color');
     e.target.classList.add('active-brand-color');
-    document.querySelector('#registr_modal .race-subtype-content').innerHTML = document.querySelector('#registr_modal .kids-subtype-wrapper').innerHTML;
+    document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .kids-subtype-wrapper').innerHTML;
 }
 
 
