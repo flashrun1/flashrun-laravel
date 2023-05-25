@@ -11,6 +11,7 @@ class Race extends Model
 
     const TYPE_RELAY = 'relay';
     const TYPE_REGULAR = 'regular';
+    const TYPE_KiDS = 'kids';
 
     protected $table = 'races';
     protected $fillable = [
@@ -28,9 +29,14 @@ class Race extends Model
     public function participants() {
         $participants = Order::where('race_name', $this->name)
             ->where('status', Order::STATUS_REGISTERED_PAID)
+            ->orWhere('type', self::TYPE_KiDS)
             ->get()
         ;
         return $participants;
+    }
+
+    public static function getIdByName($name) {
+        return self::query()->where('name', $name)->first()->id;
     }
 
 

@@ -34,61 +34,78 @@ class RaceController extends Controller
             }
         }
 
+
+
         // create order with unpaid status
         $newOrder = Order::createFromRequest($request);
 
-        //json_string = {"public_key":"i00000000","version":"3","action":"pay","amount":"3","currency":"UAH","description":"test","order_id":"000001"}
-        $paymentRequest = [
-            'public_key' => config('liqpay.public_key'),
-            'version' => '3',
-            'action' => 'pay',
-            'amount' => $price,
-            'currency' => LiqPay::CURRENCY_UAH,
-            'description' => $description,
-            'order_id' => $newOrder->id,
-        ];
+        if (!$newOrder->isForKids()) {
+            //json_string = {"public_key":"i00000000","version":"3","action":"pay","amount":"3","currency":"UAH","description":"test","order_id":"000001"}
+            $paymentRequest = [
+                'public_key' => config('liqpay.public_key'),
+                'version' => '3',
+                'action' => 'pay',
+                'amount' => $price,
+                'currency' => LiqPay::CURRENCY_UAH,
+                'description' => $description,
+                'order_id' => $newOrder->id,
+            ];
+            if ($price < 550) {
+                return redirect()->to('/')->with(
+                    'danger',
+                    'Сума оплати не відповідає вартості забігу'
+                );
+            }
 
-        $paymentRequestText = json_encode($paymentRequest);
+            $paymentRequestText = json_encode($paymentRequest);
 
-        $data = base64_encode($paymentRequestText);
+            $data = base64_encode($paymentRequestText);
 
-        //private_key + data + private_key
-        $sign_string = config('liqpay.private_key')
-            . $data
-            . config('liqpay.private_key');
+            //private_key + data + private_key
+            $sign_string = config('liqpay.private_key')
+                . $data
+                . config('liqpay.private_key');
 
-        // base64_encode( sha1( sign_string) )
-        $signature = base64_encode(sha1($sign_string));
+            // base64_encode( sha1( sign_string) )
+            $signature = base64_encode(sha1($sign_string));
 
-        /**
-         * curl --silent -XPOST https://www.liqpay.ua/api/request --data-urlencode
-         * data="eyJwdWJsaWNfa2V5IjoiaTAwMDAwMDAwIiwidmVyc2lvbiI6IjMiLCJhY3Rpb24iOiJwYXkiLCJhbW91bnQiOiIzIiwiY3VycmVuY3kiOiJVQUgiLCJkZXNjcmlwdGlvbiI6InRlc3QiLCJvcmRlcl9pZCI6IjAwMDAwMSJ9" --data-urlencode
-         * signature="wR+UZDC4jjeL/qUOvIsofIWpZh8="
-         */
+            /**
+             * curl --silent -XPOST https://www.liqpay.ua/api/request --data-urlencode
+             * data="eyJwdWJsaWNfa2V5IjoiaTAwMDAwMDAwIiwidmVyc2lvbiI6IjMiLCJhY3Rpb24iOiJwYXkiLCJhbW91bnQiOiIzIiwiY3VycmVuY3kiOiJVQUgiLCJkZXNjcmlwdGlvbiI6InRlc3QiLCJvcmRlcl9pZCI6IjAwMDAwMSJ9" --data-urlencode
+             * signature="wR+UZDC4jjeL/qUOvIsofIWpZh8="
+             */
 
-        $liqpay = new LiqPay(config('liqpay.public_key'), config('liqpay.private_key'));
-        $html = $liqpay->cnb_form([
-                                      'action' => 'pay',
-                                      'amount' => $request->price,
-                                      'currency' => 'UAH',
+            $liqpay = new LiqPay(config('liqpay.public_key'), config('liqpay.private_key'));
+            $html = $liqpay->cnb_form([
+                'action' => 'pay',
+                'amount' => $request->price,
+                'currency' => 'UAH',
 
-                                      // призначення платежу
-                                      'description' => $description,
-                                      'order_id' => $newOrder->id,
-                                      'version' => '3',
-                                      'result_url' => route('callback-status'),
-                                      'sender_last_name' => $request->name,
-                                      'server_url' => route('callback-status'),
-                                  ]);
+                // призначення платежу
+                'description' => $description,
+                'order_id' => $newOrder->id,
+                'version' => '3',
+                'result_url' => route('callback-status'),
+                'sender_last_name' => $request->name,
+                'server_url' => route('callback-status'),
+            ]);
 
 //        return redirect()->to('/')->with(
 //            'success',
 //            'Дякуємо за реєстрацію, перевірте будь ласка пошту ' . $request->email
 //        );
-        // send email
-        Mail::to($request->email)->send(new RaceRegistered($request));
+            // send email
+            Mail::to($request->email)->send(new RaceRegistered($request));
 
-        return $html;
+            return $html;
+        } else {
+            // send email
+            Mail::to($request->email)->send(new RaceRegistered($request));
+            return redirect()->to('/')->with(
+                'success',
+                'Дякуємо за реєстрацію, перевірте будь ласка пошту ' . $request->email
+            );
+        }
 
 
         //Статус операції буде відправлений на server_url.

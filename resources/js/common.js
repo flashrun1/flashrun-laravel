@@ -85,7 +85,6 @@ document.querySelector('#registr_modal5 .kids-race-subtype').onclick = function(
     document.querySelectorAll('#registr_modal5 .regular-race-subtype, #registr_modal5 .kids-race-subtype').forEach(function(elm){
         elm.classList.remove('active-brand-color');
     });
-    //classList.remove('active-brand-color');
     e.target.classList.add('active-brand-color');
     document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .kids-subtype-wrapper').innerHTML;
 }

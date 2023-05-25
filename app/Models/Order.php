@@ -90,4 +90,8 @@ class Order extends Model
             return '';
         }
     }
+
+    public function isForKids() {
+        return $this->type == 'kids';
+    }
 }

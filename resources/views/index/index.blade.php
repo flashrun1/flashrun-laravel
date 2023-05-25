@@ -32,6 +32,11 @@
         {!! session('success') !!}
     </div>
 @endif
+@if(session('danger'))
+    <div class="alert alert-danger">
+        {!! session('danger') !!}
+    </div>
+@endif
 <div id="page-wrapper" class="page-wrapper ">
     <div id="page-body" class="page-body">
         <!-- header -->
@@ -86,7 +91,6 @@
                                         <h3 class="title" style="text-transform: none;">ПроскурівRUN</h3>
                                         <div class="descr custom-color">Весняний крос, який відбудеться 23 квітня 2023 року в дендропарку.</div>
                                         <button disabled type="button" class="btn" data-toggle="modal" data-target="#registr_modal">ЗАРЕЄСТРУВАТИСЬ</button>
-                                        <a class="mt-2 text-decoration-underline" href="{{ route('race-participants', ['raceId' => 2]) }}">Список учасників</a>
                                     </div>
                                 </div>
                             </div>
@@ -103,6 +107,7 @@
                                         <h3 class="title">UKRAINERUN</h3>
                                         <div class="descr custom-color">18.06.23 - Патріотичний фановий, який відбудеться в парку.</div>
                                         <button type="button" class="btn" data-toggle="modal" data-target="#registr_modal5">ЗАРЕЄСТРУВАТИСЬ</button>
+                                        <a class="mt-2 text-decoration-underline" href="{{ route('race-participants', ['raceId' => \App\Models\Race::getIdByName('UkraineRUN')]) }}">Список учасників</a>
                                     </div>
                                 </div>
                             </div>

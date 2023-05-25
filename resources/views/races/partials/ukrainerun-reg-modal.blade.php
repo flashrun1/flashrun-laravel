@@ -104,10 +104,10 @@
                             <label for="">Дистанції</label>
                         </div>
                         <div class="custon-radio-group">
-                            <input id="registr_modal_form_cb_option1" type="radio" name="distance" value="100"  class="custon-radio-btn" checked>
-                            <label for="registr_modal_form_cb_option1">100м</label>
-                            <input id="registr_modal_form_cb_option2" type="radio" name="distance" value="500"  class="custon-radio-btn" >
-                            <label for="registr_modal_form_cb_option2">500м</label>
+                            <input id="registr_modal5_form_cb_option1" type="radio" name="distance" value="100"  class="custon-radio-btn" checked>
+                            <label for="registr_modal5_form_cb_option1">100м</label>
+                            <input id="registr_modal5_form_cb_option2" type="radio" name="distance" value="500"  class="custon-radio-btn" >
+                            <label for="registr_modal5_form_cb_option2">500м</label>
                         </div>
                     </div>
                 </div>
