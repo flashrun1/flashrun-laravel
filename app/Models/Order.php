@@ -86,6 +86,8 @@ class Order extends Model
             return 'Естафета';
         } elseif($this->type == Race::TYPE_REGULAR) {
             return 'Звичайний забіг';
+        } else if($this->type == Race::TYPE_KIDS) {
+            return 'Дитячий забіг';
         } else {
             return '';
         }
