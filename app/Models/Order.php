@@ -15,7 +15,7 @@ class Order extends Model
     const STATUS_REGISTERED_PAID = 2;
     const STATUS_DELETED = 3;
 
-    protected $fillable = ['email', 'status', 'currency', 'amount', 'transaction_id', 'notes', 'type', 'club'];
+    protected $fillable = ['email', 'status', 'currency', 'amount', 'transaction_id', 'notes', 'type', 'club', 'city'];
 
     public static function createFromRequest(Request $request) {
 
@@ -37,6 +37,7 @@ class Order extends Model
         $order->amount = $request->price;
         $order->transaction_id = '';
         $order->promocode = $request->promocode;
+        $order->city = $request->city;
 
         $order->save();
 

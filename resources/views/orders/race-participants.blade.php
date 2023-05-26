@@ -6,6 +6,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Ім'я</th>
+            <th scope="col">Місто</th>
             <th scope="col">Забіг</th>
             <th scope="col">Номер</th>
             <th scope="col">Клуб</th>
@@ -20,6 +21,7 @@
         <tr>
             <th scope="row">{{ $k+1 }}</th>
             <td>{{ $order->name }}</td>
+            <td>{{ $order->city }}</td>
             <td>{{ $order->race_name }}</td>
             <td>{{ $order->id }}</td>
             <td>{{ $order->club }}</td>
