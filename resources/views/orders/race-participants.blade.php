@@ -18,6 +18,13 @@
         </thead>
         <tbody class="table-group-divider">
         @foreach($orders as $k => $order)
+        @if ($k == 0)
+            <tr class="">
+                <td colspan="8" class="py-4 text-center">
+                    <strong>{{$order->getRaceNameForParticipantsList()}}</strong>
+                </td>
+            </tr>
+        @endif
         <tr>
             <th scope="row">{{ $k+1 }}</th>
             <td>{{ $order->name }}</td>
@@ -28,6 +35,13 @@
             <td>{{ $order->distance }}</td>
             <td>{{ $order->displayTypeForParticipantsList() }}</td>
         </tr>
+        @if(isset($orders[$k + 1]) && $order->distance != $orders[$k+1]->distance)
+            <tr>
+                <td colspan="8" class="py-4 text-center">
+                    <strong>{{$orders[$k + 1]->getRaceNameForParticipantsList()}}</strong>
+                </td>
+            </tr>
+        @endif
         @endforeach
         </tbody>
     </table>

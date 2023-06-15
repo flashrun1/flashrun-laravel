@@ -97,4 +97,26 @@ class Order extends Model
     public function isForKids() {
         return $this->type == 'kids';
     }
+
+    public function getRaceNameForParticipantsList() {
+        $name = '';
+        if ($this->type == Race::TYPE_KIDS) {
+            $name .= 'Дитячий забіг: ';
+        }
+        if ($this->type == Race::TYPE_RELAY) {
+            $name .= 'Естафета';
+        }
+        if ($this->type == Race::TYPE_REGULAR) {
+            $name .= 'Дистанція: ';
+        }
+
+        if ($this->distance >= 1000) {
+            $name .= $this->distance / 1000 . 'km';
+        } else {
+            $name .= $this->distance . 'm';
+        }
+
+        return $name;
+
+    }
 }
