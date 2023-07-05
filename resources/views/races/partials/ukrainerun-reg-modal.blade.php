@@ -14,7 +14,6 @@
                 <form action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
 
                     <div class="form-group prices my-4">
-                        @include('partials.event-subtype-switcher')
                     </div>
                 <!--<div class="form-group prices my-4">
                                 @include('partials.event-prices-block')

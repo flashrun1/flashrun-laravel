@@ -15,7 +15,7 @@ class RaceController extends Controller
     public function register(Request $request)
     {
         $description = $request->race_name . ' | ' . $request->name . ' | ' . $request->email . ' | ' .
-            $request->distance . 'm';
+            $request->distance . 'm' . ' | ' . $request->type;
 
         $price = $request->price;
 
@@ -33,7 +33,6 @@ class RaceController extends Controller
                 ]);
             }
         }
-
 
 
         // create order with unpaid status

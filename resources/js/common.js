@@ -62,16 +62,38 @@ imagesLoaded( document.querySelector('.grid'), function( instance ) {
     });
 });
 
-document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .regular-subtype-wrapper').innerHTML;
+document.querySelectorAll('.event-subtypes .event-subtype').forEach(function(elm, indx){
+    // if selected
+    if (elm.classList.contains('active-brand-color')) {
+        var selectedType = elm.dataset.type;
+        document.querySelector('#registr_modal-volyaFest .race-subtype-content').innerHTML = document.querySelector('#registr_modal-volyaFest .' + selectedType + '-subtype-wrapper').innerHTML;
+        return;
+    }
+});
+
+// console.log($('#registr_modal-volyaFest .event-subtypes .event-subtype'));
+
+// console.log(document.querySelector('.event-subtype').classList.contains('active-brand-color'));
+
+// document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .regular-subtype-wrapper').innerHTML;
 // document.querySelector('#registr_modal3 .race-subtype-content').innerHTML = document.querySelector('#registr_modal3 .regular-subtype-wrapper').innerHTML;
 
-document.querySelector('#registr_modal5 .regular-race-subtype').onclick = function(e){
-    document.querySelectorAll('#registr_modal5 .regular-race-subtype, #registr_modal5 .kids-race-subtype').forEach(function(elm){
-        elm.classList.remove('active-brand-color');
-    });
-    e.target.classList.add('active-brand-color');
-    document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .regular-subtype-wrapper').innerHTML;
-}
+// console.log(document.querySelectorAll('#registr_modal-volyaFest .event-subtypes .event-subtype').length);
+
+
+document.querySelectorAll('#registr_modal-volyaFest .event-subtype').forEach(function(e){
+    e.onclick = function(evnt) {
+        // remove active class
+        document.querySelectorAll('#registr_modal-volyaFest .event-subtype').forEach(function(elm){
+            elm.classList.remove('active-brand-color');
+        });
+
+        // assign active class to clicked element
+        evnt.target.classList.add('active-brand-color');
+        selectedType = evnt.target.dataset.type;
+        document.querySelector('#registr_modal-volyaFest .race-subtype-content').innerHTML = document.querySelector('#registr_modal-volyaFest .' + selectedType + '-subtype-wrapper').innerHTML;
+    }
+})
 
 // document.querySelector('#registr_modal5 .relay-race-subtype').onclick = function(e){
 //     document.querySelectorAll('#registr_modal5 .regular-race-subtype, #registr_modal5 .relay-race-subtype, #registr_modal5 .kids-race-subtype').forEach(function(elm){
@@ -81,13 +103,13 @@ document.querySelector('#registr_modal5 .regular-race-subtype').onclick = functi
 //     document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .relay-subtype-wrapper').innerHTML;
 // }
 
-document.querySelector('#registr_modal5 .kids-race-subtype').onclick = function(e){
-    document.querySelectorAll('#registr_modal5 .regular-race-subtype, #registr_modal5 .kids-race-subtype').forEach(function(elm){
-        elm.classList.remove('active-brand-color');
-    });
-    e.target.classList.add('active-brand-color');
-    document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .kids-subtype-wrapper').innerHTML;
-}
+// document.querySelector('#registr_modal5 .kids-race-subtype').onclick = function(e){
+//     document.querySelectorAll('#registr_modal5 .regular-race-subtype, #registr_modal5 .kids-race-subtype').forEach(function(elm){
+//         elm.classList.remove('active-brand-color');
+//     });
+//     e.target.classList.add('active-brand-color');
+//     document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .kids-subtype-wrapper').innerHTML;
+// }
 
 
 // up btn scroll

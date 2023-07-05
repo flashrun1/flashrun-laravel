@@ -1,30 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <title>FLASHRUN - перший біговий клуб у Хмельницькому! </title>
-    <meta name="keywords" content="FLASHRUN, RUNNING CLUB, біговий клуб у Хмельницькому">
-    <meta name="description" content="FLASHRUN - перший біговий клуб у Хмельницькому!">
-    <!-- CSS-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('/css/style.css') }}"/>
-    <!-- FAVICON -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <!-- OG -->
-    <meta property="og:title" content="FLASHRUN - перший біговий клуб у Хмельницькому!">
-    <meta property="og:url" content="FLASHRUN, RUNNING CLUB, біговий клуб у Хмельницькому">
-    <meta property="og:description" content="FLASHRUN - перший біговий клуб у Хмельницькому!">
-    <meta property="og:image" content="/images/logo.svg">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="500">
-    <meta property="og:image:height" content="300">
-    <meta property="twitter:description" content="FLASHRUN - перший біговий клуб у Хмельницькому!">
-    <!--END OF OG -->
+    @include('layouts.partials.head-section')
 </head>
 <body class="">
 @if(session('success'))
@@ -74,98 +51,21 @@
 
                 </div>
             </section>
+
             <section class="section registr-cards" id="registration">
                 <div class="container">
                     <h2 class="section-title">РЕЄСТРАЦІЯ <span class="sub-title">«FLASHRUN»</span></h2>
 
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="categories-card">
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="img-wrap">
-                                            <img src="{{ asset('/images/category1.jpg') }}" alt="category" class="bg-image-pos">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-7">
-                                        <h3 class="title" style="text-transform: none;">ПроскурівRUN</h3>
-                                        <div class="descr custom-color">Весняний крос, який відбудеться 23 квітня 2023 року в дендропарку.</div>
-                                        <button disabled type="button" class="btn" data-toggle="modal" data-target="#registr_modal">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="categories-card">
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="img-wrap">
-                                            <img src="{{ asset('/images/category2.jpg') }}" alt="category" class="bg-image-pos">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-7">
-                                        <h3 class="title">UKRAINERUN</h3>
-                                        <div class="descr custom-color">18.06.23 - Патріотичний фановий, який відбудеться в парку.</div>
-                                        <button type="button" class="btn" data-toggle="modal" data-target="#registr_modal5">ЗАРЕЄСТРУВАТИСЬ</button>
-                                        <a class="mt-2 text-decoration-underline" href="{{ route('race-participants', ['raceId' => \App\Models\Race::getIdByName('UkraineRUN')]) }}">Список учасників</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('races.partials.proskuriv-run-category-card', ['disabled' => true])
 
-                        <div class="col-lg-6">
-                            <div class="categories-card">
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="img-wrap">
-                                            <img src="{{ asset('/images/category5.jpg') }}" alt="category" class="bg-image-pos">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-7">
-                                        <h3 class="title">Благодійний Забіг</h3>
-                                        <div class="descr custom-color">30.04.23
-                                            Благодійний забіг заради Валерія Одайника
-                                            Збір коштів на реабілітацію важкопораненому на Бахмутському напрямку військовослужбовцю кам‘янчанину</div>
-                                        <button disabled type="button" class="btn" data-toggle="modal" data-target="#registr_modal3">ЗАРЕЄСТРУВАТИСЬ</button>
-                                        <a class="mt-2 text-decoration-underline" href="{{ route('race-participants', ['raceId' => 3]) }}">Список учасників</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('races.partials.ukraine-run-category-card', ['disabled' => true])
 
-                        <div class="col-lg-6">
-                            <div class="categories-card">
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="img-wrap">
-                                            <img src="{{ asset('/images/category3.jpg') }}" alt="category" class="bg-image-pos">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-7">
-                                        <h3 class="title">Воля.fest</h3>
-                                        <div class="descr custom-color">20.08.23 - забіг, який відбудеться в Лісогринівецькому лісі.</div>
-                                        <button disabled="disabled" type="button" class="btn" data-toggle="modal" data-target="#registr_modal3">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('races.partials.charity-run-kamyanec-category-card', ['disabled' => true])
 
-                        <div class="col-lg-6">
-                            <div class="categories-card">
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <div class="img-wrap">
-                                            <img src="{{ asset('/images/category4.jpg') }}" alt="category" class="bg-image-pos">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-7">
-                                        <h3 class="title">Різдвяний забіг</h3>
-                                        <div class="descr custom-color">24.12.2023 - забіг, який відбудеться в парку ім.Чекмана.</div>
-                                        <button disabled="disabled" type="button" class="btn" data-toggle="modal" data-target="#registr_modal4">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('races.partials.volia-fest-category-card', ['disabled' => false])
+
+                        @include('races.partials.christmas-run-category-card', ['disabled' => false])
                     </div>
                 </div>
             </section>
@@ -183,7 +83,8 @@
         <!-- end of footer -->
         <!-- modals -->
 
-        <div class="modal fade" id="registr_modal3" tabindex="-1" aria-labelledby="registr_modal3" aria-modal="true"
+        <!--
+        <div class="modal fade" id="registr_modal-volyaFest" tabindex="-1" aria-labelledby="registr_modal-volyaFest" aria-modal="true"
              role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -198,12 +99,11 @@
 
                         <form action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
 
-{{--                            <div class="form-group prices my-4">--}}
-{{--                                @include('partials.event-subtype-switcher')--}}
-{{--                            </div>--}}
-                        <!--<div class="form-group prices my-4">
+                            <div class="form-group prices my-4">
+                            </div>
+                            <div class="form-group prices my-4">
                                 @include('partials.event-prices-block')
-                            </div>-->
+                            </div>
 
                             {{ csrf_field() }}
                             <input type="hidden" name="race_name" value="Благодійний Забіг">
@@ -243,94 +143,6 @@
                                 <label for="registr_modal_form_cb_sity">Ваше місто</label>
                                 <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
                             </div>
-{{--                            <div class="form-group">--}}
-{{--                                <label for="registr_modal_form_cb_promocode">Промокод</label>--}}
-{{--                                <input id="registr_modal_form_cb_promocode" type="text" name="code" placeholder="Введіть промокод" value="" class="form-control">--}}
-{{--                            </div>--}}
-                            <div class="form-group">
-                                <div class="label-wrap">
-                                    <label for="">Дистанції</label>
-                                </div>
-                                <div class="custon-radio-group">
-                                    <input id="registr_modal_form_cb_option1" type="radio" name="distance" value="2000"  class="custon-radio-btn" checked>
-                                    <label for="registr_modal_form_cb_option1">2 км</label>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-
-        <div class="modal fade" id="registr_modal" tabindex="-1" aria-labelledby="registr_modal" aria-modal="true"
-             role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="section-title">РЕЄСТРАЦІЯ <span class="sub-title">«ПроскурівRUN»</span></h2>
-                        <h3 class="title">ДЕНДРОПАРК</h3>
-                        <button type="button" class="close" aria-label="Close" data-dismiss="modal">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        <form action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
-
-                            <div class="form-group prices my-4">
-                                @include('partials.event-subtype-switcher')
-                            </div>
-                            <!--<div class="form-group prices my-4">
-                                @include('partials.event-prices-block')
-                            </div>-->
-
-                            {{ csrf_field() }}
-                            <input type="hidden" name="race_name" value="ПроскурівRUN">
-
-                            <div class="race-subtype-content">
-
-                            </div>
-                            <div class="form-group">
-                                <div class="btn-wrap text-center">
-                                    <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    <a href="{{ asset('/files/polozhennya.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
-                                </div>
-                            </div>
-                        </form>
-
-
-                        <div class="regular-subtype-wrapper d-none">
-                            <input type="hidden" name="type" value="regular">
-                            <input type="hidden" name="price" value="850">
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
-                                <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input id="email" type="email" name="email" placeholder="Введіть електронну пошту" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_phone">Номер телефону</label>
-                                <input id="registr_modal_form_cb_phone" type="tel" name="phone" placeholder="Введіть номер телефону" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_clubname">Ваш клуб</label>
-                                <input id="registr_modal_form_cb_clubname" type="text" name="club" placeholder="Введіть клуб" value="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_sity">Ваше місто</label>
-                                <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
-                            </div>
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_promocode">Промокод</label>
                                 <input id="registr_modal_form_cb_promocode" type="text" name="code" placeholder="Введіть промокод" value="" class="form-control">
@@ -342,98 +154,13 @@
                                 <div class="custon-radio-group">
                                     <input id="registr_modal_form_cb_option1" type="radio" name="distance" value="2000"  class="custon-radio-btn" checked>
                                     <label for="registr_modal_form_cb_option1">2 км</label>
-                                    <input id="registr_modal_form_cb_option2" type="radio" name="distance" value="6000"  class="custon-radio-btn" >
-                                    <label for="registr_modal_form_cb_option2">6 км</label>
-                                    <input id="registr_modal_form_cb_option3" type="radio" name="distance" value="10000"  class="custon-radio-btn">
-                                    <label for="registr_modal_form_cb_option3">10 км</label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="relay-subtype-wrapper d-none">
-                            <input type="hidden" name="type" value="relay">
-                            <input type="hidden" name="price" value="4350">
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_name">Імена та прізвища усіх учасників (через кому)</label>
-                                <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input id="email" type="email" name="email" placeholder="Введіть електронну пошту" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_phone">Номер телефону</label>
-                                <input id="registr_modal_form_cb_phone" type="tel" name="phone" placeholder="Введіть номер телефону" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_clubname">Назва команди</label>
-                                <input id="registr_modal_form_cb_clubname" type="text" name="club" placeholder="Назва команди" value="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_sity">Ваше місто</label>
-                                <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_promocode">Промокод</label>
-                                <input id="registr_modal_form_cb_promocode" type="text" name="promocode" placeholder="Введіть Промокод" value="" class="form-control">
-                            </div>
-                            <input type="hidden" name="distance" value="0">
-{{--                            <div class="form-group">--}}
-{{--                                <div class="label-wrap">--}}
-{{--                                    <label for="">Дистанції</label>--}}
-{{--                                </div>--}}
-{{--                                <div class="custon-radio-group">--}}
-{{--                                    <input id="registr_modal_form_cb_option1" type="radio" name="distance" value="2000"  class="custon-radio-btn" checked>--}}
-{{--                                    <label for="registr_modal_form_cb_option1">2 км</label>--}}
-{{--                                    <input id="registr_modal_form_cb_option2" type="radio" name="distance" value="6000"  class="custon-radio-btn" >--}}
-{{--                                    <label for="registr_modal_form_cb_option2">6 км</label>--}}
-{{--                                    <input id="registr_modal_form_cb_option3" type="radio" name="distance" value="10000"  class="custon-radio-btn">--}}
-{{--                                    <label for="registr_modal_form_cb_option3">10 км</label>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-                        </div>
 
-                        <div class="kids-subtype-wrapper d-none">
-                            <input type="hidden" name="type" value="kids">
-                            <input type="hidden" name="price" value="0">
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_name">Ім"я та прізвище дитини</label>
-                                <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input id="email" type="email" name="email" placeholder="Введіть електронну пошту" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_phone">Номер телефону одного з батьків</label>
-                                <input id="registr_modal_form_cb_phone" type="tel" name="phone" placeholder="Введіть номер телефону" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_clubname">Клуб дитини</label>
-                                <input id="registr_modal_form_cb_clubname" type="text" name="club" placeholder="Клуб Дитини" value="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_sity">Ваше місто</label>
-                                <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_promocode">Промокод</label>
-                                <input id="registr_modal_form_cb_promocode" type="text" name="promocode" placeholder="Введіть Промокод" value="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <div class="label-wrap">
-                                    <label for="">Дистанції</label>
-                                </div>
-                                <div class="custon-radio-group">
-                                    <input id="registr_modal_form_cb_option1" type="radio" name="distance" value="100"  class="custon-radio-btn" checked>
-                                    <label for="registr_modal_form_cb_option1">100м</label>
-                                    <input id="registr_modal_form_cb_option2" type="radio" name="distance" value="500"  class="custon-radio-btn" >
-                                    <label for="registr_modal_form_cb_option2">500м</label>
-                                    <input id="registr_modal_form_cb_option3" type="radio" name="distance" value="1000"  class="custon-radio-btn">
-                                    <label for="registr_modal_form_cb_option3">1 км</label>
-                                </div>
-                            </div>
-                        </div>
+
+
 
 
 
@@ -442,187 +169,12 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade " id="registr_modal2" tabindex="-1" aria-labelledby="registr_modal2" aria-modal="true"
-             role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="section-title">РЕЄСТРАЦІЯ <span class="sub-title">«ВОЛЯ FEST»</span></h2>
-                        <h3 class="title">ВЕЛО</h3>
-                        <button type="button" class="close" aria-label="Close" data-dismiss="modal">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group prices my-4">
-                            @include('partials.event-prices-block')
-                        </div>
-                        <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="race_name" value="Воля FEST">
-                            <input type="hidden" name="type" value="bicycle">
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
-                                <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input id="email" type="email" name="email" placeholder="Введіть електронну пошту" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_phone">Номер телефону</label>
-                                <input id="registr_modal_form_cb_phone" type="tel" name="phone" placeholder="Введіть номер телефону" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_clubname">Ваш клуб</label>
-                                <input id="registr_modal_form_cb_clubname" type="text" name="club" placeholder="Введіть клуб" value="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_sity">Ваше місто</label>
-                                <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <div class="label-wrap">
-                                    <label for="">Дистанції</label>
-                                </div>
-                                <div class="custon-radio-group">
-                                    <input id="registr_modal3_form_cb_option1" type="radio" value="15000" name="distance" class="custon-radio-btn" checked>
-                                    <label for="registr_modal3_form_cb_option1">ЖІНКИ - 15 КМ</label>
-                                    <input id="registr_modal3_form_cb_option2" type="radio" value="20000" name="distance" class="custon-radio-btn" >
-                                    <label for="registr_modal3_form_cb_option2">ЧОЛОВІКИ - 20 КМ</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="btn-wrap text-center">
-                                    <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    <a href="{{ asset('/files/Положення.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+-->
 
-                </div>
-            </div>
-        </div>
-        <div class="modal fade " id="registr_modal3" tabindex="-1" aria-labelledby="registr_modal3" aria-modal="true"
-             role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="section-title">РЕЄСТРАЦІЯ <span class="sub-title">«ВОЛЯ FEST»</span></h2>
-                        <h3 class="title">КРОС ДУАТЛОН</h3>
-                        <button type="button" class="close" aria-label="Close" data-dismiss="modal">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        @include('partials.event-prices-block')
-                        <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="race_name" value="Воля FEST">
-                            <input type="hidden" name="type" value="duathlon">
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
-                                <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input id="email" type="email" name="email" placeholder="Введіть електронну пошту" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_phone">Номер телефону</label>
-                                <input id="registr_modal_form_cb_phone" type="tel" name="phone" placeholder="Введіть номер телефону" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_clubname">Ваш клуб</label>
-                                <input id="registr_modal_form_cb_clubname" type="text" name="club" placeholder="Введіть клуб" value="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_sity">Ваше місто</label>
-                                <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <div class="label-wrap">
-                                    <label for="">Дистанції</label>
-                                </div>
-                                <div class="custon-radio-group">
-                                    <input id="registr_modal3_form_cb_option1" type="radio" name="distance" value="3000/10000/1000"  class="custon-radio-btn" checked>
-                                    <label for="registr_modal3_form_cb_option1">3 КМ / 10КМ / 1КМ</label>
 
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="btn-wrap text-center">
-                                    <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    <a href="{{ asset('/files/Положення.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="modal fade " id="registr_modal4" tabindex="-1" aria-labelledby="registr_modal4" aria-modal="true"
-             role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="section-title">РЕЄСТРАЦІЯ <span class="sub-title">«ВОЛЯ FEST»</span></h2>
-                        <h3 class="title">СКАНДИНАВСЬКА ХОДЬБА</h3>
-                        <button type="button" class="close" aria-label="Close" data-dismiss="modal">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        @include('partials.event-prices-block')
-                        <form class="" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="race_name" value="Воля FEST">
-                            <input type="hidden" name="type" value="walking">
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
-                                <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input id="email" type="email" name="email" placeholder="Введіть електронну пошту" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_phone">Номер телефону</label>
-                                <input id="registr_modal_form_cb_phone" type="tel" name="phone" placeholder="Введіть номер телефону" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_clubname">Ваш клуб</label>
-                                <input id="registr_modal_form_cb_clubname" type="text" name="club" placeholder="Введіть клуб" value="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_sity">Ваше місто</label>
-                                <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <div class="label-wrap">
-                                    <label for="">Дистанції</label>
-                                </div>
-                                <div class="custon-radio-group">
-                                    <input id="registr_modal4_form_cb_option1" type="radio" name="distance" value="3000" class="custon-radio-btn" checked>
-                                    <label for="registr_modal4_form_cb_option1">3 КМ</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="btn-wrap text-center">
-                                    <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    <a href="{{ asset('/files/Положення.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
 
         @include('races.partials.ukrainerun-reg-modal')
+        @include('races.partials.volya-fest-reg-modal')
 
         <div class="modal fade " id="buy_modal" tabindex="-1" aria-labelledby="buy_modal" aria-modal="true"
              role="dialog">

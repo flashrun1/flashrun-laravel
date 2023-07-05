@@ -44,6 +44,32 @@ class Race extends Model
         return self::query()->where('name', $name)->first()->id;
     }
 
+    public static function getIdBySlug($slug) {
+        return self::query()->where('slug', $slug)->first()->id;
+    }
+
+    public static function getPriceById($id) {
+        $race = self::findOrFail($id);
+
+        if (!\Carbon\Carbon::parse('2023-07-01')->isPast()) {
+            $price = 600;
+        }
+
+
+        if (\Carbon\Carbon::now()->betweenIncluded(\Carbon\Carbon::parse('2023-07-02'), \Carbon\Carbon::parse('2023-07-30'))) {
+            $price = 700;
+        }
+
+        return $price;
+
+        // before 1.07.2023 - 600uah
+        // from 2.07.2023 to 30.07.2023 - 700uah
+        // from 1.08.2023 to 25.08.2023 - 900uah
+    }
+
+    public static function getNameBySlug($slug) {
+        return self::query()->where('slug', $slug)->first()->name;
+    }
 
 
 }

@@ -20,7 +20,7 @@ class Order extends Model
     public static function createFromRequest(Request $request) {
 
         // get race by name
-        $race = Race::where('name', $request->race_name)->first();
+        $race = Race::findOrFail($request->race_id);
         if (!$race) {
             throw new \Exception('race not found');
         }
@@ -38,6 +38,7 @@ class Order extends Model
         $order->transaction_id = '';
         $order->promocode = $request->promocode;
         $order->city = $request->city;
+        $order->race_id = $request->race_id;
 
         $order->save();
 
