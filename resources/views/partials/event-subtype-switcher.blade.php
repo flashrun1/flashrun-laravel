@@ -25,14 +25,14 @@
 
             <div class="col-md-6">
                 <div class="text-center event-subtype register-event-price-block py-3" data-type="crossfit-beginners">
-                    КРОСФІТ-НОВАЧКИ
+                    КРОСФІТ-АМАТОРИ
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="text-center event-subtype register-event-price-block py-3" style="" data-type="crossfit-advanced">
-                    КРОСФІТ-ПРОДВИНУТІ
-                </div>
-            </div>
+{{--            <div class="col-md-6">--}}
+{{--                <div class="text-center event-subtype register-event-price-block py-3" style="" data-type="crossfit-advanced">--}}
+{{--                    КРОСФІТ-ПРОДВИНУТІ--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
     </div>
 </div>
