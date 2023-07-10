@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <div class="btn-wrap text-center">
                             <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
-                            <a href="{{ asset('/files/ukrainerun-polozhennya.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
+                            <a href="{{ asset('/files/freedom-fest-2023-polozhennya.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
                         </div>
                     </div>
                 </form>
@@ -83,7 +83,7 @@
                 <div class="scandi-walk-subtype-wrapper d-none">
                     <input type="hidden" name="type" value="scandi-walk">
                     <input type="hidden" name="distance" value="0">
-                    <input type="hidden" name="price" value="{{\App\Models\Race::getPriceById(\App\Models\Race::getIdBySlug('freedom-fest-2023'))}}">
+                    <input type="hidden" name="price" value="500">
                     <div class="form-group">
                         <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
                         <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">

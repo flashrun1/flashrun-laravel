@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-5">
                 <div class="img-wrap">
-                    <img src="{{ asset('/images/category3.jpg') }}" alt="category" class="bg-image-pos">
+                    <img src="{{ asset('/images/IMG_1875.JPG') }}" alt="category" class="bg-image-pos">
                 </div>
             </div>
             <div class="col-sm-7">
