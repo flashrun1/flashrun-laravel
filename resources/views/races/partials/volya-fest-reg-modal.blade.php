@@ -82,7 +82,7 @@
 
                 <div class="scandi-walk-subtype-wrapper d-none">
                     <input type="hidden" name="type" value="scandi-walk">
-                    <input type="hidden" name="distance" value="0">
+                    <input type="hidden" name="distance" value="3000">
                     <input type="hidden" name="price" value="500">
                     <div class="form-group">
                         <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
