@@ -108,19 +108,17 @@
                         <label for="registr_modal_form_cb_promocode">Промокод</label>
                         <input id="registr_modal_form_cb_promocode" type="text" name="code" placeholder="Введіть промокод" value="" class="form-control">
                     </div>
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <div class="label-wrap">
                             <label for="">Дистанції</label>
                         </div>
                         <div class="custon-radio-group">
-                            <input id="registr_modal5_ocr_form_cb_option1" type="radio" name="distance" value="1000"  class="custon-radio-btn" checked>
-                            <label for="registr_modal5_ocr_form_cb_option1">1 км</label>
-                            <input id="registr_modal5_ocr_form_cb_option2" type="radio" name="distance" value="5000"  class="custon-radio-btn" >
-                            <label for="registr_modal5_ocr_form_cb_option2">5 км</label>
-                            <input id="registr_modal5_ocr_form_cb_option3" type="radio" name="distance" value="10000"  class="custon-radio-btn">
-                            <label for="registr_modal5_ocr_form_cb_option3">10 км</label>
+                            <input id="registr_modal5_ocr_form_cb_option1" type="radio" name="distance" value="1500"  class="custon-radio-btn" checked>
+                            <label for="registr_modal5_ocr_form_cb_option1">1,5 км</label>
+                            <input id="registr_modal5_ocr_form_cb_option2" type="radio" name="distance" value="3000"  class="custon-radio-btn" >
+                            <label for="registr_modal5_ocr_form_cb_option2">3 км</label>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
 
                 <div class="cross-duathlon-subtype-wrapper d-none">

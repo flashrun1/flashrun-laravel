@@ -49,12 +49,6 @@ class RaceController extends Controller
                 'description' => $description,
                 'order_id' => $newOrder->id,
             ];
-            if ($price < 550) {
-                return redirect()->to('/')->with(
-                    'danger',
-                    'Сума оплати не відповідає вартості забігу'
-                );
-            }
 
             $paymentRequestText = json_encode($paymentRequest);
 
