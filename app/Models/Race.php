@@ -12,6 +12,9 @@ class Race extends Model
     const TYPE_RELAY = 'relay';
     const TYPE_REGULAR = 'regular';
     const TYPE_KIDS = 'kids';
+    const TYPE_CROSS_DUATHLON = 'cross-duathlon';
+    const TYPE_CROSSFIT_BEGINNERS = 'crossfit-beginners';
+    const TYPE_OCR = 'ocr';
 
     protected $table = 'races';
     protected $fillable = [
@@ -27,14 +30,30 @@ class Race extends Model
     ];
 
     public function participants() {
-        $participants = Order::where('race_name', $this->name)
-            ->where(function($q){
-                $q->where('status', Order::STATUS_REGISTERED_PAID);
-                $q->orWhere('type', self::TYPE_KIDS);
-            })
+
+
+
+
+
+
+
+
+        $participants = Order::where('race_id', $this->id)
+            ->where('status', Order::STATUS_REGISTERED_PAID)
+//            ->whereIn('type', [
+//                self::TYPE_OCR,
+//                self::TYPE_KIDS,
+//                self::TYPE_CROSS_DUATHLON,
+//                self::TYPE_REGULAR,
+//                self::TYPE_CROSSFIT_BEGINNERS
+//            ])
+            //->where('status', '!=', Order::STATUS_DELETED)
+//            ->where('status', Order::STATUS_REGISTERED_PAID)
+//            ->whereIn('type', [self::TYPE_KIDS, self::TYPE_CROSSFIT_BEGINNERS, self::TYPE_REGULAR, self::TYPE_OCR])
             ->orderBy('type')
             ->orderBy('distance')
             ->orderBy('name')
+
             ->get()
         ;
         return $participants;
@@ -69,6 +88,41 @@ class Race extends Model
 
     public static function getNameBySlug($slug) {
         return self::query()->where('slug', $slug)->first()->name;
+    }
+
+    public static function getFormattedRaceNameForParticipantsList($raceType) {
+
+        $name = '';
+        $addDistance = true;
+        if ($raceType == Race::TYPE_KIDS) {
+            $name .= 'Дитячий забіг: ';
+        }
+        if ($raceType == Race::TYPE_RELAY) {
+            $name .= 'Естафета';
+        }
+        if ($raceType == Race::TYPE_REGULAR) {
+            $name .= 'Дистанція: ';
+        }
+
+        if ($raceType == Race::TYPE_CROSS_DUATHLON) {
+            $name .= 'Суперспринт';
+            $addDistance = false;
+        }
+
+        if ($raceType == Race::TYPE_CROSSFIT_BEGINNERS) {
+            $name .= 'Кросфіт-аматори';
+            $addDistance = false;
+        }
+
+//        if ($addDistance) {
+//            if ($this->distance >= 1000) {
+//                $name .= $this->distance / 1000 . 'km';
+//            } else {
+//                $name .= $this->distance . 'm';
+//            }
+//        }
+
+        return $name;
     }
 
 

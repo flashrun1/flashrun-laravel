@@ -26,16 +26,16 @@
             </tr>
         @endif
         <tr>
-            <th scope="row">{{ $k+1 }}</th>
+            <th scope="row">{{ $k + 1 }}</th>
             <td>{{ $order->name }}</td>
             <td>{{ $order->city }}</td>
             <td>{{ $order->race_name }}</td>
             <td>{{ $order->id }}</td>
             <td>{{ $order->club }}</td>
-            <td>{{ $order->distance }}</td>
+            <td>{{ $order->formatDistance() }}</td>
             <td>{{ $order->displayTypeForParticipantsList() }}</td>
         </tr>
-        @if(isset($orders[$k + 1]) && $order->distance != $orders[$k+1]->distance)
+        @if((isset($orders[$k + 1]) && $order->type != $orders[$k+1]->type) || (isset($orders[$k + 1]) && $order->distance != $orders[$k+1]->distance))
             <tr>
                 <td colspan="8" class="py-4 text-center">
                     <strong>{{$orders[$k + 1]->getRaceNameForParticipantsList()}}</strong>

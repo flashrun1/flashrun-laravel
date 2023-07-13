@@ -90,6 +90,12 @@ class Order extends Model
             return 'Звичайний забіг';
         } else if($this->type == Race::TYPE_KIDS) {
             return 'Дитячий забіг';
+        } else if ($this->type == Race::TYPE_OCR) {
+            return 'Забіг з перешкодами';
+        } else if ($this->type == Race::TYPE_CROSSFIT_BEGINNERS) {
+            return 'Кросфіт-аматори';
+        } else if ($this->type == Race::TYPE_CROSS_DUATHLON) {
+            return 'Крос-Дуатлон';
         } else {
             return '';
         }
@@ -101,6 +107,7 @@ class Order extends Model
 
     public function getRaceNameForParticipantsList() {
         $name = '';
+        $addDistance = true;
         if ($this->type == Race::TYPE_KIDS) {
             $name .= 'Дитячий забіг: ';
         }
@@ -111,13 +118,36 @@ class Order extends Model
             $name .= 'Дистанція: ';
         }
 
-        if ($this->distance >= 1000) {
-            $name .= $this->distance / 1000 . 'km';
-        } else {
-            $name .= $this->distance . 'm';
+        if ($this->type == Race::TYPE_CROSS_DUATHLON) {
+            $name .= 'Суперспринт';
+            $addDistance = false;
+        }
+
+        if ($this->type == Race::TYPE_CROSSFIT_BEGINNERS) {
+            $name .= 'Кросфіт-аматори';
+            $addDistance = false;
+        }
+
+        if ($addDistance) {
+            if ($this->distance >= 1000) {
+                $name .= $this->distance / 1000 . 'km';
+            } else {
+                $name .= $this->distance . 'm';
+            }
         }
 
         return $name;
 
+    }
+
+    public function formatDistance() {
+        $res = '';
+        if ($this->distance > 0) {
+            if ($this->distance >= 1000) $res = $this->distance/1000 . 'km';
+            if ($this->distance < 1000) $res = $this->distance . 'm';
+            //$res = $this->distance;
+        }
+
+        return $res;
     }
 }
