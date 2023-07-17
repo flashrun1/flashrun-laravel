@@ -15,6 +15,7 @@ class Race extends Model
     const TYPE_CROSS_DUATHLON = 'cross-duathlon';
     const TYPE_CROSSFIT_BEGINNERS = 'crossfit-beginners';
     const TYPE_OCR = 'ocr';
+    const TYPE_SCANDI_WALK = 'scandi-walk';
 
     protected $table = 'races';
     protected $fillable = [

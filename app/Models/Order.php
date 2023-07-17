@@ -96,6 +96,8 @@ class Order extends Model
             return 'Кросфіт-аматори';
         } else if ($this->type == Race::TYPE_CROSS_DUATHLON) {
             return 'Крос-Дуатлон';
+        } elseif ($this->type == Race::TYPE_SCANDI_WALK) {
+            return 'Скандинавська ходьба';
         } else {
             return '';
         }
