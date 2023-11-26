@@ -7,9 +7,9 @@
                 </div>
             </div>
             <div class="col-sm-7">
-                <h3 class="title">Різдвяний забіг</h3>
-                <div class="descr custom-color">24.12.2023 - забіг, який відбудеться в парку ім.Чекмана.</div>
-                <button type="button" disabled="disabled" class="btn" data-toggle="modal" data-target="#magic-run-reg-modal">ЗАРЕЄСТРУВАТИСЬ</button>
+                <h3 class="title">Magic RUN</h3>
+                <div class="descr custom-color">17.12.2023 - забіг, який відбудеться в парку ім.Чекмана.</div>
+                <button type="button" class="btn" data-toggle="modal" data-target="#magic-run-reg-modal">ЗАРЕЄСТРУВАТИСЬ</button>
             </div>
         </div>
     </div>

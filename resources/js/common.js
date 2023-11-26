@@ -75,7 +75,7 @@ document.querySelectorAll('.event-subtypes .event-subtype').forEach(function(elm
 
 // console.log(document.querySelector('.event-subtype').classList.contains('active-brand-color'));
 
-// document.querySelector('#registr_modal5 .race-subtype-content').innerHTML = document.querySelector('#registr_modal5 .regular-subtype-wrapper').innerHTML;
+document.querySelector('#magic-run-reg-modal .race-subtype-content').innerHTML = document.querySelector('#magic-run-reg-modal .regular-subtype-wrapper').innerHTML;
 // document.querySelector('#registr_modal3 .race-subtype-content').innerHTML = document.querySelector('#registr_modal3 .regular-subtype-wrapper').innerHTML;
 
 // console.log(document.querySelectorAll('#registr_modal-volyaFest .event-subtypes .event-subtype').length);

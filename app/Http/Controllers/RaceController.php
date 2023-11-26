@@ -34,7 +34,6 @@ class RaceController extends Controller
             }
         }
 
-
         // create order with unpaid status
         $newOrder = Order::createFromRequest($request);
 
