@@ -10,6 +10,7 @@
                 <h3 class="title">Magic RUN</h3>
                 <div class="descr custom-color">17.12.2023 - забіг, який відбудеться в парку ім.Чекмана.</div>
                 <button type="button" class="btn" data-toggle="modal" data-target="#magic-run-reg-modal">ЗАРЕЄСТРУВАТИСЬ</button>
+                <a class="mt-2 text-decoration-underline" href="{{ route('race-participants', ['raceId' => \App\Models\Race::getIdByName('MagicRUN')]) }}">Список учасників</a>
             </div>
         </div>
     </div>
