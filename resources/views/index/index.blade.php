@@ -178,7 +178,7 @@
 
 
         @include('races.partials.ukrainerun-reg-modal')
-        @include('races.partials.volya-fest-reg-modal')
+        
 
         @include('races.partials.magic-run-reg-modal')
 

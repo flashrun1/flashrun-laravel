@@ -13,14 +13,6 @@
 
                 <form action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
 
-                    <!--
-                    <div class="form-group prices my-4">
-                        @include('partials.event-subtype-switcher')
-                    </div>-->
-                    <!--<div class="form-group prices my-4">
-                        @include('partials.event-prices-block')
-                    </div>-->
-
                     {{ csrf_field() }}
                     <input type="hidden" name="race_id" value="{{\App\Models\Race::getIdBySlug('freedom-fest-2024-online')}}">
                     <input type="hidden" name="race_name" value="{{\App\Models\Race::getNameBySlug('freedom-fest-2024-online')}}">
@@ -58,10 +50,12 @@
                                     <label for="">Дистанції</label>
                                 </div>
                                 <div class="custon-radio-group">
-                                    <input id="registr_modal5_ocr_form_cb_option1" type="radio" name="distance" value="1000"  class="custon-radio-btn" checked>
+                                    <input id="registr_modal5_ocr_form_cb_option1" type="radio" name="distance" value="2000"  class="custon-radio-btn" checked>
                                     <label for="registr_modal5_ocr_form_cb_option1">2 км</label>
+
                                     <input id="registr_modal5_ocr_form_cb_option2" type="radio" name="distance" value="5000"  class="custon-radio-btn" >
                                     <label for="registr_modal5_ocr_form_cb_option2">5 км</label>
+
                                     <input id="registr_modal5_ocr_form_cb_option3" type="radio" name="distance" value="10000"  class="custon-radio-btn">
                                     <label for="registr_modal5_ocr_form_cb_option3">10 км</label>
 

@@ -62,20 +62,20 @@ imagesLoaded( document.querySelector('.grid'), function( instance ) {
     });
 });
 
-document.querySelectorAll('.event-subtypes .event-subtype').forEach(function(elm, indx){
+/*document.querySelectorAll('.event-subtypes .event-subtype').forEach(function(elm, indx){
     // if selected
     if (elm.classList.contains('active-brand-color')) {
         var selectedType = elm.dataset.type;
-        document.querySelector('#registr_modal-volyaFest .race-subtype-content').innerHTML = document.querySelector('#registr_modal-volyaFest .' + selectedType + '-subtype-wrapper').innerHTML;
+        document.querySelector('#registr_modal-volyaFestOnline .race-subtype-content').innerHTML = document.querySelector('#registr_modal-volyaFestOnline .' + selectedType + '-subtype-wrapper').innerHTML;
         return;
     }
-});
+});*/
 
 // console.log($('#registr_modal-volyaFest .event-subtypes .event-subtype'));
 
 // console.log(document.querySelector('.event-subtype').classList.contains('active-brand-color'));
 
-document.querySelector('#magic-run-reg-modal .race-subtype-content').innerHTML = document.querySelector('#magic-run-reg-modal .regular-subtype-wrapper').innerHTML;
+//document.querySelector('#magic-run-reg-modal .race-subtype-content').innerHTML = document.querySelector('#magic-run-reg-modal .regular-subtype-wrapper').innerHTML;
 // document.querySelector('#registr_modal3 .race-subtype-content').innerHTML = document.querySelector('#registr_modal3 .regular-subtype-wrapper').innerHTML;
 
 // console.log(document.querySelectorAll('#registr_modal-volyaFest .event-subtypes .event-subtype').length);
