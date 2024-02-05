@@ -1,0 +1,97 @@
+version: '3.9'
+services:
+
+# ----------- NGINX -----------
+  nginx:
+    container_name: nginx
+    build:
+      context: docker/nginx
+      dockerfile: Dockerfile
+#        image: nginx:latest
+    ports:
+      - '8080:80'
+    volumes:
+      - ./:/var/www/flashrun
+    environment:
+      - VIRTUAL_HOST=flashrun.local
+    networks:
+      default:
+
+  # ----------- COMPOSER -----------
+  composer:
+    container_name: composer
+    build:
+      context: docker/composer
+      dockerfile: Dockerfile
+#    image: composer:latest
+#    working_dir: /var/www/flashrun
+#    command: copy composer*.json /var/www/flashrun && composer install -d /var/www/flashrun
+    volumes:
+      - ./:/var/www/flashrun
+#    networks:
+#      default:
+
+  # ----------- FRONTEND -----------
+  frontend:
+    image: node:latest  # Use the Node.js version you need
+    container_name: frontend
+    restart: on-failure
+    build:
+      context: docker/frontend
+      dockerfile: Dockerfile
+#    working_dir: /var/www/flashrun
+    volumes:
+#      - ./node_modules:/var/www/flashrun/node_modules
+      - ./:/var/www/flashrun  # Mount your local Node.js app directory to /app in the container
+    ports:
+      - "3000:3000"  # Map port 3000 on your machine to port 3000 in the container
+#    command: npm run watch --watch-poll  # Change this based on your start command in package.json
+    environment:
+      NODE_ENV: development
+
+  php-fpm:
+    container_name: flashrun-php-fpm
+    build:
+        context: docker/php-fpm
+        dockerfile: Dockerfile
+    ports:
+        - '9000:9000'
+    volumes:
+        - ./:/var/www/flashrun
+        - ./vendor:/var/www/flashrun/vendor
+    networks:
+      default:
+#    environment:
+#      COMPOSER_ALLOW_SUPERUSER: 1
+#      depends_on:
+#          - nginx
+
+  mysql:
+    container_name: flashrun-mysql
+    build:
+      context: docker
+      dockerfile: mysql/Dockerfile
+    restart: always
+    ports:
+      - '3306'
+    environment:
+      MYSQL_DATABASE: 'fl'
+      MYSQL_USER: 'fl'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'root'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+      - ./mysql/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    networks:
+      default:
+
+# Names our volume
+volumes:
+  my-db:
+
+networks:
+  flashrun-network:
+    driver: bridge
+    external: true

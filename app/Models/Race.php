@@ -71,6 +71,8 @@ class Race extends Model
     public static function getPriceById($id) {
         $race = self::findOrFail($id);
 
+        $price = 400;
+
         if (!\Carbon\Carbon::parse('2023-07-01')->isPast()) {
             $price = 600;
         }

@@ -67,7 +67,11 @@
 
                         @include('races.partials.christmas-run-category-card', ['disabled' => true])
 
-                        @include('races.partials.magic-run-category-card', ['disabled' => false])
+                        @include('races.partials.magic-run-category-card', ['disabled' => true])
+
+                        @include('races.partials.volia-fest-online-category-card', ['disabled' => false])
+
+
                     </div>
                 </div>
             </section>
@@ -179,6 +183,8 @@
         @include('races.partials.volya-fest-reg-modal')
 
         @include('races.partials.magic-run-reg-modal')
+
+        @include('races.partials.volya-fest-online-reg-modal')
 
         <div class="modal fade " id="buy_modal" tabindex="-1" aria-labelledby="buy_modal" aria-modal="true"
              role="dialog">
