@@ -65,8 +65,6 @@
 
                         @include('races.partials.volia-fest-category-card', ['disabled' => true])
 
-                        @include('races.partials.christmas-run-category-card', ['disabled' => true])
-
                         @include('races.partials.magic-run-category-card', ['disabled' => true])
 
                         @include('races.partials.volia-fest-online-category-card', ['disabled' => false])
