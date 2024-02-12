@@ -81,19 +81,35 @@ imagesLoaded( document.querySelector('.grid'), function( instance ) {
 // console.log(document.querySelectorAll('#registr_modal-volyaFest .event-subtypes .event-subtype').length);
 
 
-document.querySelectorAll('#registr_modal-volyaFest .event-subtype').forEach(function(e){
+// document.querySelectorAll('#registr_modal-volyaFest .event-subtype').forEach(function(e){
+//     e.onclick = function(evnt) {
+//         // remove active class
+//         document.querySelectorAll('#registr_modal-volyaFest .event-subtype').forEach(function(elm){
+//             elm.classList.remove('active-brand-color');
+//         });
+//
+//         // assign active class to clicked element
+//         evnt.target.classList.add('active-brand-color');
+//         selectedType = evnt.target.dataset.type;
+//         document.querySelector('#registr_modal-volyaFest .race-subtype-content').innerHTML = document.querySelector('#registr_modal-volyaFest .' + selectedType + '-subtype-wrapper').innerHTML;
+//     }
+// })
+
+document.querySelectorAll('#registr_modal_proskuriv_run_2024 .event-subtype').forEach(function(e){
     e.onclick = function(evnt) {
         // remove active class
-        document.querySelectorAll('#registr_modal-volyaFest .event-subtype').forEach(function(elm){
+        document.querySelectorAll('#registr_modal_proskuriv_run_2024 .event-subtype').forEach(function(elm){
             elm.classList.remove('active-brand-color');
         });
 
         // assign active class to clicked element
         evnt.target.classList.add('active-brand-color');
         selectedType = evnt.target.dataset.type;
-        document.querySelector('#registr_modal-volyaFest .race-subtype-content').innerHTML = document.querySelector('#registr_modal-volyaFest .' + selectedType + '-subtype-wrapper').innerHTML;
+        document.querySelector('#registr_modal_proskuriv_run_2024 .race-subtype-content').innerHTML = document.querySelector('#registr_modal_proskuriv_run_2024 .' + selectedType + '-subtype-wrapper').innerHTML;
     }
 })
+
+
 
 // document.querySelector('#registr_modal5 .relay-race-subtype').onclick = function(e){
 //     document.querySelectorAll('#registr_modal5 .regular-race-subtype, #registr_modal5 .relay-race-subtype, #registr_modal5 .kids-race-subtype').forEach(function(elm){
@@ -161,6 +177,12 @@ window.addEventListener('load', () => {
         const modal = document.querySelector(target);
         if (modal) {
           openModal(modal);
+          $(modal).find('.event-subtype').each(function(i, obj){
+              // console.log(i, $(obj), $(obj).hasClass('active-brand-color'));
+              if ($(obj).hasClass('active-brand-color')) {
+                  $(obj).trigger('click');
+              }
+          });
         }
       });
     });

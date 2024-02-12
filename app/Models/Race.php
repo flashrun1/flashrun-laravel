@@ -68,19 +68,43 @@ class Race extends Model
         return self::query()->where('slug', $slug)->first()->id;
     }
 
-    public static function getPriceById($id) {
-        $race = self::findOrFail($id);
+    public static function getPriceById($id, $team = false) {
+        //$race = self::findOrFail($id);
 
-        $price = 400;
-
-        if (!\Carbon\Carbon::parse('2023-07-01')->isPast()) {
-            $price = 600;
+        $price = 800;
+        if ($team === true) {
+            $price = 4000;
         }
 
-
-        if (\Carbon\Carbon::now()->betweenIncluded(\Carbon\Carbon::parse('2023-07-02'), \Carbon\Carbon::parse('2023-07-30'))) {
-            $price = 700;
-        }
+//        if (!\Carbon\Carbon::parse('2024-03-15')->isPast()) {
+//            dd('tytyty');
+//            $price = 800;
+//            if ($team === true) {
+//                $price = 4000;
+//            }
+//        }
+//
+//
+//        if (\Carbon\Carbon::now()->betweenIncluded(\Carbon\Carbon::parse('2024-03-16'), \Carbon\Carbon::parse('2024-03-16'))) {
+//            $price = 900;
+//            if ($team === true) {
+//                $price = 4500;
+//            }
+//        }
+//
+//        if (\Carbon\Carbon::now()->betweenIncluded(\Carbon\Carbon::parse('2024-04-01'), \Carbon\Carbon::parse('2024-04-19'))) {
+//            $price = 1000;
+//            if ($team === true) {
+//                $price = 5000;
+//            }
+//        }
+//
+//        if (\Carbon\Carbon::now()->isPast(\Carbon\Carbon::parse('2024-04-21')) || \Carbon\Carbon::parse('2024-04-21')->isToday()) {
+//            $price = 1200;
+//            if ($team === true) {
+//                $price = 6000;
+//            }
+//        }
 
         return $price;
 

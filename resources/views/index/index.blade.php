@@ -57,7 +57,7 @@
                     <h2 class="section-title">РЕЄСТРАЦІЯ <span class="sub-title">«FLASHRUN»</span></h2>
 
                     <div class="row">
-                        @include('races.partials.proskuriv-run-category-card', ['disabled' => true])
+                        @include('races.partials.proskuriv-run-category-card', ['disabled' => false])
 
                         @include('races.partials.ukraine-run-category-card', ['disabled' => true])
 
@@ -178,7 +178,8 @@
 
 
         @include('races.partials.ukrainerun-reg-modal')
-        
+        @include('races.partials.proskuriv-run-reg-modal')
+
 
         @include('races.partials.magic-run-reg-modal')
 
