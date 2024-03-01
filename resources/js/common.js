@@ -109,6 +109,20 @@ document.querySelectorAll('#registr_modal_proskuriv_run_2024 .event-subtype').fo
     }
 })
 
+document.querySelectorAll('#registr_modal-two-fortress .event-subtype').forEach(function(e){
+    e.onclick = function(evnt) {
+        // remove active class
+        document.querySelectorAll('#registr_modal-two-fortress .event-subtype').forEach(function(elm){
+            elm.classList.remove('active-brand-color');
+        });
+
+        // assign active class to clicked element
+        evnt.target.classList.add('active-brand-color');
+        selectedType = evnt.target.dataset.type;
+        document.querySelector('#registr_modal-two-fortress .race-subtype-content').innerHTML = document.querySelector('#registr_modal-two-fortress .' + selectedType + '-subtype-wrapper').innerHTML;
+    }
+})
+
 
 
 // document.querySelector('#registr_modal5 .relay-race-subtype').onclick = function(e){

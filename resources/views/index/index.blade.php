@@ -69,6 +69,8 @@
 
                         @include('races.partials.volia-fest-online-category-card', ['disabled' => false])
 
+                        @include('races.partials.two-fortress-category-card', ['disabled' => false])
+
 
                     </div>
                 </div>
@@ -179,6 +181,7 @@
 
         @include('races.partials.ukrainerun-reg-modal')
         @include('races.partials.proskuriv-run-reg-modal')
+        @include('races.partials.two-fortress-reg-modal')
 
 
         @include('races.partials.magic-run-reg-modal')
