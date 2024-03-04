@@ -31,14 +31,6 @@ class Race extends Model
     ];
 
     public function participants() {
-
-
-
-
-
-
-
-
         $participants = Order::where('race_id', $this->id)
             ->where('status', Order::STATUS_REGISTERED_PAID)
 //            ->whereIn('type', [
@@ -69,9 +61,14 @@ class Race extends Model
     }
 
     public static function getPriceById($id, $team = false) {
-        //$race = self::findOrFail($id);
+        $race = self::findOrFail($id);
 
-        $price = 800;
+        if ($race['slug'] === 'freedom-fest-2024-online') {
+            $price = 400;
+        } else {
+            $price = 800;
+        }
+
         if ($team === true) {
             $price = 4000;
         }

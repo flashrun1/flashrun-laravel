@@ -20,7 +20,7 @@
                     <div class="race-subtype-content">
                         <div class="online-subtype-wrapper">
                             <input type="hidden" name="type" value="ocr">
-                            <input type="hidden" name="price" value="{{\App\Models\Race::getPriceById(\App\Models\Race::getIdBySlug('freedom-fest-2023'))}}">
+                            <input type="hidden" name="price" value="{{\App\Models\Race::getPriceById(\App\Models\Race::getIdBySlug('freedom-fest-2024-online'))}}">
                             <div class="form-group">
                                 <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
                                 <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
@@ -50,20 +50,20 @@
                                     <label for="">Дистанції</label>
                                 </div>
                                 <div class="custon-radio-group">
-                                    <input id="registr_modal5_ocr_form_cb_option1" type="radio" name="distance" value="2000"  class="custon-radio-btn" checked>
-                                    <label for="registr_modal5_ocr_form_cb_option1">2 км</label>
+                                    <input id="registr_modal5_ocr_form_cb_option_1" type="radio" name="distance" value="2000"  class="custon-radio-btn" checked>
+                                    <label for="registr_modal5_ocr_form_cb_option_1">2 км</label>
 
-                                    <input id="registr_modal5_ocr_form_cb_option2" type="radio" name="distance" value="5000"  class="custon-radio-btn" >
-                                    <label for="registr_modal5_ocr_form_cb_option2">5 км</label>
+                                    <input id="registr_modal5_ocr_form_cb_option_2" type="radio" name="distance" value="5000"  class="custon-radio-btn" >
+                                    <label for="registr_modal5_ocr_form_cb_option_2">5 км</label>
 
-                                    <input id="registr_modal5_ocr_form_cb_option3" type="radio" name="distance" value="10000"  class="custon-radio-btn">
-                                    <label for="registr_modal5_ocr_form_cb_option3">10 км</label>
+                                    <input id="registr_modal5_ocr_form_cb_option_3" type="radio" name="distance" value="10000"  class="custon-radio-btn">
+                                    <label for="registr_modal5_ocr_form_cb_option_3">10 км</label>
 
-                                    <input id="registr_modal5_ocr_form_cb_option4" type="radio" name="distance" value="21000"  class="custon-radio-btn">
-                                    <label for="registr_modal5_ocr_form_cb_option4">21 км</label>
+                                    <input id="registr_modal5_ocr_form_cb_option_4" type="radio" name="distance" value="21000"  class="custon-radio-btn">
+                                    <label for="registr_modal5_ocr_form_cb_option_4">21 км</label>
 
-                                    <input id="registr_modal5_ocr_form_cb_option5" type="radio" name="distance" value="42000"  class="custon-radio-btn">
-                                    <label for="registr_modal5_ocr_form_cb_option5">42 км</label>
+                                    <input id="registr_modal5_ocr_form_cb_option_5" type="radio" name="distance" value="42000"  class="custon-radio-btn">
+                                    <label for="registr_modal5_ocr_form_cb_option_5">42 км</label>
                                 </div>
                             </div>
 
