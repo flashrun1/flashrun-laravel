@@ -1,3 +1,11 @@
+<head>
+    <script async src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        function onTwoFortressFormSubmit(token) {
+            window.document.getElementById("two-fortress-form").submit();
+        }
+    </script>
+</head>
 <div class="modal fade" id="registr_modal-two-fortress" tabindex="-1" aria-labelledby="registr_modal-two-fortress" aria-modal="true"
      role="dialog">
     <div class="modal-dialog" role="document">
@@ -11,7 +19,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
+                <form id="two-fortress-form" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
 
                     <div class="form-group prices my-4">
                         <div class="event-subtypes">
@@ -42,7 +50,10 @@
 
                     <div class="form-group">
                         <div class="btn-wrap text-center">
-                            <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
+                            <button class="g-recaptcha btn btn-primary btn-lg"
+                                    data-callback="onTwoFortressFormSubmit"
+                                    data-sitekey="{{ config('services.recaptcha_v3.siteKey') }}"
+                                    data-action="raceRegister">ЗАРЕЄСТРУВАТИСЬ</button>
                             <a href="{{ asset('/files/two-fortress-polozhennya.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ use App\Mail\RaceRegistered;
 use App\Models\Order;
 use App\Models\Promocode;
 use App\Models\Race;
+use App\Rules\ReCaptchaV3;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use LiqPay;
@@ -14,6 +15,10 @@ class RaceController extends Controller
 {
     public function register(Request $request)
     {
+        $this->validate($request, [
+            'g-recaptcha-response' => ['required', new ReCaptchaV3('raceRegister', 0.6)]
+        ]);
+
         $description = $request->race_name . ' | ' . $request->name . ' | ' . $request->email . ' | ' .
             $request->distance . 'm' . ' | ' . $request->type;
 

@@ -1,3 +1,11 @@
+<head>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        function onVolyaFestFormSubmit(token) {
+            document.getElementById("volya-fest-form").submit();
+        }
+    </script>
+</head>
 <div class="modal fade" id="registr_modal-volyaFestOnline" tabindex="-1" aria-labelledby="registr_modal-volyaFestOnline" aria-modal="true"
      role="dialog">
     <div class="modal-dialog" role="document">
@@ -11,7 +19,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
+                <form id="volya-fest-form" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
 
                     {{ csrf_field() }}
                     <input type="hidden" name="race_id" value="{{\App\Models\Race::getIdBySlug('freedom-fest-2024-online')}}">
@@ -76,7 +84,10 @@
 
                     <div class="form-group">
                         <div class="btn-wrap text-center">
-                            <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
+                            <button class="g-recaptcha btn btn-primary btn-lg"
+                                    data-callback="onVolyaFestFormSubmit"
+                                    data-sitekey="{{ config('services.recaptcha_v3.siteKey') }}"
+                                    data-action="raceRegister">ЗАРЕЄСТРУВАТИСЬ</button>
                             <a href="{{ asset('/files/freedom-fest-2023-polozhennya.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>
                         </div>
                     </div>

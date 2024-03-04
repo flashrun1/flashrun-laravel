@@ -1,3 +1,11 @@
+<head>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        function onProskurivRunFormSubmit(token) {
+            document.getElementById("proskuriv-run-form").submit();
+        }
+    </script>
+</head>
 <div class="modal fade" id="registr_modal_proskuriv_run_2024" tabindex="-1" aria-labelledby="registr_modal_proskuriv_run_2024" aria-modal="true"
      role="dialog">
     <div class="modal-dialog" role="document">
@@ -11,7 +19,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
+                <form id="proskuriv-run-form" action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
 
                     <div class="form-group prices my-4">
                         @include('partials.event-subtype-switcher')
@@ -27,7 +35,10 @@
 
                     <div class="form-group">
                         <div class="btn-wrap text-center">
-                            <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
+                            <button class="g-recaptcha btn btn-primary btn-lg"
+                                    data-callback="onProskurivRunFormSubmit"
+                                    data-sitekey="{{ config('services.recaptcha_v3.siteKey') }}"
+                                    data-action="raceRegister">ЗАРЕЄСТРУВАТИСЬ</button>
                             <!--<a href="{{ asset('/files/freedom-fest-2023-polozhennya.pdf') }}" target="_blank" class="btn btn-invert">Положення змагань</a>-->
                         </div>
                     </div>
