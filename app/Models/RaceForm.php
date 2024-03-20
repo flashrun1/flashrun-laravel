@@ -1,30 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Race extends Model
+class RaceForm extends Model
 {
     use HasFactory;
 
     /**
      * @inheritDoc
      */
-    protected $table = 'race';
+    protected $table = 'race_form';
 
     /**
      * @inheritDoc
      */
     protected $fillable = [
-        'title',
-        'logo',
-        'front_description',
-        'race_description',
-        'is_active',
-        'document'
+        'distance',
+        'number_starts_from',
+        'payments',
+        'notes',
+        'race_id',
+        'type_id'
     ];
 }

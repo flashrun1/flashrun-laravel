@@ -7,7 +7,7 @@
       <h3>{{ __('Log in to see how you can speed up your web development with out of the box CRUD for #User Management and more.') }} </h3>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
-      <form class="form" method="POST" action="{{ route('login') }}">
+      <form class="form" method="POST" action="{{ route('admin.login.post') }}">
         @csrf
 
         <div class="card card-login card-hidden mb-3">

@@ -44,6 +44,11 @@ return [
             'throw' => false,
         ],
 
+        'resource_upload' => [
+            'driver' => 'local',
+            'root' => resource_path()
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

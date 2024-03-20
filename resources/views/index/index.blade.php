@@ -1,7 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ua">
 <head>
     @include('layouts.partials.head-section')
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script> -->
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script src="https://npmcdn.com/isotope-layout@3.0/dist/isotope.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js" integrity="sha512-/bOVV1DV1AQXcypckRwsR9ThoCj7FqTV2/0Bm79bL3YSyLkVideFLE3MIZkq1u5t28ke1c0n31WYCOrO01dsUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.27/dist/fancybox.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
 </head>
 <body class="">
 @if(session('success'))
@@ -55,21 +65,17 @@
             <section class="section registr-cards" id="registration">
                 <div class="container">
                     <h2 class="section-title">РЕЄСТРАЦІЯ <span class="sub-title">«FLASHRUN»</span></h2>
-
                     <div class="row">
-                        @include('races.partials.proskuriv-run-category-card', ['disabled' => false])
-
-                        @include('races.partials.volia-fest-online-category-card', ['disabled' => false])
-
-                        @include('races.partials.two-fortress-category-card', ['disabled' => false])
-
-
+                        @foreach($races as $race)
+                            @include('races.race-registration-card', ['race' => $race])
+                            @include('races.race-form', ['race' => $race])
+                        @endforeach
                     </div>
                 </div>
             </section>
             @include('partials.our-events')
 
-            <!--@include('partials.merch-catalog')-->
+            @include('partials.merch-catalog')
 
             @include('partials.gallery-section')
 
@@ -80,100 +86,6 @@
         @include('partials.footer')
         <!-- end of footer -->
         <!-- modals -->
-
-        <!--
-        <div class="modal fade" id="registr_modal-volyaFest" tabindex="-1" aria-labelledby="registr_modal-volyaFest" aria-modal="true"
-             role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="section-title">РЕЄСТРАЦІЯ <span class="sub-title">«Благодійний забіг заради Валерія Одайника»</span></h2>
-                        <h3 class="title">м. Кам"янець-Подільський, Європейський сквер (готель 7 днів)</h3>
-                        <button type="button" class="close" aria-label="Close" data-dismiss="modal">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        <form action="{{ route('race-register') }}" method="post" enctype="multipart/form-data">
-
-                            <div class="form-group prices my-4">
-                            </div>
-                            <div class="form-group prices my-4">
-                                @include('partials.event-prices-block')
-                            </div>
-
-                            {{ csrf_field() }}
-                            <input type="hidden" name="race_name" value="Благодійний Забіг">
-
-                            <div class="race-subtype-content">
-
-                            </div>
-                            <div class="form-group">
-                                <div class="btn-wrap text-center">
-                                    <button type="submit" class="btn">ЗАРЕЄСТРУВАТИСЬ</button>
-                                    <a href="https://docs.google.com/document/d/10BSiSsVYb5E1W9m1rYGXNe_GVzduUwoCbzQoAylsIAA/edit" target="_blank" class="btn btn-invert">Положення змагань</a>
-                                </div>
-                            </div>
-                        </form>
-
-
-                        <div class="regular-subtype-wrapper d-none">
-                            <input type="hidden" name="type" value="regular">
-                            <input type="hidden" name="price" value="300">
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_name">Ім’я та прізвище</label>
-                                <input id="registr_modal_form_cb_name" type="text" name="name" placeholder="Введіть ім’я та прізвище" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-mail</label>
-                                <input id="email" type="email" name="email" placeholder="Введіть електронну пошту" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_phone">Номер телефону</label>
-                                <input id="registr_modal_form_cb_phone" type="tel" name="phone" placeholder="Введіть номер телефону" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_clubname">Ваш клуб</label>
-                                <input id="registr_modal_form_cb_clubname" type="text" name="club" placeholder="Введіть клуб" value="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_sity">Ваше місто</label>
-                                <input id="registr_modal_form_cb_sity" type="text" name="city" placeholder="Введіть Ваше місто" value="" required="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="registr_modal_form_cb_promocode">Промокод</label>
-                                <input id="registr_modal_form_cb_promocode" type="text" name="code" placeholder="Введіть промокод" value="" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <div class="label-wrap">
-                                    <label for="">Дистанції</label>
-                                </div>
-                                <div class="custon-radio-group">
-                                    <input id="registr_modal_form_cb_option1" type="radio" name="distance" value="2000"  class="custon-radio-btn" checked>
-                                    <label for="registr_modal_form_cb_option1">2 км</label>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
--->
-
-
-
-        @include('races.partials.proskuriv-run-reg-modal')
-        @include('races.partials.two-fortress-reg-modal')
-        @include('races.partials.volya-fest-online-reg-modal')
 
         <div class="modal fade " id="buy_modal" tabindex="-1" aria-labelledby="buy_modal" aria-modal="true"
              role="dialog">
@@ -614,16 +526,6 @@
         </div>
     </div>
 </div>
-
-<!-- scripts -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script> -->
-<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-<script src="https://npmcdn.com/isotope-layout@3.0/dist/isotope.pkgd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js" integrity="sha512-/bOVV1DV1AQXcypckRwsR9ThoCj7FqTV2/0Bm79bL3YSyLkVideFLE3MIZkq1u5t28ke1c0n31WYCOrO01dsUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.27/dist/fancybox.umd.min.js"></script>
-<link  rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
 <script src="{{ asset('/js/common.js') }}"></script>
 </body>
 </html>

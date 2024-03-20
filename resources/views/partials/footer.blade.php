@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-2 col-md-3 text-center text-md-left">
-                    <div class="copy">©2022 @php echo \Illuminate\Support\Str::upper(env('APP_NAME')) @endphp</div>
+                    <div class="copy">© {{ \Carbon\Carbon::now()->year }} @php echo \Illuminate\Support\Str::upper(env('APP_NAME')) @endphp</div>
                 </div>
                 <div class="col-lg-8 col-md-6">
                     <ul class="nav nav-menu navbar-wrap justify-content-center">

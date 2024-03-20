@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->string('promocode')->nullable();
+        Schema::create('race_type', function (Blueprint $table) {
+            $table->id();
+            $table->string('type_label')->unique();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('promocode');
-        });
+        Schema::dropIfExists('race_type');
     }
 };

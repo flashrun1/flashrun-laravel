@@ -7,24 +7,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Race extends Model
+class RaceType extends Model
 {
     use HasFactory;
 
     /**
      * @inheritDoc
      */
-    protected $table = 'race';
+    protected $table = 'race_type';
 
     /**
      * @inheritDoc
      */
     protected $fillable = [
-        'title',
-        'logo',
-        'front_description',
-        'race_description',
-        'is_active',
-        'document'
+        'type_label'
     ];
 }

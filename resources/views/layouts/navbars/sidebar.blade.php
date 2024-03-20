@@ -5,7 +5,7 @@
       Tip 2: you can also add an image using data-image tag
   -->
   <div class="logo">
-    <a href="/home" class="simple-text logo-normal">
+    <a href="{{ route('admin.home') }}" class="simple-text logo-normal">
       {{ __('FlashRun') }}
     </a>
   </div>
@@ -55,6 +55,12 @@
           <a class="nav-link" href="{{ route('promocodes') }}">
               <i class="material-icons">content_paste</i>
               <p>{{ __('Промокоди') }}</p>
+          </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
+          <a class="nav-link" href="{{ route('races.index') }}">
+              <i class="material-icons">content_paste</i>
+              <p>{{ __('Забіги') }}</p>
           </a>
       </li>
       <!--

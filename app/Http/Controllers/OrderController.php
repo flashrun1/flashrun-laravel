@@ -1,10 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
+use App\Mail\RaceRegistered;
 use App\Models\Order;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -30,19 +40,18 @@ class OrderController extends Controller
     {
         $private_key = config('liqpay.private_key');
         $public_key = config('liqpay.public_key');
-        $sign = base64_encode( sha1($private_key . $request->data . $private_key, 1));
+        $sign = base64_encode(sha1($private_key . $request->data . $private_key, true));
         $req_sign = $request->signature;
 
         if ($sign == $req_sign) {
             $data = json_decode(base64_decode($request->data));
-            $order = Order::where('id', $data->order_id)->first();
+            $order = Order::query()->where('id', $data->order_id)->first();
+
             if ($order) {
                 if ($data->status == 'success') {
                     $order->setPaid();
-                    $order->save();
 
-                    // send sms
-                    $this->sendSms(null, $order->phone);
+                    Mail::to($request->email)->send(new RaceRegistered($request));
 
                     return redirect()->to('/')->with(
                         'success',
@@ -56,25 +65,30 @@ class OrderController extends Controller
                 'Дякуємо за реєстрацію, перевірте будь ласка пошту, вказану при реэстрації, для подальших інструкцій'
             );
         }
-        //dd($sign,$request->toArray(),$req_sign);
-        //Log::debug($request->toArray());
     }
 
-    public function paymentResult(Request $request) {
-        Log::debug('payment-result');
-        Log::debug($request);
-    }
-
-    public function index()
+    /**
+     * @param Request $request
+     * @return void
+     */
+    public function paymentResult(Request $request): void
     {
-        $orders = Order::where('status', '!=', \App\Models\Order::STATUS_DELETED)
+        Log::debug('payment-result', $request->toArray());
+    }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function index(): View|Factory|Application
+    {
+        $orders = Order::query()->where('status', '!=', Order::STATUS_DELETED)
             ->orderBy('created_at', 'desc')
             ->orderBy('name')
             ->get()
         ;
-        $ordersCount = Order::where('status', '!=', Order::STATUS_DELETED)->count();
-        $paidOrderCount = Order::where('status', Order::STATUS_REGISTERED_PAID)->count();
-        $unpaidOrderCount = Order::where('status', '!=', Order::STATUS_REGISTERED_PAID)->count();
+        $ordersCount = Order::query()->where('status', '!=', Order::STATUS_DELETED)->count();
+        $paidOrderCount = Order::query()->where('status', Order::STATUS_REGISTERED_PAID)->count();
+        $unpaidOrderCount = Order::query()->where('status', '!=', Order::STATUS_REGISTERED_PAID)->count();
 
         return view('orders.index', [
             'orders' => $orders,
@@ -84,80 +98,57 @@ class OrderController extends Controller
         ]);
     }
 
-    public function create()
+    /**
+     * @return Application|Factory|View
+     */
+    public function create(): View|Factory|Application
     {
         return view('orders.create');
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function store(Request $request)
+    public function store(Request $request): Redirector|Application|RedirectResponse
     {
         Order::createFromRequest($request);
 
         return redirect('/orders');
     }
 
-    public function setPaid(Order $order, Request $request) {
+    /**
+     * @param Order $order
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function setPaid(Order $order, Request $request): RedirectResponse
+    {
         $order->setPaid();
+
         return redirect()->route('orders');
     }
 
-    public function setUnpaid(Order $order, Request $request) {
+    /**
+     * @param Order $order
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function setUnpaid(Order $order, Request $request): RedirectResponse
+    {
         $order->setUnpaid();
+
         return redirect()->route('orders');
     }
 
-    public function setDeleted(Order $order, Request $request) {
+    /**
+     * @param Order $order
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function setDeleted(Order $order, Request $request): RedirectResponse
+    {
         $order->setDeleted();
+
         return redirect()->route('orders');
-    }
-
-    public function sendSms($text = null, $number) {
-        $service_plan_id = "5fbb5faf86f54f95907a5a0aacc50c48";
-        $bearer_token = "d070eb326b90474dab78483cf0ee434e";
-
-        if ($text == null) {
-            $text = 'Вітаємо з реєстрацією! (flashrun)';
-        }
-
-//Any phone number assigned to your API
-        $send_from = "+380976534373";
-//May be several, separate with a comma ,
-        $recipient_phone_numbers = $number;
-        $message = "$text";
-
-// Check recipient_phone_numbers for multiple numbers and make it an array.
-        if(stristr($recipient_phone_numbers, ',')){
-            $recipient_phone_numbers = explode(',', $recipient_phone_numbers);
-        }else{
-            $recipient_phone_numbers = [$recipient_phone_numbers];
-        }
-
-// Set necessary fields to be JSON encoded
-        $content = [
-            'to' => array_values($recipient_phone_numbers),
-            'from' => $send_from,
-            'body' => $message
-        ];
-
-        $data = json_encode($content);
-
-        $ch = curl_init("https://us.sms.api.sinch.com/xms/v1/{$service_plan_id}/batches");
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BEARER);
-        curl_setopt($ch, CURLOPT_XOAUTH2_BEARER, $bearer_token);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-        $result = curl_exec($ch);
-
-        if(curl_errno($ch)) {
-            Log::debug('Curl error: ' . curl_error($ch));
-        }
-        curl_close($ch);
     }
 }
