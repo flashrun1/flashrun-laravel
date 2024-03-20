@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('race_form', function (Blueprint $table) {
             $table->id();
             $table->json('distance')->nullable(false);
-            $table->string('number_starts_from')->nullable(false);
+            $table->string('number_starts_from')->nullable();
             $table->json('payments')->nullable();
             $table->string('notes')->nullable();
             $table->unsignedBigInteger('race_id');
