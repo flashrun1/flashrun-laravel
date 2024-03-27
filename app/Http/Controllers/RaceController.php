@@ -21,6 +21,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use LiqPay;
+use Symfony\Component\Process\Process;
 
 class RaceController extends Controller
 {
@@ -304,6 +305,8 @@ class RaceController extends Controller
 
         $this->raceModel->fill($raceData)->save();
 
+        $this->runDeploy();
+
         return $this->index();
     }
 
@@ -431,6 +434,8 @@ class RaceController extends Controller
 
         Race::query()->where('id', '=', $request->id)->first()->update($raceData);
 
+        $this->runDeploy();
+
         return $this->index();
     }
 
@@ -530,5 +535,13 @@ class RaceController extends Controller
         RaceForm::query()->where('id', '=', $request->id)->first()->delete();
 
         return $this->updateRaceFormView($request);
+    }
+
+    /**
+     * @return void
+     */
+    private function runDeploy(): void
+    {
+        shell_exec('npm run prod');
     }
 }
