@@ -23,7 +23,7 @@ class IndexController extends Controller
     {
         $races = [];
 
-        foreach (Race::all() as $race) {
+        foreach (Race::all()->sortBy('position') as $race) {
             $races[$race->id] = $race->getAttributes();
 
             $raceForms = RaceForm::query()->select(['race_form.*', 'race_type.type_label'])

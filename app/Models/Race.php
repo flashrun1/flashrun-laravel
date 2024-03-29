@@ -25,6 +25,7 @@ class Race extends Model
         'front_description',
         'race_description',
         'is_active',
-        'document'
+        'document',
+        'position'
     ];
 }

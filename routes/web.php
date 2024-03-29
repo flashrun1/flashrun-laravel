@@ -61,6 +61,8 @@ Route::controller(RaceController::class)->group(function () {
     Route::get('/admin/delete-race-type/EgZjaHJvbWUyCQgAEEUY/id/{id}', 'deleteRaceType')->name('delete-race-type')->middleware('auth');
     Route::get('/admin/delete-race-form/EgZjaHJvbWUyCQgAEEUY/id/{id}', 'deleteRaceForm')->name('delete-race-form')->middleware('auth');
 
+    Route::post('/admin/race-position-management/EgZjaHJvbWUyCQgAEEUY', 'racePositionManagement')->name('race-position-management')->middleware('auth');
+
     Route::post('/race-register', 'register')->name('race-register');
     Route::get('/races/{raceId}/participants', 'participants')->name('race-participants');
 });

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('race_description')->nullable();
             $table->boolean('is_active')->nullable(false)->default(false);
             $table->string('document')->nullable();
+            $table->smallInteger('position')->nullable(false);
             $table->timestamps();
         });
     }

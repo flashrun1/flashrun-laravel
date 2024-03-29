@@ -163,7 +163,7 @@ class RaceController extends Controller
     {
         $races = [];
 
-        foreach (Race::all() as $race) {
+        foreach (Race::all()->sortBy('position') as $race) {
             $races[$race->id] = $race->getAttributes();
 
             $raceForms = RaceForm::query()->select(['race_form.*', 'race_type.type_label'])
@@ -535,6 +535,19 @@ class RaceController extends Controller
         RaceForm::query()->where('id', '=', $request->id)->first()->delete();
 
         return $this->updateRaceFormView($request);
+    }
+
+    /**
+     * @param Request $request
+     * @return void
+     */
+    public function racePositionManagement(Request $request): void
+    {
+        $positions = $request->position;
+
+        foreach ($positions as $key => $item) {
+            Race::query()->where('id', '=', $item)->first()->update(['position' => $key]);
+        }
     }
 
     /**
