@@ -13,21 +13,23 @@
         </tr>
         </thead>
         <tbody class="table-group-divider">
-        @foreach($orders as $k => $order)
-            <tr class="">
-                <td colspan="8" class="py-4 text-center">
-                    <strong>{{ $k }}</strong>
-                </td>
-            </tr>
-            @foreach($order as $key => $orderData)
-                <tr>
-                    <td>{{ ++$key }}</td>
-                    <td>{{ $orderData->name }}</td>
-                    <td>{{ $orderData->city }}</td>
-                    <td>{{ $orderData->number }}</td>
-                    <td>{{ $orderData->club }}</td>
-                    <td>{{ $orderData->distance . 'м'}}</td>
+        @foreach($orders as $orderKey => $order)
+            @foreach($order as $subOrderKey => $subOrder)
+                <tr class="">
+                    <td colspan="8" class="py-4 text-center">
+                        <strong>{{ $orderKey . ': ' . $subOrderKey . 'м' }}</strong>
+                    </td>
                 </tr>
+                @foreach($subOrder as $key => $orderData)
+                    <tr>
+                        <td>{{ ++$key }}</td>
+                        <td>{{ $orderData->name }}</td>
+                        <td>{{ $orderData->city }}</td>
+                        <td>{{ $orderData->number }}</td>
+                        <td>{{ $orderData->club }}</td>
+                        <td>{{ $orderData->distance . 'м'}}</td>
+                    </tr>
+                @endforeach
             @endforeach
         @endforeach
         </tbody>

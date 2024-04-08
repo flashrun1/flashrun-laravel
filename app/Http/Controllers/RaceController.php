@@ -150,7 +150,7 @@ class RaceController extends Controller
             ->where('status', Order::STATUS_REGISTERED_PAID)
             ->join('race_type', 'race_type.id', '=', 'orders.type_id')
             ->get()
-            ->groupBy('type_label')
+            ->groupBy(['type_label', 'distance'])
             ->all();
 
         return view('orders.race-participants', compact('orders'));
