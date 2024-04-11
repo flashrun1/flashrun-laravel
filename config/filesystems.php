@@ -46,7 +46,17 @@ return [
 
         'resource_upload' => [
             'driver' => 'local',
-            'root' => resource_path()
+            'root' => resource_path(),
+            'permissions' => [
+                'file' => [
+                    'public' => 0644,
+                    'private' => 0600,
+                ],
+                'dir' => [
+                    'public' => 0755,
+                    'private' => 0700,
+                ],
+            ],
         ],
 
         's3' => [

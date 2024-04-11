@@ -303,6 +303,8 @@ class RaceController extends Controller
             $document->storeAs('files', $documentName, 'resource_upload');
         }
 
+        $raceData['position'] = Race::query()->count() ? ++Race::query()->orderBy('position')->get()->last()->position : 1;
+
         $this->raceModel->fill($raceData)->save();
 
         $this->runDeploy();

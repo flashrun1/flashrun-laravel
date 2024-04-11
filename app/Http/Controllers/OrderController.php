@@ -51,7 +51,7 @@ class OrderController extends Controller
                 if ($data->status == 'success') {
                     $order->setPaid();
 
-                    Mail::to($request->email)->send(new RaceRegistered($request));
+                    Mail::to($order->email)->send(new RaceRegistered($request));
 
                     return redirect()->to('/')->with(
                         'success',
