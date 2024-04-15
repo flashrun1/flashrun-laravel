@@ -18,10 +18,10 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use LiqPay;
-use Symfony\Component\Process\Process;
 
 class RaceController extends Controller
 {
@@ -55,10 +55,9 @@ class RaceController extends Controller
         $price = $request->price;
 
         // if promocode entered - apply to price
-        if ($request->has('code') && !empty($request->code)) {
-            $code = $request->code;
-            $promocode = Promocode::findByCode($code);
-            $description .= ' | promo entered: ' . $code;
+        if ($request->promocode && $price) {
+            $promocode = Promocode::findByCode($request->promocode);
+            $description .= ' | promo entered: ' . $request->promocode;
 
             if ($promocode && $promocode->isValid()) {
                 $price = $promocode->applyTo($price);
@@ -67,20 +66,6 @@ class RaceController extends Controller
                     'price' => $price
                 ]);
             }
-        }
-
-        $order = Order::query()->where('race_id', '=', $request->race_id)
-            ->where('type_id', '=', $request->type_id)
-            ->orderBy('id', 'desc')
-            ->first();
-
-        if ($order) {
-            $request->merge(['number' => ++$order->number]);
-        } else {
-            $raceForm = RaceForm::query()->where('race_id', '=', $request->race_id)
-                ->where('type_id', '=', $request->type_id)
-                ->first();
-            $request->merge(['number' => $raceForm->number_starts_from]);
         }
 
         // create order with unpaid status
@@ -129,6 +114,10 @@ class RaceController extends Controller
                 'server_url' => route('callback-status'),
             ]);
         } else {
+            $newOrder->setPaid();
+
+            $newOrder->assignNumber();
+
             $request->merge([
                 'race_name' => Race::query()->where('id', '=', $request->race_id)->first()->title
             ]);
@@ -301,8 +290,7 @@ class RaceController extends Controller
         $logoName = $raceData['logo'] = $logo->getClientOriginalName();
         $logo->storeAs('images/logo', $logoName, 'resource_upload');
 
-        if ($request->document) {
-            $document = $request->file('document');
+        if ($document = $request->file('document')) {
             $documentName = $raceData['document'] = $document->getClientOriginalName();
             $document->storeAs('files', $documentName, 'resource_upload');
         }
@@ -384,6 +372,10 @@ class RaceController extends Controller
                 ':',
                 json_decode($race['forms'][$raceForm->id]['distance'], true)['distance']
             )[0];
+            $race['forms'][$raceForm->id]['number_starts_from'] = explode(
+                ':',
+                json_decode($race['forms'][$raceForm->id]['number_starts_from'], true)['number_starts_from']
+            )[0];
 
             if (!str_contains($race['forms'][$raceForm->id]['payments'], ';')) {
                 $race['forms'][$raceForm->id]['payments'] =
@@ -426,14 +418,16 @@ class RaceController extends Controller
         $raceData = $request->toArray();
         $raceData['is_active'] = array_key_exists('is_active', $raceData);
 
-        if ($request->logo) {
-            $logo = $request->file('logo');
+        $raceOldData = Race::query()->where('id', '=', $request->id)->first();
+
+        if ($logo = $request->file('logo')) {
+            File::delete(resource_path('images/logo/' . $raceOldData->logo));
             $logoName = $raceData['logo'] = $logo->getClientOriginalName();
             $logo->storeAs('images/logo', $logoName, 'resource_upload');
         }
 
-        if ($request->document) {
-            $document = $request->file('document');
+        if ($document = $request->file('document')) {
+            File::delete(resource_path('files/' . $raceOldData->document));
             $documentName = $raceData['document'] = $document->getClientOriginalName();
             $document->storeAs('files', $documentName, 'resource_upload');
         }
@@ -484,6 +478,11 @@ class RaceController extends Controller
             json_decode($raceForm['distance'], true)['distance']
         )[0];
 
+        $raceForm['number_starts_from'] = explode(
+            'number_starts_from',
+            json_decode($raceForm['number_starts_from'], true)['number_starts_from']
+        )[0];
+
         $raceForm['payments'] = explode(
             'payments',
             json_decode($raceForm['payments'], true)['payments'] ?? '0'
@@ -516,7 +515,14 @@ class RaceController extends Controller
      */
     public function deleteRace(Request $request): Factory|View|Application
     {
-        Race::query()->where('id', '=', $request->id)->first()->delete();
+        $race = Race::query()->where('id', '=', $request->id)->first();
+
+        File::delete(resource_path('images/logo/' . $race->logo));
+        File::delete(resource_path('files/' . $race->document));
+
+        $race->delete();
+
+        $this->runDeploy();
 
         return $this->index();
     }
@@ -562,5 +568,22 @@ class RaceController extends Controller
     private function runDeploy(): void
     {
         shell_exec('npm run prod');
+    }
+
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function removeСompetitionКegulations(Request $request): Factory|View|Application
+    {
+        $race = Race::query()->where('id', '=', $request->id)->first();
+
+        File::delete(resource_path('files/' . $race->document));
+
+        $race->update(['document' => null]);
+
+        $this->runDeploy();
+
+        return $this->index();
     }
 }

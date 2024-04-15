@@ -14,7 +14,7 @@
                 </div>
                 <div class="input-group">
                     <span class="input-group-text">Номер починається з</span>
-                    <input type="number" class="form-control" id="number_starts_from" name="number_starts_from">
+                    <input type="text" class="form-control" id="number_starts_from" name="number_starts_from">
                 </div>
                 <div class="input-group">
                     @include('popper::assets')

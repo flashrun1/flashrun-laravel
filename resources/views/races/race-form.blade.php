@@ -130,7 +130,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="register_modal_form_cb_promocode">Промокод</label>
-                                <input id="register_modal_form_cb_promocode" type="text" name="code"
+                                <input id="register_modal_form_cb_promocode" type="text" name="promocode"
                                        class="form-control"
                                        placeholder="Введіть промокод">
                             </div>

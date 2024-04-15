@@ -22,6 +22,7 @@
                 <div class="input-group">
                     <span class="input-group-text">Положення змагань</span>
                     <input type="file" class="form-control" id="document" name="document">
+                    <a href="{{ route('remove-competition-kegulations', ['id' => $race['id']]) }}"><span>Видалити положення змагань</span></a>
                 </div>
                 <div class="input-group">
                     <span class="input-group-text">Короткий опис</span>

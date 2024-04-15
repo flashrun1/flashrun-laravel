@@ -32,11 +32,15 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('/admin/orders/{order}/set-paid/EgZjaHJvbWUyCQgAEEUY', 'setPaid')->name('admin.orders.set-paid')->middleware('auth');
     Route::post('/admin/orders/{order}/set-unpaid/EgZjaHJvbWUyCQgAEEUY', 'setUnpaid')->name('admin.orders.set-unpaid')->middleware('auth');
     Route::post('/admin/orders/{order}/set-deleted/EgZjaHJvbWUyCQgAEEUY', 'setDeleted')->name('admin.orders.set-deleted')->middleware('auth');
+    Route::post('/admin/orders/{order}/assign-number/EgZjaHJvbWUyCQgAEEUY', 'assignNumber')->name('admin.orders.assign-number')->middleware('auth');
 });
 
 Route::controller(PromocodeController::class)->group(function () {
     Route::get('/admin/promocodes/EgZjaHJvbWUyCQgAEEUY', 'index')->name('promocodes')->middleware('auth');
     Route::post('/admin/promocodes/EgZjaHJvbWUyCQgAEEUY', 'store')->name('promocodes.store')->middleware('auth');
+    Route::get('/admin/promocodes/edit/id/{id}/EgZjaHJvbWUyCQgAEEUY', 'edit')->name('promocodes.edit')->middleware('auth');
+    Route::post('/admin/promocodes/edit/id/{id}/EgZjaHJvbWUyCQgAEEUY', 'editPost')->name('promocodes.edit-post')->middleware('auth');
+    Route::get('/admin/promocodes/delete/id/{id}/EgZjaHJvbWUyCQgAEEUY', 'delete')->name('promocodes.delete')->middleware('auth');
 });
 
 Route::controller(RaceController::class)->group(function () {
@@ -47,21 +51,23 @@ Route::controller(RaceController::class)->group(function () {
     Route::post('/admin/create-race/EgZjaHJvbWUyCQgAEEUY', 'createRaceStore')->name('create-race.store')->middleware('auth');
     Route::get('/admin/create-race-type/EgZjaHJvbWUyCQgAEEUY', 'createRaceTypeIndex')->name('create-race-type.index')->middleware('auth');
     Route::post('/admin/create-race-type/EgZjaHJvbWUyCQgAEEUY', 'createRaceTypeStore')->name('create-race-type.store')->middleware('auth');
-    Route::get('/admin/create-race-form/EgZjaHJvbWUyCQgAEEUY/id/{id}', 'createRaceFormIndex')->name('create-race-form.index')->middleware('auth');
+    Route::get('/admin/create-race-form/id/{id}/EgZjaHJvbWUyCQgAEEUY', 'createRaceFormIndex')->name('create-race-form.index')->middleware('auth');
     Route::post('/admin/create-race-form/EgZjaHJvbWUyCQgAEEUY', 'createRaceFormStore')->name('create-race-form.store')->middleware('auth');
 
-    Route::get('/admin/edit-race/EgZjaHJvbWUyCQgAEEUY/id/{id}', 'updateRaceView')->name('edit-race.index')->middleware('auth');
+    Route::get('/admin/edit-race/id/{id}/EgZjaHJvbWUyCQgAEEUY', 'updateRaceView')->name('edit-race.index')->middleware('auth');
     Route::post('/admin/edit-race/EgZjaHJvbWUyCQgAEEUY', 'updateRace')->name('edit-race.store')->middleware('auth');
-    Route::get('/admin/edit-race-type/EgZjaHJvbWUyCQgAEEUY/id/{id}', 'updateRaceTypeView')->name('edit-race-type.index')->middleware('auth');
-    Route::post('/admin/edit-race-type', 'updateRaceType')->name('edit-race-type.store')->middleware('auth');
-    Route::get('/admin/edit-race-form/EgZjaHJvbWUyCQgAEEUY/id/{id}', 'updateRaceFormView')->name('edit-race-form.index')->middleware('auth');
-    Route::post('/admin/edit-race-form', 'updateRaceForm')->name('edit-race-form.store')->middleware('auth');
+    Route::get('/admin/edit-race-type/id/{id}/EgZjaHJvbWUyCQgAEEUY', 'updateRaceTypeView')->name('edit-race-type.index')->middleware('auth');
+    Route::post('/admin/edit-race-type/EgZjaHJvbWUyCQgAEEUY', 'updateRaceType')->name('edit-race-type.store')->middleware('auth');
+    Route::get('/admin/edit-race-form/id/{id}/EgZjaHJvbWUyCQgAEEUY', 'updateRaceFormView')->name('edit-race-form.index')->middleware('auth');
+    Route::post('/admin/edit-race-form/EgZjaHJvbWUyCQgAEEUY', 'updateRaceForm')->name('edit-race-form.store')->middleware('auth');
 
-    Route::get('/admin/delete-race/EgZjaHJvbWUyCQgAEEUY/id/{id}', 'deleteRace')->name('delete-race')->middleware('auth');
-    Route::get('/admin/delete-race-type/EgZjaHJvbWUyCQgAEEUY/id/{id}', 'deleteRaceType')->name('delete-race-type')->middleware('auth');
-    Route::get('/admin/delete-race-form/EgZjaHJvbWUyCQgAEEUY/id/{id}', 'deleteRaceForm')->name('delete-race-form')->middleware('auth');
+    Route::get('/admin/delete-race/id/{id}/EgZjaHJvbWUyCQgAEEUY', 'deleteRace')->name('delete-race')->middleware('auth');
+    Route::get('/admin/delete-race-type/id/{id}/EgZjaHJvbWUyCQgAEEUY', 'deleteRaceType')->name('delete-race-type')->middleware('auth');
+    Route::get('/admin/delete-race-form/id/{id}/EgZjaHJvbWUyCQgAEEUY', 'deleteRaceForm')->name('delete-race-form')->middleware('auth');
 
     Route::post('/admin/race-position-management/EgZjaHJvbWUyCQgAEEUY', 'racePositionManagement')->name('race-position-management')->middleware('auth');
+
+    Route::get('/admin/remove-competition-kegulations/id/{id}/EgZjaHJvbWUyCQgAEEUY', 'removeСompetitionКegulations')->name('remove-competition-kegulations')->middleware('auth');
 
     Route::post('/race-register', 'register')->name('race-register');
     Route::get('/races/{raceId}/participants', 'participants')->name('race-participants');

@@ -127,4 +127,33 @@ class Order extends Model
     {
         return $this->status === self::STATUS_DELETED;
     }
+
+    /**
+     * @return void
+     */
+    public function assignNumber(): void
+    {
+        $previousOrder = $this->query()->where('race_id', '=', $this->race_id)
+            ->where('type_id', '=', $this->type_id)
+            ->where('distance', '=', $this->distance)
+            ->where('id', '!=', $this->id)
+            ->where('number', '!=', null)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if ($previousOrder) {
+            $this->query()->where('id', '=', $this->id)->first()
+                ->update(['number' => ++$previousOrder->number]);
+        } else {
+            $raceForm = RaceForm::query()->where('race_id', '=', $this->race_id)
+                ->where('type_id', '=', $this->type_id)
+                ->first();
+            $numbers = array_combine(
+                explode(';', json_decode($raceForm->distance, true)['distance']),
+                explode(';', json_decode($raceForm->number_starts_from, true)['number_starts_from'])
+            );
+            $this->query()->where('id', '=', $this->id)->first()
+                ->update(['number' => $numbers[$this->distance]]);
+        }
+    }
 }

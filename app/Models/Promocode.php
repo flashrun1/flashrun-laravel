@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -22,6 +23,9 @@ class Promocode extends Model
     const DISCOUNT_TYPE_PERCENT = 1;
     const DISCOUNT_TYPE_VALUE = 2;
 
+    /**
+     * @inheritDoc
+     */
     protected $fillable = [
         'code',
         'type',
@@ -34,93 +38,106 @@ class Promocode extends Model
         'status'
     ];
 
-    public static function createFromRequest(Request $request) {
+    /**
+     * @param Request $request
+     * @return void
+     */
+    public static function createFromRequest(Request $request): void
+    {
         $promocode = new self();
         $promocode->fill($request->toArray());
         $promocode->save();
     }
 
-    public function getDiscountTypeForAdmin() {
+    /**
+     * @return string
+     */
+    public function getDiscountTypeForAdmin(): string
+    {
         if ($this->discount_type == self::DISCOUNT_TYPE_PERCENT) {
-            return '%';
+            return ' %';
         } else {
-            return 'сума';
+            return ' грн';
         }
     }
 
-    public static function findByCode($name) {
-        $code = self::where('code', $name)->first();
-        return $code;
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public static function findByCode($name): mixed
+    {
+        return self::where('code', $name)->first();
     }
 
-    public function applyTo($price) {
+    /**
+     * @param $price
+     * @return string
+     */
+    public function applyTo($price): string
+    {
         $amount = new Money($price, new Currency('UAH'));
-        $newAmount = $amount->getAmount();
 
-        // if %
-        if ($this->discount_type == self::DISCOUNT_TYPE_PERCENT) {
-            list($discountAmount, $whatIsLeft) = $amount->allocate([$this->discount_value, (100 - $this->discount_value)]);
-            $newAmount = $whatIsLeft;
-        }
-
-        // if amount
-        if ($this->discount_type == self::DISCOUNT_TYPE_VALUE) {
-            $newAmount = $amount->subtract(new Money($this->discount_value, new Currency('UAH')));
-        }
+        $newAmount = match ($this->discount_type) {
+            self::DISCOUNT_TYPE_PERCENT => new Money($price - ($price / 100) * $this->discount_value, new Currency('UAH')),
+            self::DISCOUNT_TYPE_VALUE => $amount->subtract(new Money($this->discount_value, new Currency('UAH'))),
+            'default' => $amount
+        };
 
         return $newAmount->getAmount();
     }
 
-    public function isUnlimited() {
+    /**
+     * @return bool
+     */
+    public function isUnlimited(): bool
+    {
         return $this->type == self::TYPE_UNLIMITED;
     }
 
-    public function isEnabled() {
+    /**
+     * @return bool
+     */
+    public function isEnabled(): bool
+    {
         return $this->status == self::STATUS_ENABLED;
     }
 
-    public function hasActuations() {
+    /**
+     * @return bool
+     */
+    public function hasActuations(): bool
+    {
         return $this->actuations > $this->actuations_used;
     }
 
     /**
      * @return bool
-     *
-     *
-     * 1. checj if status is enabled/disabled
      */
-    public function isActive() {
+    public function isActive(): bool
+    {
         $result = false;
 
-        // if status is enabled
-        if ($this->isEnabled()) {
-
-            if ($this->isUnlimited()) {
-                $result = true;
-            } else {
-                if (!$this->isUnlimited() && $this->hasActuations()) {
-                    $result = true;
-                }
-            }
-
+        if ($this->isEnabled() && ($this->isUnlimited() || !$this->isUnlimited() && $this->hasActuations())) {
+            $result = true;
         }
-
 
         return $result;
     }
 
-    public function isValid() {
-        $result = false;
-
-        if ($this->isActive()) {
-            if ($this->isUnlimited()) {
-                $result = true;
-            }
-        }
-//        dd($result);
-        // if limited &&
-
-        return $result;
+    /**
+     * @return bool
+     */
+    public function isValid(): bool
+    {
+        return $this->isActive();
     }
 
+    /**
+     * @return bool
+     */
+    public function updateActivations(): bool
+    {
+        return $this->update(['actuations_used', ++$this->actuations_used]);
+    }
 }

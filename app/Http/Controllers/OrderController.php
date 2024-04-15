@@ -6,7 +6,9 @@ namespace App\Http\Controllers;
 
 use App\Mail\RaceRegistered;
 use App\Models\Order;
+use App\Models\Promocode;
 use App\Models\Race;
+use App\Models\RaceForm;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -14,6 +16,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -51,6 +54,10 @@ class OrderController extends Controller
             if ($order) {
                 if ($data->status == 'success') {
                     $order->setPaid();
+
+                    $order->assignNumber();
+
+                    Promocode::findByCode($order->promocode)?->updateActivations();
 
                     $request->merge([
                         'name' => $order->name,
@@ -154,6 +161,18 @@ class OrderController extends Controller
     public function setDeleted(Order $order, Request $request): RedirectResponse
     {
         $order->setDeleted();
+
+        return redirect()->route('orders');
+    }
+
+    /**
+     * @param Order $order
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function assignNumber(Order $order, Request $request): RedirectResponse
+    {
+        $order->assignNumber();
 
         return redirect()->route('orders');
     }

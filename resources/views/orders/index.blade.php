@@ -106,8 +106,7 @@
                                                         @if($order->isNotPaid())
                                                             <li class="dropdown-item">
                                                                 <a href="#"
-                                                                   onclick="event.preventDefault();(confirm('Ви змінюєте статус платежа, все вірно?')) ? document.getElementById('set-order-status-form-{{$order->id}}').submit() : '';">Позначити
-                                                                    як сплачено</a>
+                                                                   onclick="event.preventDefault();(confirm('Ви змінюєте статус платежа, все вірно?')) ? document.getElementById('set-order-status-form-{{$order->id}}').submit() : '';">Позначити як сплачено</a>
                                                                 <form class="d-none"
                                                                       id="set-order-status-form-{{$order->id}}"
                                                                       action="{{ route('admin.orders.set-paid', ['order' => $order]) }}"
@@ -122,8 +121,7 @@
                                                         @if($order->isPaid())
                                                             <li class="dropdown-item">
                                                                 <a href="#"
-                                                                   onclick="event.preventDefault();(confirm('Ви змінюєте статус платежа, все вірно?')) ? document.getElementById('set-order-status-unpaid-form-{{$order->id}}').submit() : '';">Позначити
-                                                                    як не оплочено</a>
+                                                                   onclick="event.preventDefault();(confirm('Ви змінюєте статус платежа, все вірно?')) ? document.getElementById('set-order-status-unpaid-form-{{$order->id}}').submit() : '';">Позначити як не оплочено</a>
                                                                 <form class="d-none"
                                                                       id="set-order-status-unpaid-form-{{$order->id}}"
                                                                       action="{{ route('admin.orders.set-unpaid', ['order' => $order]) }}"
@@ -145,6 +143,18 @@
                                                                       method="post">
                                                                     <input type="hidden" name="status"
                                                                            value="{{ \App\Models\Order::STATUS_DELETED }}">
+                                                                    @csrf
+                                                                    @method('post')
+                                                                </form>
+                                                            </li>
+                                                        @endif
+                                                        @if(!$order->number)
+                                                            <li class="dropdown-item">
+                                                                <a href="#" onclick="document.getElementById('assign-number-order-form-{{$order->id}}').submit()">Надати номер</a>
+                                                                <form class="d-none"
+                                                                      id="assign-number-order-form-{{$order->id}}"
+                                                                      action="{{ route('admin.orders.assign-number', ['order' => $order]) }}"
+                                                                      method="post">
                                                                     @csrf
                                                                     @method('post')
                                                                 </form>
