@@ -129,6 +129,10 @@ class RaceController extends Controller
                 'server_url' => route('callback-status'),
             ]);
         } else {
+            $request->merge([
+                'race_name' => Race::query()->where('id', '=', $request->race_id)->first()->title
+            ]);
+
             // send email
             Mail::to($request->email)->send(new RaceRegistered($request));
 

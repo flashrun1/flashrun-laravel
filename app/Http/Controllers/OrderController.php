@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\RaceRegistered;
 use App\Models\Order;
+use App\Models\Race;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -50,6 +51,11 @@ class OrderController extends Controller
             if ($order) {
                 if ($data->status == 'success') {
                     $order->setPaid();
+
+                    $request->merge([
+                        'name' => $order->name,
+                        'race_name' => Race::query()->where('id', '=', $order->race_id)->first()->title
+                    ]);
 
                     Mail::to($order->email)->send(new RaceRegistered($request));
 

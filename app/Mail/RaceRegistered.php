@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -27,13 +28,10 @@ class RaceRegistered extends Mailable
     /**
      * Build the message.
      *
-     * @return $this
+     * @return RaceRegistered
      */
     public function build()
     {
-        return $this
-            ->from('noreply@flashrun.org')
-            ->view('emails.race-registered', ['request' => $this->_request])
-        ;
+        return $this->view('emails.race-registered', ['request' => $this->_request]);
     }
 }
