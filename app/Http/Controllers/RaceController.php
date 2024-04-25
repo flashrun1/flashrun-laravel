@@ -45,7 +45,16 @@ class RaceController extends Controller
     public function register(Request $request): string|RedirectResponse
     {
         $this->validate($request, [
-            'g-recaptcha-response' => ['required', new ReCaptchaV3('raceRegister', 0.6)]
+            'g-recaptcha-response' => ['required', new ReCaptchaV3('raceRegister', 0.6)],
+            'name' => 'required|max:80',
+            'email' => 'required|email',
+            'phone' => 'required|max:12',
+            'city' => 'required|max:30'
+        ], [
+            'name.required' => 'Заповніть поле введення імені та прізвища',
+            'email.required' => 'Заповніть поле введення email',
+            'phone.required' => 'Заповніть поле введення телефону',
+            'city.required' => 'Заповніть поле введення міста'
         ]);
 
         $description = Race::query()->where('id', '=', $request->race_id)->first()->title
