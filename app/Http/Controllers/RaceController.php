@@ -525,7 +525,7 @@ class RaceController extends Controller
      */
     private function runDeploy(): void
     {
-        $process = Process::fromShellCommandline('npm run prod');
+        $process = Process::fromShellCommandline('cd /var/www/flashrun.org && npm run prod');
         $process->run();
     }
 
