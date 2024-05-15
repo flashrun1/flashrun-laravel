@@ -60,48 +60,7 @@
 
                     @foreach($race['forms'] as $form)
                         <div class="type-{{ $form['type_id'] }}-subtype-wrapper d-none">
-                            @if (is_array($form['payments']))
-                                <div class="form-group prices my-4">
-                                    <div class="container">
-                                        <div class="row">
-                                            @foreach ($form['payments'] as $payment)
-                                                <div class="col-md-3">
-                                                    @if (is_array($payment))
-                                                        @if (array_key_exists('start_date', $payment) && $payment['start_date'] !== '' && array_key_exists('end_date', $payment))
-                                                            <div
-                                                                class="register-event-price-block py-3 @php echo (!Carbon::parse($payment['end_date'])->isPast()) ? '' : 'text-muted' @endphp"
-                                                                style="font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.1);display: flex;align-items: center;justify-content: center;">
-                                                                {{ $payment['start_date'] }}
-                                                                - {{ $payment['end_date'] }} -&nbsp;<span
-                                                                    class="event-date-price">{{ $payment['price'] }}</span>
-                                                            </div>
-                                                        @endif
-                                                        @if (array_key_exists('start_date', $payment) && $payment['start_date'] === '' && array_key_exists('end_date', $payment))
-                                                            <div
-                                                                class="register-event-price-block py-3 @php echo (!Carbon::parse($payment['end_date'])->isPast()) ? '' : 'text-muted' @endphp"
-                                                                style="font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.1);display: flex;align-items: center;justify-content: center;">
-                                                                ДО {{ $payment['end_date'] }} -&nbsp;<span
-                                                                    class="event-date-price">{{ $payment['price'] }}</span>
-                                                            </div>
-                                                        @endif
-                                                        @if (!array_key_exists('start_date', $payment) && array_key_exists('end_date', $payment))
-                                                            <div
-                                                                class="register-event-price-block py-3 @php echo (!Carbon::parse($payment['end_date'])->isPast()) ? '' : 'text-muted' @endphp"
-                                                                style="font-size: 14px;border: 1px solid rgba(0, 0, 0, 0.1);display: flex;align-items: center;justify-content: center;">
-                                                                {{ $payment['end_date'] }} -&nbsp;<span
-                                                                    class="event-date-price">{{ $payment['price'] }}</span>
-                                                            </div>
-                                                        @endif
-                                                    @endif
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
                             <input type="hidden" name="type_id" value="{{ $form['type_id'] }}">
-                            <input type="hidden" name="price" value="{{ $form['current_price'] ?? 0 }}">
 
                             <div class="form-group">
                                 <label for="register_modal_form_cb_name">Ім’я та прізвище</label>
@@ -137,14 +96,14 @@
 
                             <div class="form-group">
                                 <div class="label-wrap">
-                                    <label>Дистанції</label>
+                                    <label>Дистанції @if(!is_array($form['payments'])) - {{ $form['payments'] }} грн.@endif</label>
                                 </div>
                                 <div class="custom-radio-group">
                                     @foreach($form['distance'] as $key => $distance)
                                         <input id="register_{{ $form['id'] }}_{{ $form['type_id'] }}_form_cb_option_{{ $key }}" type="radio"
                                                name="distance" value="{{ $distance }}" class="custom-radio-btn"
                                             {{ array_key_first($form['distance']) === $key ? 'checked' : null }} >
-                                        <label for="register_{{ $form['id'] }}_{{ $form['type_id'] }}_form_cb_option_{{ $key }}">{{ $distance }}м</label>
+                                        <label for="register_{{ $form['id'] }}_{{ $form['type_id'] }}_form_cb_option_{{ $key }}">{{ $distance }}м @if(is_array($form['payments'])) - {{ $form['payments'][$key] }} грн.@endif</label>
                                     @endforeach
                                 </div>
                             </div>

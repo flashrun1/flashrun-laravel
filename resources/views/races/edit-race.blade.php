@@ -52,7 +52,7 @@
                         <th>Тип</th>
                         <th>Дистанції</th>
                         <th>Номер з</th>
-                        <th>Ціна</th>
+                        <th>Ціни</th>
                         <th>Дії</th>
                         </thead>
                         <tbody>
@@ -68,7 +68,7 @@
                                     {{ $form['number_starts_from'] }}
                                 </td>
                                 <td>
-                                    {{ $form['current_price'] }}
+                                    {{ $form['payments'] }}
                                 </td>
                                 <td>
                                     <div class="dropdown show d-inline-block widget-dropdown">

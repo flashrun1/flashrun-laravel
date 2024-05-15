@@ -11,7 +11,6 @@ use App\Models\Race;
 use App\Models\RaceForm;
 use App\Models\RaceType;
 use App\Rules\ReCaptchaV3;
-use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -39,7 +38,9 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return RedirectResponse|string
+     *
      * @throws ValidationException
      */
     public function register(Request $request): string|RedirectResponse
@@ -61,7 +62,18 @@ class RaceController extends Controller
             . ' | ' . $request->name . ' | ' . $request->email . ' | ' . $request->distance . 'm' . ' | '
             . RaceType::query()->where('id', '=', $request->type_id)->first()->type_label;
 
-        $price = $request->price;
+        $race = RaceForm::query()->where('race_id', '=', $request->race_id)
+            ->where('type_id', '=', $request->type_id)->get()->first();
+
+        $price = array_combine(
+            explode(',', json_decode($race->distance, true)['distance']),
+            explode(',', json_decode($race->payments, true)['payments'])
+        )[$request->distance];
+
+        $request->merge([
+            'amount' => $price,
+            'price' => $price
+        ]);
 
         // if promocode entered - apply to price
         if ($request->promocode && $price) {
@@ -143,6 +155,7 @@ class RaceController extends Controller
 
     /**
      * @param $raceId
+     *
      * @return View|Factory|Application
      */
     public function participants($raceId): View|Factory|Application
@@ -174,81 +187,20 @@ class RaceController extends Controller
                 ->get()->all();
 
             foreach ($raceForms as $raceForm) {
-                $races[$race->id]['forms'][$raceForm->id]['current_price'] = null;
                 $races[$race->id]['forms'][$raceForm->id] = $raceForm->getAttributes();
                 $races[$race->id]['forms'][$raceForm->id]['distance'] = explode(
-                    ':',
-                    json_decode($races[$race->id]['forms'][$raceForm->id]['distance'], true)['distance']
-                )[0];
+                    ',',
+                    Arr::get(json_decode($races[$race->id]['forms'][$raceForm->id]['distance'], true), 'distance')
+                );
 
-                if (!str_contains($races[$race->id]['forms'][$raceForm->id]['payments'], ';')) {
+                if (!str_contains($races[$race->id]['forms'][$raceForm->id]['payments'], ',')) {
                     $races[$race->id]['forms'][$raceForm->id]['payments'] =
-                        json_decode($races[$race->id]['forms'][$raceForm->id]['payments'], true)['payments'];
-                    $races[$race->id]['forms'][$raceForm->id]['current_price'] =
-                        $races[$race->id]['forms'][$raceForm->id]['payments'];
+                        Arr::get(json_decode($races[$race->id]['forms'][$raceForm->id]['payments'], true), 'payments');
                 } else {
                     $races[$race->id]['forms'][$raceForm->id]['payments'] = explode(
-                        ';',
-                        json_decode(
-                            preg_replace('/\s+/', '', $races[$race->id]['forms'][$raceForm->id]['payments']),
-                            true
-                        )['payments']
+                        ',',
+                        Arr::get(json_decode($races[$race->id]['forms'][$raceForm->id]['payments'], true), 'payments')
                     );
-
-                    if (str_contains(Arr::first($races[$race->id]['forms'][$raceForm->id]['payments']), ':')) {
-                        $isCurrentPriceCalculated = false;
-                        foreach ($races[$race->id]['forms'][$raceForm->id]['payments'] as $key => $payment) {
-                            $races[$race->id]['forms'][$raceForm->id]['payments'][$key] =
-                                explode(':', $payment);
-                            if (str_contains(Arr::first($races[$race->id]['forms'][$raceForm->id]['payments'][$key]), '-')) {
-                                $races[$race->id]['forms'][$raceForm->id]['payments'][$key]['dates'] =
-                                    explode('-', $races[$race->id]['forms'][$raceForm->id]['payments'][$key][0]);
-
-                                $races[$race->id]['forms'][$raceForm->id]['payments'][$key]['start_date'] =
-                                    $races[$race->id]['forms'][$raceForm->id]['payments'][$key]['dates'][0];
-                                $races[$race->id]['forms'][$raceForm->id]['payments'][$key]['end_date'] =
-                                    $races[$race->id]['forms'][$raceForm->id]['payments'][$key]['dates'][1];
-                                $races[$race->id]['forms'][$raceForm->id]['payments'][$key]['price'] =
-                                    $races[$race->id]['forms'][$raceForm->id]['payments'][$key][1];
-
-                                unset($races[$race->id]['forms'][$raceForm->id]['payments'][$key]['dates']);
-
-                                if (array_key_exists($key - 1, $races[$race->id]['forms'][$raceForm->id]['payments'])) {
-                                    if (!$races[$race->id]['forms'][$raceForm->id]['payments'][$key]['start_date']) {
-                                        $races[$race->id]['forms'][$raceForm->id]['payments'][$key]['start_date'] =
-                                            Carbon::parse($races[$race->id]['forms'][$raceForm->id]['payments'][$key - 1]['end_date'])
-                                                ->addDays()
-                                                ->rawFormat('d.m.Y');
-                                    }
-                                }
-                            } else {
-                                $races[$race->id]['forms'][$raceForm->id]['payments'][$key]['end_date'] =
-                                    $races[$race->id]['forms'][$raceForm->id]['payments'][$key][0];
-                                $races[$race->id]['forms'][$raceForm->id]['payments'][$key]['price'] =
-                                    $races[$race->id]['forms'][$raceForm->id]['payments'][$key][1];
-                            }
-
-                            unset($races[$race->id]['forms'][$raceForm->id]['payments'][$key][0]);
-                            unset($races[$race->id]['forms'][$raceForm->id]['payments'][$key][1]);
-
-                            if (!Carbon::parse($races[$race->id]['forms'][$raceForm->id]['payments'][$key]['end_date'])->isPast()
-                                && !$isCurrentPriceCalculated
-                            ) {
-                                $isCurrentPriceCalculated = true;
-                                $races[$race->id]['forms'][$raceForm->id]['current_price'] =
-                                    $races[$race->id]['forms'][$raceForm->id]['payments'][$key]['price'];
-                            }
-                        }
-                    }
-
-                    if (is_array($races[$race->id]['forms'][$raceForm->id]['payments'])) {
-                        foreach ($races[$race->id]['forms'][$raceForm->id]['payments'] as &$payment) {
-                            $payment['end_date'] = Carbon::parse($payment['end_date'])->rawFormat('d.m');
-                            if (array_key_exists('start_date', $payment) && $payment['start_date'] !== '') {
-                                $payment['start_date'] = Carbon::parse($payment['start_date'])->rawFormat('d.m');
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -261,6 +213,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Application|Factory|View
      */
     public function raceTypesIndex(Request $request): View|Factory|Application
@@ -283,6 +236,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function createRaceStore(Request $request): Factory|View|Application
@@ -324,6 +278,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function createRaceTypeStore(Request $request): Factory|View|Application
@@ -335,6 +290,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return View|Factory|Application
      */
     public function createRaceFormIndex(Request $request): View|Factory|Application
@@ -351,6 +307,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function createRaceFormStore(Request $request): Factory|View|Application
@@ -366,6 +323,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function updateRaceView(Request $request): Factory|View|Application
@@ -380,41 +338,12 @@ class RaceController extends Controller
         foreach ($raceForms as $raceForm) {
             $race['forms'][$raceForm->id] = $raceForm->getAttributes();
 
-            $race['forms'][$raceForm->id]['current_price'] = null;
-
-            if (str_contains($distance = json_decode($race['forms'][$raceForm->id]['distance'], true)['distance'], ';')) {
-                $race['forms'][$raceForm->id]['distance'] = Arr::first(explode(':', $distance));
-            } else {
-                $race['forms'][$raceForm->id]['distance'] = $distance;
-            }
-
-            if (str_contains($numberStartsFrom = json_decode($race['forms'][$raceForm->id]['number_starts_from'], true)['number_starts_from'], ';')) {
-                $race['forms'][$raceForm->id]['number_starts_from'] = Arr::first(explode(':', $numberStartsFrom));
-            } else {
-                $race['forms'][$raceForm->id]['number_starts_from'] = $numberStartsFrom;
-            }
-
-            if (!str_contains($race['forms'][$raceForm->id]['payments'], ';')) {
-                $race['forms'][$raceForm->id]['payments'] =
-                    json_decode($race['forms'][$raceForm->id]['payments'], true)['payments'];
-                $race['forms'][$raceForm->id]['current_price'] = $race['forms'][$raceForm->id]['payments'];
-            } else {
-                $race['forms'][$raceForm->id]['payments'] = explode(
-                    ';',
-                    json_decode(preg_replace('/\s+/', '', $race['forms'][$raceForm->id]['payments']), true)['payments']
-                );
-
-                foreach ($race['forms'][$raceForm->id]['payments'] as &$payment) {
-                    $payment = explode(':', $payment);
-                }
-
-                foreach ($race['forms'][$raceForm->id]['payments'] as $payment) {
-                    if (!Carbon::parse(explode('-', $payment[0])[1])->isPast()) {
-                        $race['forms'][$raceForm->id]['current_price'] = $payment[1];
-                        break;
-                    }
-                }
-            }
+            $race['forms'][$raceForm->id]['distance'] =
+                Arr::get(json_decode($race['forms'][$raceForm->id]['distance'], true), 'distance');
+            $race['forms'][$raceForm->id]['number_starts_from'] =
+                Arr::get(json_decode($race['forms'][$raceForm->id]['number_starts_from'], true), 'number_starts_from');
+            $race['forms'][$raceForm->id]['payments'] =
+                Arr::get(json_decode($race['forms'][$raceForm->id]['payments'], true), 'payments');
         }
 
         return view('races.edit-race', ['race' => $race]);
@@ -422,6 +351,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function updateRace(Request $request): Factory|View|Application
@@ -458,6 +388,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function updateRaceTypeView(Request $request): Factory|View|Application
@@ -471,6 +402,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function updateRaceType(Request $request): Factory|View|Application
@@ -482,6 +414,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function updateRaceFormView(Request $request): Factory|View|Application
@@ -490,20 +423,20 @@ class RaceController extends Controller
         $types = RaceType::all();
         $raceForm = RaceForm::query()->where('id', '=', $request->id)->first()->getAttributes();
 
-        $raceForm['distance'] = explode(
+        $raceForm['distance'] = Arr::first(explode(
             'distance',
-            json_decode($raceForm['distance'], true)['distance']
-        )[0];
+            Arr::get(json_decode($raceForm['distance'], true), 'distance')
+        ));
 
-        $raceForm['number_starts_from'] = explode(
+        $raceForm['number_starts_from'] = Arr::first(explode(
             'number_starts_from',
-            json_decode($raceForm['number_starts_from'], true)['number_starts_from']
-        )[0];
+            Arr::get(json_decode($raceForm['number_starts_from'], true), 'number_starts_from')
+        ));
 
-        $raceForm['payments'] = explode(
+        $raceForm['payments'] = Arr::first(explode(
             'payments',
-            json_decode($raceForm['payments'], true)['payments'] ?? '0'
-        )[0];
+            Arr::get(json_decode($raceForm['payments'], true), 'payments') ?? '0'
+        ));
 
         return view('races.edit-race-form', [
             'raceForm' => $raceForm,
@@ -514,6 +447,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function updateRaceForm(Request $request): Factory|View|Application
@@ -522,6 +456,7 @@ class RaceController extends Controller
         $raceFormData['distance'] = json_encode($request->all('distance'));
         $raceFormData['number_starts_from'] = json_encode($request->all('number_starts_from'));
         $raceFormData['payments'] = json_encode($request->all('payments'));
+
         RaceForm::query()->where('id', '=', $request->id)->first()->update($raceFormData);
 
         return $this->index();
@@ -529,6 +464,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function deleteRace(Request $request): Factory|View|Application
@@ -547,6 +483,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function deleteRaceType(Request $request): Factory|View|Application
@@ -558,6 +495,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Factory|View|Application
      */
     public function deleteRaceForm(Request $request): Factory|View|Application
@@ -569,6 +507,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return void
      */
     public function racePositionManagement(Request $request): void
@@ -590,6 +529,7 @@ class RaceController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Application|Factory|View
      */
     public function removeСompetitionКegulations(Request $request): Factory|View|Application

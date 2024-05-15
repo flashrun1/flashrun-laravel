@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 /**
  * @property int $status
@@ -149,8 +150,8 @@ class Order extends Model
                 ->where('type_id', '=', $this->type_id)
                 ->first();
             $numbers = array_combine(
-                explode(';', json_decode($raceForm->distance, true)['distance']),
-                explode(';', json_decode($raceForm->number_starts_from, true)['number_starts_from'])
+                explode(',', Arr::get(json_decode($raceForm->distance, true), 'distance')),
+                explode(',', Arr::get(json_decode($raceForm->number_starts_from, true), 'number_starts_from'))
             );
             $this->query()->where('id', '=', $this->id)->first()
                 ->update(['number' => $numbers[$this->distance]]);
