@@ -174,6 +174,7 @@ class RaceController extends Controller
                 ->get()->all();
 
             foreach ($raceForms as $raceForm) {
+                $races[$race->id]['forms'][$raceForm->id]['current_price'] = null;
                 $races[$race->id]['forms'][$raceForm->id] = $raceForm->getAttributes();
                 $races[$race->id]['forms'][$raceForm->id]['distance'] = explode(
                     ':',
@@ -377,14 +378,20 @@ class RaceController extends Controller
 
         foreach ($raceForms as $raceForm) {
             $race['forms'][$raceForm->id] = $raceForm->getAttributes();
-            $race['forms'][$raceForm->id]['distance'] = explode(
-                ':',
-                json_decode($race['forms'][$raceForm->id]['distance'], true)['distance']
-            )[0];
-            $race['forms'][$raceForm->id]['number_starts_from'] = explode(
-                ':',
-                json_decode($race['forms'][$raceForm->id]['number_starts_from'], true)['number_starts_from']
-            )[0];
+
+            $race['forms'][$raceForm->id]['current_price'] = null;
+
+            if (str_contains($distance = json_decode($race['forms'][$raceForm->id]['distance'], true)['distance'], ';')) {
+                $race['forms'][$raceForm->id]['distance'] = Arr::first(explode(':', $distance));
+            } else {
+                $race['forms'][$raceForm->id]['distance'] = $distance;
+            }
+
+            if (str_contains($numberStartsFrom = json_decode($race['forms'][$raceForm->id]['number_starts_from'], true)['number_starts_from'], ';')) {
+                $race['forms'][$raceForm->id]['number_starts_from'] = Arr::first(explode(':', $numberStartsFrom));
+            } else {
+                $race['forms'][$raceForm->id]['number_starts_from'] = $numberStartsFrom;
+            }
 
             if (!str_contains($race['forms'][$raceForm->id]['payments'], ';')) {
                 $race['forms'][$raceForm->id]['payments'] =

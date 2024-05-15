@@ -55,6 +55,8 @@ class IndexController extends Controller
                     if (str_contains(Arr::first($races[$race->id]['forms'][$raceForm->id]['payments']), ':')) {
                         $isCurrentPriceCalculated = false;
                         foreach ($races[$race->id]['forms'][$raceForm->id]['payments'] as $key => $payment) {
+                            $races[$race->id]['forms'][$raceForm->id]['current_price'] = null;
+
                             $races[$race->id]['forms'][$raceForm->id]['payments'][$key] =
                                 explode(':', $payment);
                             if (str_contains(Arr::first($races[$race->id]['forms'][$raceForm->id]['payments'][$key]), '-')) {
@@ -94,6 +96,10 @@ class IndexController extends Controller
                                 $isCurrentPriceCalculated = true;
                                 $races[$race->id]['forms'][$raceForm->id]['current_price'] =
                                     $races[$race->id]['forms'][$raceForm->id]['payments'][$key]['price'];
+                            }
+
+                            if ($races[$race->id]['forms'][$raceForm->id]['current_price'] === null) {
+                                $races[$race->id]['is_active'] = 0;
                             }
                         }
                     }
