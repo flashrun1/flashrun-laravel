@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use LiqPay;
+use Symfony\Component\Process\Process;
 
 class RaceController extends Controller
 {
@@ -524,7 +525,8 @@ class RaceController extends Controller
      */
     private function runDeploy(): void
     {
-        shell_exec('npm run prod');
+        $process = Process::fromShellCommandline('npm run prod');
+        $process->run();
     }
 
     /**
