@@ -357,6 +357,7 @@ class RaceController extends Controller
     {
         $raceFormData = $request->toArray();
         $raceFormData['distance'] = json_encode($request->all('distance'));
+        $raceFormData['number_starts_from'] = json_encode($request->all('number_starts_from'));
         $raceFormData['payments'] = json_encode($request->all('payments'));
         $this->raceFormModel->fill($raceFormData)->save();
 
@@ -519,6 +520,7 @@ class RaceController extends Controller
     {
         $raceFormData = $request->toArray();
         $raceFormData['distance'] = json_encode($request->all('distance'));
+        $raceFormData['number_starts_from'] = json_encode($request->all('number_starts_from'));
         $raceFormData['payments'] = json_encode($request->all('payments'));
         RaceForm::query()->where('id', '=', $request->id)->first()->update($raceFormData);
 
