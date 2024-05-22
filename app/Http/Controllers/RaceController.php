@@ -50,7 +50,7 @@ class RaceController extends Controller
             'g-recaptcha-response' => ['required', new ReCaptchaV3('raceRegister', 0.6)],
             'name' => 'required|max:80',
             'email' => 'required|email',
-            'phone' => 'required|max:12',
+            'phone' => 'required|max:14',
             'city' => 'required|max:30'
         ], [
             'name.required' => 'Заповніть поле введення імені та прізвища',
