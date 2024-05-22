@@ -14,6 +14,8 @@
                                class="btn btn-primary">{{ __('Створити новий забіг') }}</a>
                             <a href="{{ route('race-types.index') }}"
                                class="btn btn-primary">{{ __('Типи забігів') }}</a>
+                            <a href="{{ route('race-reload') }}"
+                               class="btn btn-primary">{{ __('Перезавантажити') }}</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

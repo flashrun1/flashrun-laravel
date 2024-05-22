@@ -271,8 +271,6 @@ class RaceController extends Controller
 
         $this->raceModel->fill($raceData)->save();
 
-        $this->runDeploy();
-
         return $this->index();
     }
 
@@ -389,8 +387,6 @@ class RaceController extends Controller
 
         Race::query()->where('id', '=', $request->id)->first()->update($raceData);
 
-        $this->runDeploy();
-
         return $this->index();
     }
 
@@ -484,8 +480,6 @@ class RaceController extends Controller
 
         $race->delete();
 
-        $this->runDeploy();
-
         return $this->index();
     }
 
@@ -528,12 +522,14 @@ class RaceController extends Controller
     }
 
     /**
-     * @return void
+     * @return Application|Factory|View
      */
-    private function runDeploy(): void
+    public function runDeploy(): Application|Factory|View
     {
         $process = Process::fromShellCommandline('/usr/bin/npm run prod');
         $process->run();
+
+        return $this->index();
     }
 
     /**
@@ -548,8 +544,6 @@ class RaceController extends Controller
         File::delete(resource_path('files/' . $race->document));
 
         $race->update(['document' => null]);
-
-        $this->runDeploy();
 
         return $this->index();
     }
