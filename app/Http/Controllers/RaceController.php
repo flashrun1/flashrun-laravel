@@ -66,10 +66,17 @@ class RaceController extends Controller
         $race = RaceForm::query()->where('race_id', '=', $request->race_id)
             ->where('type_id', '=', $request->type_id)->get()->first();
 
-        $price = array_combine(
-            explode(',', json_decode($race->distance, true)['distance']),
-            explode(',', json_decode($race->payments, true)['payments'])
-        )[$request->distance];
+        if (count(explode(',', json_decode($race->payments, true)['payments'])) === 1) {
+            $price = array_fill_keys(
+                explode(',', json_decode($race->distance, true)['distance']),
+                Arr::first(explode(',', json_decode($race->payments, true)['payments']))
+            )[$request->distance];
+        } else {
+            $price = array_combine(
+                explode(',', json_decode($race->distance, true)['distance']),
+                explode(',', json_decode($race->payments, true)['payments'])
+            )[$request->distance];
+        }
 
         $request->merge([
             'amount' => $price,
