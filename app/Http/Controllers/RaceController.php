@@ -18,13 +18,19 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use LiqPay;
-use Symfony\Component\Process\Process;
 
 class RaceController extends Controller
 {
+    /**
+     * Deploy NVM export command
+     */
+    private const DEPLOY_NVM_EXPORT_COMMAND = 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"';
+
     /**
      * @param Race $raceModel
      * @param RaceType $raceTypeModel
@@ -271,6 +277,8 @@ class RaceController extends Controller
 
         $this->raceModel->fill($raceData)->save();
 
+        $this->runDeploy();
+
         return $this->index();
     }
 
@@ -387,6 +395,8 @@ class RaceController extends Controller
 
         Race::query()->where('id', '=', $request->id)->first()->update($raceData);
 
+        $this->runDeploy();
+
         return $this->index();
     }
 
@@ -480,6 +490,8 @@ class RaceController extends Controller
 
         $race->delete();
 
+        $this->runDeploy();
+
         return $this->index();
     }
 
@@ -526,8 +538,11 @@ class RaceController extends Controller
      */
     public function runDeploy(): Application|Factory|View
     {
-        $process = Process::fromShellCommandline('/usr/bin/npm run prod');
-        $process->run();
+        $output = shell_exec(self::DEPLOY_NVM_EXPORT_COMMAND .
+            ' && cd /var/www/flashrun.org && npm run production 2>&1'
+        );
+
+        Log::channel('node')->debug($output);
 
         return $this->index();
     }
@@ -544,6 +559,8 @@ class RaceController extends Controller
         File::delete(resource_path('files/' . $race->document));
 
         $race->update(['document' => null]);
+
+        $this->runDeploy();
 
         return $this->index();
     }

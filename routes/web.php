@@ -71,8 +71,6 @@ Route::controller(RaceController::class)->group(function () {
 
     Route::post('/race-register', 'register')->name('race-register');
     Route::get('/races/{raceId}/participants', 'participants')->name('race-participants');
-
-    Route::get('/race-reload', 'runDeploy')->name('race-reload');
 });
 
 Auth::routes();
