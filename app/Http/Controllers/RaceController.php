@@ -542,7 +542,7 @@ class RaceController extends Controller
             ' && cd /var/www/flashrun.org && npm run production 2>&1'
         );
 
-        Log::channel('node')->debug($output);
+        Log::channel('node')->info($output);
 
         return $this->index();
     }
