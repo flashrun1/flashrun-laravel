@@ -7,7 +7,7 @@ mix.webpackConfig({
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [
                 path.resolve(__dirname, 'public/css'),
-                path.resolve(__dirname, 'public/js',),
+                path.resolve(__dirname, 'public/js'),
                 path.resolve(__dirname, 'public/files'),
                 path.resolve(__dirname, 'public/images')
             ],

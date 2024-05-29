@@ -439,12 +439,12 @@ class RaceController extends Controller
 
         $raceForm['distance'] = Arr::first(explode(
             'distance',
-            Arr::get(json_decode($raceForm['distance'], true), 'distance')
+            Arr::get(json_decode($raceForm['distance'], true), 'distance') ?? ''
         ));
 
         $raceForm['number_starts_from'] = Arr::first(explode(
             'number_starts_from',
-            Arr::get(json_decode($raceForm['number_starts_from'], true), 'number_starts_from')
+            Arr::get(json_decode($raceForm['number_starts_from'], true), 'number_starts_from') ?? ''
         ));
 
         $raceForm['payments'] = Arr::first(explode(
