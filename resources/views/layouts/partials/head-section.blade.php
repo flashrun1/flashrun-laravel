@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ asset('/css/style.css') }}"/>
 <!-- FAVICON -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" href="{{ asset('/favicon.ico') }}">
 <!-- OG -->
 <meta property="og:title" content="FLASHRUN - перший біговий клуб у Хмельницькому!">
 <meta property="og:url" content="FLASHRUN, RUNNING CLUB, біговий клуб у Хмельницькому">
