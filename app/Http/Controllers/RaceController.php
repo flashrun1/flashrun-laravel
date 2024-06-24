@@ -485,8 +485,13 @@ class RaceController extends Controller
     {
         $race = Race::query()->where('id', '=', $request->id)->first();
 
-        File::delete(resource_path('images/logo/' . $race->logo));
-        File::delete(resource_path('files/' . $race->document));
+        if ($race?->logo) {
+            File::delete(resource_path('images/logo/' . $race->logo));
+        }
+
+        if ($race?->document) {
+            File::delete(resource_path('files/' . $race->document));
+        }
 
         $race->delete();
 

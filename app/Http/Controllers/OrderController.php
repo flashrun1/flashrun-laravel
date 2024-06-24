@@ -138,6 +138,8 @@ class OrderController extends Controller
     {
         $order->setPaid();
 
+        $this->assignNumber($order, $request);
+
         return redirect()->route('orders');
     }
 
@@ -149,6 +151,8 @@ class OrderController extends Controller
     public function setUnpaid(Order $order, Request $request): RedirectResponse
     {
         $order->setUnpaid();
+
+        $this->unassignNumber($order, $request);
 
         return redirect()->route('orders');
     }
@@ -173,6 +177,18 @@ class OrderController extends Controller
     public function assignNumber(Order $order, Request $request): RedirectResponse
     {
         $order->assignNumber();
+
+        return redirect()->route('orders');
+    }
+
+    /**
+     * @param Order $order
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function unassignNumber(Order $order, Request $request): RedirectResponse
+    {
+        $order->unassignNumber();
 
         return redirect()->route('orders');
     }

@@ -134,27 +134,35 @@ class Order extends Model
      */
     public function assignNumber(): void
     {
-        $previousOrder = $this->query()->where('race_id', '=', $this->race_id)
+        $raceForm = RaceForm::query()->where('race_id', '=', $this->race_id)
             ->where('type_id', '=', $this->type_id)
-            ->where('distance', '=', $this->distance)
-            ->where('id', '!=', $this->id)
-            ->where('number', '!=', null)
-            ->orderBy('id', 'desc')
+            ->get(['distance', 'number_starts_from'])
             ->first();
 
-        if ($previousOrder) {
-            $this->query()->where('id', '=', $this->id)->first()
-                ->update(['number' => ++$previousOrder->number]);
-        } else {
-            $raceForm = RaceForm::query()->where('race_id', '=', $this->race_id)
-                ->where('type_id', '=', $this->type_id)
-                ->first();
-            $numbers = array_combine(
-                explode(',', Arr::get(json_decode($raceForm->distance, true), 'distance')),
-                explode(',', Arr::get(json_decode($raceForm->number_starts_from, true), 'number_starts_from'))
-            );
-            $this->query()->where('id', '=', $this->id)->first()
-                ->update(['number' => $numbers[$this->distance]]);
-        }
+        $numbers = array_combine(
+            explode(',', Arr::get(json_decode($raceForm->distance, true), 'distance')),
+            explode(',', Arr::get(json_decode($raceForm->number_starts_from, true), 'number_starts_from'))
+        );
+
+        $number = $numbers[$this->distance];
+
+        $orderNumber = $this->query()->getConnection()->selectOne(
+            "SELECT MIN(t1.number) AS result FROM (
+SELECT $number AS number, race_id, type_id FROM orders WHERE race_id = $this->race_id AND type_id = $this->type_id
+UNION ALL (SELECT number + 1, race_id, type_id FROM orders WHERE race_id = $this->race_id AND type_id = $this->type_id)
+          ) t1
+LEFT OUTER JOIN orders t2 ON t1.number = t2.number WHERE t2.number IS NULL"
+        );
+
+        $this->query()->where('id', '=', $this->id)->first()
+            ->update(['number' => Arr::wrap((array)$orderNumber)['result']]);
+    }
+
+    /**
+     * @return void
+     */
+    public function unassignNumber(): void
+    {
+        $this->query()->where('id', '=', $this->id)->first()->update(['number' => null]);
     }
 }
