@@ -148,9 +148,8 @@ class Order extends Model
 
         $orderNumber = $this->query()->getConnection()->selectOne(
             "SELECT MIN(t1.number) AS result FROM (
-SELECT $number AS number, race_id, type_id FROM orders WHERE race_id = $this->race_id AND type_id = $this->type_id
-UNION ALL (SELECT number + 1, race_id, type_id FROM orders WHERE race_id = $this->race_id AND type_id = $this->type_id)
-          ) t1
+SELECT $number AS number, race_id, type_id FROM orders WHERE race_id = $this->race_id AND type_id = $this->type_id AND distance = $this->distance
+UNION ALL (SELECT number + 1, race_id, type_id FROM orders WHERE race_id = $this->race_id AND type_id = $this->type_id AND distance = $this->distance)) t1
 LEFT OUTER JOIN orders t2 ON t1.number = t2.number WHERE t2.number IS NULL"
         );
 
