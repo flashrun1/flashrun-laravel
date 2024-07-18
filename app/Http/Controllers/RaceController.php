@@ -178,6 +178,7 @@ class RaceController extends Controller
             ->where('race_id', '=', $raceId)
             ->where('status', Order::STATUS_REGISTERED_PAID)
             ->join('race_type', 'race_type.id', '=', 'orders.type_id')
+            ->orderBy('number')
             ->get()
             ->groupBy(['type_label', 'distance'])
             ->all();
