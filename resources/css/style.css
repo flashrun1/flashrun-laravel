@@ -536,6 +536,12 @@ header .nav-menu li a:hover {
     min-height: 218px;
 }
 
+.categories-card {
+    .btn.document {
+        margin-top: 10px;
+    }
+}
+
 .catalog {
     background-color: #FAFAFA;
 }
@@ -1206,6 +1212,10 @@ body.fixed {
 
     .categories-card {
         text-align: center;
+
+        .btn.document {
+            margin-top: 0;
+        }
     }
 
     .categories-card .title {
@@ -1251,6 +1261,17 @@ body.fixed {
 
 }
 
+@media (max-width: 499px) {
+    .categories-card {
+        .btn.document {
+            margin-top: 10px;
+        }
+        .mt-2.text-decoration-underline {
+            display: block;
+        }
+    }
+}
+
 @media (max-width: 480.98px) {
     body {
         font-size: 14px;
@@ -1291,6 +1312,12 @@ body.fixed {
 
     .categories-card .descr {
         font-size: .9rem;
+    }
+
+    .categories-card {
+        .btn.document {
+            margin-top: 10px;
+        }
     }
 
     .footer {

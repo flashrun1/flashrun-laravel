@@ -10,6 +10,10 @@
                 <h3 class="title">{{ $race['title'] }}</h3>
                 <div class="descr custom-color">{{ $race['front_description'] }}</div>
                 <button @php echo $race['is_active'] ? null : 'disabled' @endphp type="button" class="btn" data-toggle="modal" data-target="#register_modal_{{ $race['id'] }}">ЗАРЕЄСТРУВАТИСЬ</button>
+                @if ($race['document'])
+                    <a href="{{ asset('/files/' . $race['document']) }}" target="_blank"
+                       class="btn btn-invert document">Положення змагань</a>
+                @endif
                 <a class="mt-2 text-decoration-underline" href="{{ route('race-participants', ['raceId' => $race['id']]) }}">Список учасників</a>
             </div>
         </div>
