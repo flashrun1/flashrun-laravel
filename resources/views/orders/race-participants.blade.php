@@ -6,6 +6,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Ім'я</th>
+            <th scope="col">Стать</th>
             <th scope="col">Місто</th>
             <th scope="col">Номер</th>
             <th scope="col">Клуб</th>
@@ -24,6 +25,7 @@
                     <tr>
                         <td>{{ ++$key }}</td>
                         <td>{{ $orderData->name }}</td>
+                        <td>{{ $orderData->sex !== null ? ($orderData->sex ? 'Чоловіча' : 'Жіноча') : '' }}</td>
                         <td>{{ $orderData->city }}</td>
                         <td>{{ $orderData->number }}</td>
                         <td>{{ $orderData->club }}</td>

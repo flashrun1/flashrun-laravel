@@ -32,6 +32,7 @@
                                     <thead class=" text-primary">
                                     <th>ID</th>
                                     <th>ПІП</th>
+                                    <th>Стать</th>
                                     <th>Забіг</th>
                                     <th>Email</th>
                                     <th>Статус</th>
@@ -53,6 +54,9 @@
                                             </td>
                                             <td>
                                                 {{ $order->name }}
+                                            </td>
+                                            <td>
+                                                {{ $order->sex !== null ? ($order->sex ? 'Чоловіча' : 'Жіноча') : '' }}
                                             </td>
                                             <td>
                                                 {{ Race::query()->where('id', '=', $order->race_id)->first()->title }}

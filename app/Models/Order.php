@@ -34,6 +34,7 @@ class Order extends Model
         'transaction_id',
         'notes',
         'name',
+        'sex',
         'phone',
         'distance',
         'city',
@@ -52,7 +53,12 @@ class Order extends Model
     public static function createFromRequest(Request $request): Order
     {
         $order = new self();
-        $request->merge(['currency' => self::DEFAULT_CURRENCY, 'transaction_id' => '', 'amount' => $request->price]);
+        $request->merge([
+            'name' => $request->name . ' ' . $request->surname,
+            'currency' => self::DEFAULT_CURRENCY,
+            'transaction_id' => '',
+            'amount' => $request->price
+        ]);
         $order->fill($request->toArray())->save();
 
         return $order;

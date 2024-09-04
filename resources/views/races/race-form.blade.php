@@ -63,9 +63,22 @@
                             <input type="hidden" name="type_id" value="{{ $form['type_id'] }}">
 
                             <div class="form-group">
-                                <label for="register_modal_form_cb_name">Ім’я та прізвище</label>
+                                <label for="register_modal_form_cb_name">Ім’я</label>
                                 <input id="register_modal_form_cb_name" type="text" name="name"
-                                       placeholder="Введіть ім’я та прізвище" required class="form-control">
+                                       placeholder="Введіть ім’я" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="register_modal_form_cb_surname">Прізвище</label>
+                                <input id="register_modal_form_cb_surname" type="text" name="surname"
+                                       placeholder="Введіть прізвище" required class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="register_modal_form_cb_sex">Стать</label>
+                                <select id="register_modal_form_cb_sex" name="sex" required class="form-control">
+                                    <option value="">--Оберіть стать--</option>
+                                    <option value="0">Жіноча</option>
+                                    <option value="1">Чоловіча</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="email">E-mail</label>

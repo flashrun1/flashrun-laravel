@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('transaction_id');
             $table->text('notes')->nullable();
             $table->string('name');
+            $table->integer('sex');
             $table->string('phone');
             $table->string('distance');
             $table->string('city');
