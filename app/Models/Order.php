@@ -145,6 +145,10 @@ class Order extends Model
             ->get(['distance', 'number_starts_from'])
             ->first();
 
+        if (Arr::get(json_decode($raceForm->number_starts_from, true), 'number_starts_from') === null) {
+            return;
+        }
+
         $numbers = array_combine(
             explode(',', Arr::get(json_decode($raceForm->distance, true), 'distance')),
             explode(',', Arr::get(json_decode($raceForm->number_starts_from, true), 'number_starts_from'))
