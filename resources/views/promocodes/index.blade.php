@@ -67,8 +67,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="promocode-status">Статус</label>
-                            <input type="checkbox" class="form-control" required id="promocode-status" name="status"
-                                    {{ $promocode->status ? 'checked' : null }}>
+                            <input type="checkbox" class="form-control" required id="promocode-status" name="status"/>
                         </div>
                         <div class="form-group">
                             <label for="promocode-name">Промокод</label>

@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Money\Currency;
 use Money\Money;
 
@@ -45,7 +46,9 @@ class Promocode extends Model
     public static function createFromRequest(Request $request): void
     {
         $promocode = new self();
-        $promocode->fill($request->toArray());
+        $data = $request->toArray();
+        $data['status'] = Arr::get($data,'status') ? self::STATUS_ENABLED : self::STATUS_DISABLED;
+        $promocode->fill($data);
         $promocode->save();
     }
 
