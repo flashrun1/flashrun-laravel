@@ -138,7 +138,9 @@ class OrderController extends Controller
     {
         $order->setPaid();
 
-        $this->assignNumber($order, $request);
+        if (!$order->getAttribute('number')) {
+            $this->assignNumber($order, $request);
+        }
 
         return redirect()->route('orders');
     }
@@ -164,7 +166,7 @@ class OrderController extends Controller
      */
     public function setDeleted(Order $order, Request $request): RedirectResponse
     {
-        $order->setDeleted();
+        $order->setDeleted()->unassignNumber();
 
         return redirect()->route('orders');
     }
