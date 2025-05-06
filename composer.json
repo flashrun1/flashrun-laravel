@@ -14,7 +14,9 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "liqpay/liqpay": "^1.2",
-        "moneyphp/money": "^4.1"
+        "mailjet/laravel-mailjet": "*",
+        "moneyphp/money": "^4.1",
+        "symfony/http-client": "^6.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

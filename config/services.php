@@ -33,5 +33,27 @@ return [
     'recaptcha_v3' => [
         'siteKey' => env('RECAPTCHA_V3_SITE_KEY'),
         'secretKey' => env('RECAPTCHA_V3_SECRET_KEY'),
+    ],
+    'mailjet' => [
+        'key' => env('MAILJET_APIKEY'),
+        'secret' => env('MAILJET_APISECRET'),
+        'transactional' => [
+            'call' => true,
+            'options' => [
+                'url' => 'api.mailjet.com',
+                'version' => 'v3.1',
+                'call' => true,
+                'secured' => true
+            ]
+        ],
+        'common' => [
+            'call' => true,
+            'options' => [
+                'url' => 'api.mailjet.com',
+                'version' => 'v3',
+                'call' => true,
+                'secured' => true
+            ]
+        ]
     ]
 ];

@@ -195,6 +195,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         andcarpi\Popper\PopperServiceProvider::class,
+        Mailjet\LaravelMailjet\MailjetServiceProvider::class,
     ],
 
     /*
@@ -211,6 +212,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Popper' => andcarpi\Popper\Facades\Popper::class,
+        'Mailjet' => Mailjet\LaravelMailjet\Facades\Mailjet::class,
     ])->toArray(),
 
 ];
