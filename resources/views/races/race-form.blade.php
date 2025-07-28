@@ -81,6 +81,11 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="register_modal_form_cb_dob">Дата народження</label>
+                                <input id="register_modal_form_cb_surname" type="date" name="dob"
+                                       placeholder="Дата народження" required class="form-control">
+                            </div>
+                            <div class="form-group">
                                 <label for="email">E-mail</label>
                                 <input id="email" type="email" name="email" placeholder="Введіть електронну пошту"
                                        required class="form-control">
@@ -101,10 +106,20 @@
                                        class="form-control" placeholder="Введіть Ваше місто">
                             </div>
                             <div class="form-group">
+                                <label for="register_modal_form_cb_tsize">Розмір футболки</label>
+                                <select id="register_modal_form_cb_tsize" name="tsize" required class="form-control">
+                                    <option value="">--Оберіть розмір футболки--</option>
+                                    <option value="0">XS</option>
+                                    <option value="1">S</option>
+                                    <option value="2">M</option>
+                                    <option value="3">L</option>
+                                    <option value="4">XL</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="register_modal_form_cb_promocode">Промокод</label>
                                 <input id="register_modal_form_cb_promocode" type="text" name="promocode"
-                                       class="form-control"
-                                       placeholder="Введіть промокод">
+                                       class="form-control" placeholder="Введіть промокод">
                             </div>
 
                             <div class="form-group">

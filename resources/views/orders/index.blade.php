@@ -33,11 +33,13 @@
                                     <th>ID</th>
                                     <th>ПІП</th>
                                     <th>Стать</th>
+                                    <th>Дата народження</th>
                                     <th>Забіг</th>
                                     <th>Email</th>
                                     <th>Статус</th>
                                     <th>Телефон</th>
                                     <th>Клуб</th>
+                                    <th>Розмір футболки</th>
                                     <th>Місто</th>
                                     <th>Тип</th>
                                     <th>Дистанція</th>
@@ -59,6 +61,9 @@
                                                 {{ $order->sex !== null ? ($order->sex ? 'Чоловіча' : 'Жіноча') : '' }}
                                             </td>
                                             <td>
+                                                {{ $order->dob ? date('d.m.Y', strtotime($order->dob)) : '' }}
+                                            </td>
+                                            <td>
                                                 {{ Race::query()->where('id', '=', $order->race_id)->first()->title }}
                                             </td>
                                             <td>
@@ -77,6 +82,9 @@
                                             </td>
                                             <td>
                                                 {{ $order->club }}
+                                            </td>
+                                            <td>
+                                                {{ $order->tsize !== null ? ([0 => 'XS', 1 => 'S', 2 => 'M', 3 => 'L', 4 => 'XL'][$order->tsize]) : '' }}
                                             </td>
                                             <td>
                                                 {{ $order->city }}
