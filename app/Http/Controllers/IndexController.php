@@ -46,6 +46,11 @@ class IndexController extends Controller
                         Arr::get(json_decode($races[$race->id]['forms'][$raceForm->id]['payments'], true), 'payments')
                     );
                 }
+
+                if (isset($races[$race->id]['forms'][$raceForm->id]['extra_fields'])) {
+                    $races[$race->id]['forms'][$raceForm->id]['extra_fields'] =
+                        Arr::get(json_decode($races[$race->id]['forms'][$raceForm->id]['extra_fields'], true), 'extra_fields');
+                }
             }
         }
 

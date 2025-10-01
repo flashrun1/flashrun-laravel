@@ -40,9 +40,11 @@ class Order extends Model
         'distance',
         'city',
         'club',
-        'tsize',
         'promocode',
         'number',
+        'extra_fields',
+        'agree_rules',
+        'agree_data_processing',
         'race_id',
         'type_id'
     ];

@@ -6,6 +6,20 @@
 @extends('layouts.app', ['activePage' => 'table', 'titlePage' => __('Учасники')])
 
 @section('content')
+    <style>
+        table.table {
+            table-layout: auto;
+            white-space: nowrap;
+        }
+        table.table th {
+            text-align: center;
+            vertical-align: middle;
+        }
+        table.table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -22,34 +36,25 @@
                                 </span>
                             </p>
                         </div>
-                        <div class="card-footer ml-auto mr-auto">
-                            <a href="{{ route('orders.create') }}"
-                               class="btn btn-primary">{{ __('Зареєструвати нового учасника') }}</a>
-                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table table-bordered text-center w-100">
                                     <thead class=" text-primary">
                                     <th>ID</th>
                                     <th>ПІП</th>
                                     <th>Стать</th>
                                     <th>Дата народження</th>
                                     <th>Забіг</th>
-                                    <th>Email</th>
                                     <th>Статус</th>
-                                    <th>Телефон</th>
-                                    <th>Клуб</th>
-                                    <th>Розмір футболки</th>
                                     <th>Місто</th>
                                     <th>Тип</th>
                                     <th>Дистанція</th>
-                                    <th>Номер</th>
-                                    <th>Промокод</th>
-                                    <th>Додатки</th>
-                                    <th></th>
+                                    <th>Повна інформація</th>
+                                    <th>Дії</th>
                                     </thead>
                                     <tbody>
                                     @foreach($orders as $order)
+                                        @php($orderExtraFields = json_decode((string)$order->extra_fields, true))
                                         <tr>
                                             <td>
                                                 {{ $order->id }}
@@ -67,24 +72,12 @@
                                                 {{ Race::query()->where('id', '=', $order->race_id)->first()->title }}
                                             </td>
                                             <td>
-                                                {{ $order->email }}
-                                            </td>
-                                            <td>
                                                 @if ($order->isNotPaid())
                                                     <span class="badge badge-danger">Не оплочено</span>
                                                 @endif
                                                 @if ($order->isPaid())
                                                     <span class="badge badge-success">Оплочено</span>
                                                 @endif
-                                            </td>
-                                            <td>
-                                                {{ $order->phone }}
-                                            </td>
-                                            <td>
-                                                {{ $order->club }}
-                                            </td>
-                                            <td>
-                                                {{ $order->tsize !== null ? ([0 => 'XS', 1 => 'S', 2 => 'M', 3 => 'L', 4 => 'XL'][$order->tsize]) : '' }}
                                             </td>
                                             <td>
                                                 {{ $order->city }}
@@ -96,16 +89,81 @@
                                                 {{ $order->distance . 'м' }}
                                             </td>
                                             <td>
-                                                {{ $order->number }}
-                                            </td>
-                                            <td>
-                                                {{ $order->promocode }}
-                                            </td>
-                                            <td>
-                                                @if ($order->notes)
-                                                    <span @popper({{ $order->notes }})>Інформація</span>
-                                                    @include('popper::assets')
-                                                @endif
+                                                <a href="#" data-toggle="modal" data-target="#moreInfo-{{ $order->id }}">Переглянути</a>
+                                                <div class="modal fade" id="moreInfo-{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="moreInfoLabel-{{ $order->id }}" aria-hidden="true" style="text-align: left;">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="moreInfoLabel-{{ $order->id }}">Повна інформація про учасника #{{ $order->id }}</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Закрити">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p><strong>ПІП:</strong> {{ $order->name }}</p>
+                                                                <p><strong>Стать:</strong> {{ $order->sex !== null ? ($order->sex ? 'Чоловіча' : 'Жіноча') : '' }}</p>
+                                                                <p><strong>Дата народження:</strong> {{ $order->dob ? date('d.m.Y', strtotime($order->dob)) : '' }}</p>
+                                                                <p><strong>Забіг:</strong> {{ Race::query()->where('id', '=', $order->race_id)->first()->title }}</p>
+                                                                <p><strong>Email:</strong> {{ $order->email }}</p>
+                                                                <p><strong>Статус:</strong> {{ $order->isPaid() ? 'Оплачено' : 'Не оплачено' }}</p>
+                                                                <p><strong>Телефон:</strong> {{ $order->phone }}</p>
+                                                                @if($order->club)
+                                                                    <p><strong>Клуб:</strong> {{ $order->club }}</p>
+                                                                @endif
+                                                                <p><strong>Місто:</strong> {{ $order->city }}</p>
+                                                                <p><strong>Тип:</strong> {{ RaceType::query()->where('id', '=', $order->type_id)->first()->type_label }}</p>
+                                                                <p><strong>Дистанція:</strong> {{ $order->distance . 'м' }}</p>
+                                                                @if($order->number)
+                                                                    <p><strong>Номер:</strong> {{ $order->number }}</p>
+                                                                @endif
+                                                                @if($order->promocode)
+                                                                    <p><strong>Промокод:</strong> {{ $order->promocode }}</p>
+                                                                @endif
+                                                                @if($order->notes)
+                                                                    <p><strong>Додатки:</strong> {{ $order->notes }}</p>
+                                                                @endif
+                                                                @if(isset($orderExtraFields['telegram_nick']))
+                                                                    <p><strong>Telegram нік:</strong> {{ $orderExtraFields['telegram_nick'] }}</p>
+                                                                @endif
+                                                                @if(isset($orderExtraFields['tsize']))
+                                                                    <p><strong>Розмір футболки:</strong> {{ [0 => 'XS', 1 => 'S', 2 => 'M', 3 => 'L', 4 => 'XL'][$orderExtraFields['tsize']] }}</p>
+                                                                @endif
+                                                                @if(isset($orderExtraFields['has_airsoft_gun']))
+                                                                    <p><strong>Маєте страйкбольний привід:</strong> {{ $orderExtraFields['has_airsoft_gun'] == 'own' ? 'Так' : 'Ні' }}</p>
+                                                                @endif
+                                                                @if(isset($orderExtraFields['airsoft_gun_model']))
+                                                                    <p><strong>Модель приводу:</strong> {{ $orderExtraFields['airsoft_gun_model'] }}</p>
+                                                                @endif
+                                                                @if(isset($orderExtraFields['played_before']))
+                                                                    <p><strong>Грали раніше:</strong> {{ $orderExtraFields['played_before'] == 'yes' ? 'Так' : 'Ні' }}</p>
+                                                                @endif
+                                                                @if(isset($orderExtraFields['desired_group']))
+                                                                    <p><strong>Бажана група:</strong> {{ ['A' => 'Група А', 'B' => 'Група Б', 'no_preference' => 'Без різниці'][$orderExtraFields['desired_group']] }}</p>
+                                                                @endif
+                                                                @if(isset($orderExtraFields['transport_option']))
+                                                                    <p><strong>Добирання на локацію:</strong> {{ $orderExtraFields['transport_option'] == 'own' ? 'Доберуся сам/сама' : 'Потрібно забрати' }}</p>
+                                                                @endif
+                                                                @if(isset($orderExtraFields['pickup_point']))
+                                                                    <p><strong>Точка підбору:</strong> {{ $orderExtraFields['pickup_point'] }}</p>
+                                                                @endif
+                                                                @if(isset($orderExtraFields['has_gopro']))
+                                                                    <p><strong>Маєте GoPro:</strong> {{ $orderExtraFields['has_gopro'] === 'yes' ? 'Так (візьму з собою)' : 'Ні' }}</p>
+                                                                @endif
+                                                                @if(isset($orderExtraFields['companion_type']))
+                                                                    <p><strong>З ким плануєте приїхати:</strong> {{ ['alone' => 'Сам/сама', 'spouse' => 'З дружиною / чоловіком', 'children' => 'З дітьми', 'friends' => 'З друзями', 'other' => 'Інше'][$orderExtraFields['companion_type']] }}</p>
+                                                                @endif
+                                                                @if(isset($orderExtraFields['companion_other_text']))
+                                                                    <p><strong>З ким плануєте приїхати (інше):</strong> {{ $orderExtraFields['companion_other_text'] }}</p>
+                                                                @endif
+                                                                <p><strong>Погоджуюсь з правилами та технікою безпеки:</strong> {{ $order->agree_rules ? 'Так' : 'Ні' }}</p>
+                                                                <p><strong>Надаю згоду на обробку персональних даних:</strong> {{ $order->agree_data_processing ? 'Так' : 'Ні' }}</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>
                                                 <div class="dropdown show d-inline-block widget-dropdown">

@@ -103,6 +103,12 @@ class RaceController extends Controller
             }
         }
 
+        if ($request->extra_fields) {
+            $request->merge([
+                'extra_fields' => json_encode($request->extra_fields)
+            ]);
+        }
+
         // create order with unpaid status
         $newOrder = Order::createFromRequest($request);
 
@@ -331,6 +337,7 @@ class RaceController extends Controller
         $raceFormData['distance'] = json_encode($request->all('distance'));
         $raceFormData['number_starts_from'] = json_encode($request->all('number_starts_from'));
         $raceFormData['payments'] = json_encode($request->all('payments'));
+        $raceFormData['extra_fields'] = json_encode($request->all('extra_fields'));
         $this->raceFormModel->fill($raceFormData)->save();
 
         return $this->index();
@@ -355,10 +362,21 @@ class RaceController extends Controller
 
             $race['forms'][$raceForm->id]['distance'] =
                 Arr::get(json_decode($race['forms'][$raceForm->id]['distance'], true), 'distance');
-            $race['forms'][$raceForm->id]['number_starts_from'] =
-                Arr::get(json_decode($race['forms'][$raceForm->id]['number_starts_from'], true), 'number_starts_from');
-            $race['forms'][$raceForm->id]['payments'] =
-                Arr::get(json_decode($race['forms'][$raceForm->id]['payments'], true), 'payments');
+
+            if (isset($race['forms'][$raceForm->id]['number_starts_from'])) {
+                $race['forms'][$raceForm->id]['number_starts_from'] =
+                    Arr::get(json_decode($race['forms'][$raceForm->id]['number_starts_from'], true), 'number_starts_from');
+            }
+
+            if (isset($race['forms'][$raceForm->id]['payments'])) {
+                $race['forms'][$raceForm->id]['payments'] =
+                    Arr::get(json_decode($race['forms'][$raceForm->id]['payments'], true), 'payments');
+            }
+
+            if (isset($race['forms'][$raceForm->id]['extra_fields'])) {
+                $race['forms'][$raceForm->id]['extra_fields'] =
+                    Arr::get(json_decode($race['forms'][$raceForm->id]['extra_fields'], true), 'extra_fields');
+            }
         }
 
         return view('races.edit-race', ['race' => $race]);
@@ -443,15 +461,23 @@ class RaceController extends Controller
             Arr::get(json_decode($raceForm['distance'], true), 'distance') ?? ''
         ));
 
-        $raceForm['number_starts_from'] = Arr::first(explode(
-            'number_starts_from',
-            Arr::get(json_decode($raceForm['number_starts_from'], true), 'number_starts_from') ?? ''
-        ));
+        if (isset($raceForm['number_starts_from'])) {
+            $raceForm['number_starts_from'] = Arr::first(explode(
+                'number_starts_from',
+                Arr::get(json_decode($raceForm['number_starts_from'], true), 'number_starts_from') ?? ''
+            ));
+        }
 
-        $raceForm['payments'] = Arr::first(explode(
-            'payments',
-            Arr::get(json_decode($raceForm['payments'], true), 'payments') ?? '0'
-        ));
+        if (isset($raceForm['payments'])) {
+            $raceForm['payments'] = Arr::first(explode(
+                'payments',
+                Arr::get(json_decode($raceForm['payments'], true), 'payments') ?? '0'
+            ));
+        }
+
+        if (isset($raceForm['extra_fields'])) {
+            $raceForm['extra_fields'] = Arr::get(json_decode($raceForm['extra_fields'], true), 'extra_fields');
+        }
 
         return view('races.edit-race-form', [
             'raceForm' => $raceForm,
@@ -471,6 +497,7 @@ class RaceController extends Controller
         $raceFormData['distance'] = json_encode($request->all('distance'));
         $raceFormData['number_starts_from'] = json_encode($request->all('number_starts_from'));
         $raceFormData['payments'] = json_encode($request->all('payments'));
+        $raceFormData['extra_fields'] = json_encode($request->all('extra_fields'));
 
         RaceForm::query()->where('id', '=', $request->id)->first()->update($raceFormData);
 

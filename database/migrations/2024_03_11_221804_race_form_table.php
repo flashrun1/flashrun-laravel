@@ -18,6 +18,7 @@ return new class extends Migration
             $table->json('distance')->nullable(false);
             $table->json('number_starts_from')->nullable();
             $table->json('payments')->nullable();
+            $table->json('extra_fields')->nullable();
             $table->string('notes')->nullable();
             $table->unsignedBigInteger('race_id');
             $table->unsignedBigInteger('type_id');

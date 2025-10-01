@@ -29,6 +29,9 @@ return new class extends Migration
             $table->string('club')->nullable();
             $table->string('promocode')->nullable();
             $table->integer('number')->nullable();
+            $table->json('extra_fields')->nullable();
+            $table->json('agree_rules')->nullable(false);
+            $table->json('agree_data_processing')->nullable(false);
             $table->unsignedBigInteger('race_id');
             $table->unsignedBigInteger('type_id');
             $table->foreign('race_id')->references('id')->on('race')->onDelete('cascade');

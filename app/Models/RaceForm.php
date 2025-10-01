@@ -22,6 +22,7 @@ class RaceForm extends Model
         'number_starts_from',
         'payments',
         'notes',
+        'extra_fields',
         'race_id',
         'type_id'
     ];

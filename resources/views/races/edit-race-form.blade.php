@@ -46,6 +46,37 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" style="margin: 10px 0;">Додаткові поля для форми учасника</span>
+                    <div class="row" style="max-height: 400px; overflow-y: auto; border: 1px solid #ced4da; padding: 10px; border-radius: 5px; margin: 0;">
+                        @php
+                            $fields = [
+                                'show_telegram_nick' => 'Telegram нік',
+                                'show_tshirt_size' => 'Розмір футболки',
+                                'show_airsoft_gun' => 'Є страйкбольна зброя?',
+                                'show_played_before' => 'Грав раніше?',
+                                'show_desired_group' => 'Бажана група',
+                                'show_transport_option' => 'Транспорт',
+                                'show_pickup_point' => 'Місце підбору',
+                                'show_has_gopro' => 'Має GoPro?',
+                                'show_companion_type' => 'Тип супроводу'
+                            ];
+                        @endphp
+
+                        @foreach($fields as $key => $label)
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <label class="form-check-label" style="display: flex; align-items: center; cursor: pointer; color: #000;">
+                                        <input type="checkbox" name="extra_fields[{{ $key }}]" value="1"
+                                               style="margin-right: 10px; position: relative; opacity: 1; width: 18px; height: 18px;"
+                                               @if(isset($raceForm['extra_fields'][$key])) checked @endif>
+                                        {{ $label }}
+                                    </label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Зберегти</button>
             </form>
         </div>
