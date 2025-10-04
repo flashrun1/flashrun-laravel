@@ -301,27 +301,50 @@
                                 </div>
 
                                 {{-- Original distance and notes fields --}}
-                                <div class="form-group">
-                                    <div class="label-wrap">
-                                        <label>Дистанції @if(!is_array($form['payments']))
-                                                - {{ $form['payments'] }} грн.
-                                            @endif
-                                        </label>
+                                @if(isset($extraFields['show_airsoft_gun']))
+                                    <div class="form-group">
+                                        <div class="custom-radio-group airsoft_gun">
+                                            @foreach($form['distance'] as $key => $distance)
+                                                <input id="register_{{ $form['id'] }}_{{ $form['type_id'] }}_form_cb_option_{{ $distance }}"
+                                                       type="radio" name="distance" value="{{ $distance }}"
+                                                       class="custom-radio-btn"
+                                                        {{ array_key_first($form['distance']) === $key ? 'checked' : null }}>
+                                                <label for="register_{{ $form['id'] }}_{{ $form['type_id'] }}_form_cb_option_{{ $distance }}" style="display: none;">
+                                                    @if(is_array($form['payments']))
+                                                        Ціна: {{ $form['payments'][$key] }} грн.
+                                                    @endif</label>
+                                            @endforeach
+                                        </div>
+                                        <div class="invalid-feedback">Будь ласка, оберіть дистанцію.</div>
                                     </div>
-                                    <div class="custom-radio-group">
+                                    <div class="form-group">
                                         @foreach($form['distance'] as $key => $distance)
-                                            <input id="register_{{ $form['id'] }}_{{ $form['type_id'] }}_form_cb_option_{{ $key }}"
-                                                   type="radio" name="distance" value="{{ $distance }}" required
-                                                   class="custom-radio-btn"
-                                                    {{ array_key_first($form['distance']) === $key ? 'checked' : null }}>
-                                            <label for="register_{{ $form['id'] }}_{{ $form['type_id'] }}_form_cb_option_{{ $key }}">{{ $distance }}
-                                                м @if(is_array($form['payments']))
-                                                    - {{ $form['payments'][$key] }} грн.
-                                                @endif</label>
+                                            <label class="price-option price-{{ $distance }}" style="display: none;">@if(is_array($form['payments']))Ціна: {{ $form['payments'][$key] }} грн. @endif</label>
                                         @endforeach
                                     </div>
-                                    <div class="invalid-feedback">Будь ласка, оберіть дистанцію.</div>
-                                </div>
+                                @else
+                                    <div class="form-group">
+                                        <div class="label-wrap">
+                                            <label>Дистанції @if(!is_array($form['payments']))
+                                                    - {{ $form['payments'] }} грн.
+                                                @endif
+                                            </label>
+                                        </div>
+                                        <div class="custom-radio-group">
+                                            @foreach($form['distance'] as $key => $distance)
+                                                <input id="register_{{ $form['id'] }}_{{ $form['type_id'] }}_form_cb_option_{{ $key }}"
+                                                       type="radio" name="distance" value="{{ $distance }}" required
+                                                       class="custom-radio-btn"
+                                                        {{ array_key_first($form['distance']) === $key ? 'checked' : null }}>
+                                                <label for="register_{{ $form['id'] }}_{{ $form['type_id'] }}_form_cb_option_{{ $key }}">{{ $distance }}
+                                                    м @if(is_array($form['payments']))
+                                                        - {{ $form['payments'][$key] }} грн.
+                                                    @endif</label>
+                                            @endforeach
+                                        </div>
+                                        <div class="invalid-feedback">Будь ласка, оберіть дистанцію.</div>
+                                    </div>
+                                @endif
 
                                 <div class="form-group">
                                     <div class="btn-wrap text-center">
@@ -430,15 +453,35 @@
                 container.querySelectorAll('input[name="extra_fields[has_airsoft_gun]"]').forEach(function (radio) {
                     radio.addEventListener('change', function () {
                         const modelInput = container.querySelector('input[name="extra_fields[airsoft_gun_model]"]');
-                        if (!modelInput) return;
+                        const distanceRadios = container.querySelectorAll('.custom-radio-group.airsoft_gun input[type="radio"]');
+                        const distanceLabels = container.querySelectorAll('.custom-radio-group.airsoft_gun label');
+
                         if (this.value === 'own') {
                             modelInput.style.display = 'block';
                             modelInput.setAttribute('required', 'required');
+
+                            // показуємо тільки першу дистанцію і її ціну
+                            distanceRadios.forEach((r, idx) => {
+                                r.style.display = idx === 0 ? 'inline-block' : 'none';
+                                r.checked = idx === 0;
+                            });
+                            distanceLabels.forEach((l, idx) => {
+                                l.style.display = idx === 0 ? 'inline-block' : 'none';
+                            });
                         } else {
                             modelInput.style.display = 'none';
                             modelInput.removeAttribute('required');
                             modelInput.value = '';
                             modelInput.classList.remove('is-invalid', 'is-valid');
+
+                            // показуємо тільки другу дистанцію і її ціну
+                            distanceRadios.forEach((r, idx) => {
+                                r.style.display = idx === 1 ? 'inline-block' : 'none';
+                                r.checked = idx === 1;
+                            });
+                            distanceLabels.forEach((l, idx) => {
+                                l.style.display = idx === 1 ? 'inline-block' : 'none';
+                            });
                         }
                     });
                 });
@@ -475,6 +518,10 @@
                             otherInput.classList.remove('is-invalid', 'is-valid');
                         }
                     });
+                });
+
+                container.querySelectorAll('input[name="extra_fields[has_airsoft_gun]"]:checked').forEach(radio => {
+                    radio.dispatchEvent(new Event('change'));
                 });
             }
 
