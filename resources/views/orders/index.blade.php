@@ -131,9 +131,6 @@
                                                                 @if(isset($orderExtraFields['has_airsoft_gun']))
                                                                     <p><strong>Маєте страйкбольний привід:</strong> {{ $orderExtraFields['has_airsoft_gun'] == 'own' ? 'Так' : 'Ні' }}</p>
                                                                 @endif
-                                                                @if(isset($orderExtraFields['airsoft_gun_model']))
-                                                                    <p><strong>Модель приводу:</strong> {{ $orderExtraFields['airsoft_gun_model'] }}</p>
-                                                                @endif
                                                                 @if(isset($orderExtraFields['played_before']))
                                                                     <p><strong>Грали раніше:</strong> {{ $orderExtraFields['played_before'] == 'yes' ? 'Так' : 'Ні' }}</p>
                                                                 @endif
@@ -143,17 +140,11 @@
                                                                 @if(isset($orderExtraFields['transport_option']))
                                                                     <p><strong>Добирання на локацію:</strong> {{ $orderExtraFields['transport_option'] == 'own' ? 'Доберуся сам/сама' : 'Потрібно забрати' }}</p>
                                                                 @endif
-                                                                @if(isset($orderExtraFields['pickup_point']))
-                                                                    <p><strong>Точка підбору:</strong> {{ $orderExtraFields['pickup_point'] }}</p>
-                                                                @endif
                                                                 @if(isset($orderExtraFields['has_gopro']))
                                                                     <p><strong>Маєте GoPro:</strong> {{ $orderExtraFields['has_gopro'] === 'yes' ? 'Так (візьму з собою)' : 'Ні' }}</p>
                                                                 @endif
                                                                 @if(isset($orderExtraFields['companion_type']))
-                                                                    <p><strong>З ким плануєте приїхати:</strong> {{ ['alone' => 'Сам/сама', 'spouse' => 'З дружиною / чоловіком', 'children' => 'З дітьми', 'friends' => 'З друзями', 'other' => 'Інше'][$orderExtraFields['companion_type']] }}</p>
-                                                                @endif
-                                                                @if(isset($orderExtraFields['companion_other_text']))
-                                                                    <p><strong>З ким плануєте приїхати (інше):</strong> {{ $orderExtraFields['companion_other_text'] }}</p>
+                                                                    <p><strong>З ким плануєте приїхати:</strong> {{ ['alone' => 'Сам/сама', 'spouse' => 'З дружиною / чоловіком', 'children' => 'З дітьми', 'friends' => 'З друзями', 'other' => 'Не визначився/-лась'][$orderExtraFields['companion_type']] }}</p>
                                                                 @endif
                                                                 <p><strong>Погоджуюсь з правилами та технікою безпеки:</strong> {{ $order->agree_rules ? 'Так' : 'Ні' }}</p>
                                                                 <p><strong>Надаю згоду на обробку персональних даних:</strong> {{ $order->agree_data_processing ? 'Так' : 'Ні' }}</p>

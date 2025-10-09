@@ -146,10 +146,7 @@
                                         <div class="custom-radio-group">
                                             <input type="radio" id="has_airsoft_gun_yes_{{ $form['type_id'] }}"
                                                    name="extra_fields[has_airsoft_gun]" value="own" class="custom-radio-btn" required>
-                                            <label for="has_airsoft_gun_yes_{{ $form['type_id'] }}">Маю власний (вказати модель)</label>
-                                            <input type="text" id="airsoft_gun_model_{{ $form['type_id'] }}"
-                                                   name="extra_fields[airsoft_gun_model]" class="form-control mt-2"
-                                                   placeholder="Вкажіть модель приводу" style="display: none;">
+                                            <label for="has_airsoft_gun_yes_{{ $form['type_id'] }}">Маю власний</label>
                                             <div class="invalid-feedback">Будь ласка, оберіть опцію та, за потреби, вкажіть модель.
                                             </div>
 
@@ -209,10 +206,8 @@
 
                                             <input type="radio" id="transport_pickup_{{ $form['type_id'] }}" required
                                                    name="extra_fields[transport_option]" value="pickup" class="custom-radio-btn">
-                                            <label for="transport_pickup_{{ $form['type_id'] }}">Потрібно забрати з міста (вказати точку підбору)</label>
-                                            <input type="text" id="pickup_point_{{ $form['type_id'] }}"
-                                                   name="extra_fields[pickup_point]" class="form-control mt-2" style="display: none;"
-                                                   placeholder="Вкажіть точку підбору">
+                                            <label for="transport_pickup_{{ $form['type_id'] }}">Потрібно забрати з міста</label>
+
                                         </div>
                                         <div class="invalid-feedback">Будь ласка, оберіть опцію добирання та, за потреби, вкажіть точку підбору.</div>
                                     </div>
@@ -258,10 +253,7 @@
 
                                             <input type="radio" id="companion_other_{{ $form['type_id'] }}" required
                                                    name="extra_fields[companion_type]" value="other" class="custom-radio-btn">
-                                            <label for="companion_other_{{ $form['type_id'] }}">Інше (вказати)</label>
-                                            <input type="text" id="companion_other_text_{{ $form['type_id'] }}"
-                                                   name="extra_fields[companion_other_text]" class="form-control mt-2"
-                                                   placeholder="Вкажіть" style="display: none;">
+                                            <label for="companion_other_{{ $form['type_id'] }}">Не визначився/-лась</label>
                                         </div>
                                         <div class="invalid-feedback">Будь ласка, оберіть опцію та, за потреби, вкажіть деталі.
                                         </div>
@@ -486,40 +478,6 @@
                     });
                 });
 
-                // transport_option radios
-                container.querySelectorAll('input[name="extra_fields[transport_option]"]').forEach(function (radio) {
-                    radio.addEventListener('change', function () {
-                        const pickupInput = container.querySelector('input[name="extra_fields[pickup_point]"]');
-                        if (!pickupInput) return;
-                        if (this.value === 'pickup') {
-                            pickupInput.style.display = 'block';
-                            pickupInput.setAttribute('required', 'required');
-                        } else {
-                            pickupInput.style.display = 'none';
-                            pickupInput.removeAttribute('required');
-                            pickupInput.value = '';
-                            pickupInput.classList.remove('is-invalid', 'is-valid');
-                        }
-                    });
-                });
-
-                // companion_type radios
-                container.querySelectorAll('input[name="extra_fields[companion_type]"]').forEach(function (radio) {
-                    radio.addEventListener('change', function () {
-                        const otherInput = container.querySelector('input[name="extra_fields[companion_other_text]"]');
-                        if (!otherInput) return;
-                        if (this.value === 'other') {
-                            otherInput.style.display = 'block';
-                            otherInput.setAttribute('required', 'required');
-                        } else {
-                            otherInput.style.display = 'none';
-                            otherInput.removeAttribute('required');
-                            otherInput.value = '';
-                            otherInput.classList.remove('is-invalid', 'is-valid');
-                        }
-                    });
-                });
-
                 container.querySelectorAll('input[name="extra_fields[has_airsoft_gun]"]:checked').forEach(radio => {
                     radio.dispatchEvent(new Event('change'));
                 });
@@ -567,88 +525,6 @@
                         cb.classList.add('is-valid');
                     }
                 });
-
-                // custom checks for dynamic fields (airsoft model, pickup point, companion_other_text)
-                const hasAirsoft = form.querySelectorAll('input[name="extra_fields[has_airsoft_gun]"]');
-                if (hasAirsoft.length > 0) {
-                    let selected = false;
-                    hasAirsoft.forEach(r => {
-                        if (r.checked) {
-                            selected = true;
-                            if (r.value === 'own') {
-                                const model = form.querySelector('input[name="extra_fields[airsoft_gun_model]"]');
-                                if (model && model.offsetParent !== null && !String(model.value || '').trim()) {
-                                    model.classList.add('is-invalid');
-                                    ok = false;
-                                } else if (model && model.offsetParent !== null) {
-                                    model.classList.add('is-valid');
-                                }
-                            }
-                        }
-                    });
-                    if (!selected) {
-                        const fb = hasAirsoft[0].closest('.form-group').querySelector('.invalid-feedback');
-                        if (fb) fb.style.display = 'block';
-                        ok = false;
-                    } else {
-                        const fb = hasAirsoft[0].closest('.form-group').querySelector('.invalid-feedback');
-                        if (fb) fb.style.display = 'none';
-                    }
-                }
-
-                const transport = form.querySelectorAll('input[name="extra_fields[transport_option]"]');
-                if (transport.length > 0) {
-                    let selected = false;
-                    transport.forEach(r => {
-                        if (r.checked) {
-                            selected = true;
-                            if (r.value === 'pickup') {
-                                const p = form.querySelector('input[name="extra_fields[pickup_point]"]');
-                                if (p && p.offsetParent !== null && !String(p.value || '').trim()) {
-                                    p.classList.add('is-invalid');
-                                    ok = false;
-                                } else if (p && p.offsetParent !== null) {
-                                    p.classList.add('is-valid');
-                                }
-                            }
-                        }
-                    });
-                    if (!selected) {
-                        const fb = transport[0].closest('.form-group').querySelector('.invalid-feedback');
-                        if (fb) fb.style.display = 'block';
-                        ok = false;
-                    } else {
-                        const fb = transport[0].closest('.form-group').querySelector('.invalid-feedback');
-                        if (fb) fb.style.display = 'none';
-                    }
-                }
-
-                const companion = form.querySelectorAll('input[name="extra_fields[companion_type]"]');
-                if (companion.length > 0) {
-                    let selected = false;
-                    companion.forEach(r => {
-                        if (r.checked) {
-                            selected = true;
-                            if (r.value === 'other') {
-                                const oth = form.querySelector('input[name="extra_fields[companion_other_text]"]');
-                                if (oth && oth.offsetParent !== null && !String(oth.value || '').trim()) {
-                                    oth.classList.add('is-invalid');
-                                    ok = false;
-                                } else if (oth && oth.offsetParent !== null) {
-                                    oth.classList.add('is-valid');
-                                }
-                            }
-                        }
-                    });
-                    if (!selected) {
-                        const fb = companion[0].closest('.form-group').querySelector('.invalid-feedback');
-                        if (fb) fb.style.display = 'block';
-                        ok = false;
-                    } else {
-                        const fb = companion[0].closest('.form-group').querySelector('.invalid-feedback');
-                        if (fb) fb.style.display = 'none';
-                    }
-                }
 
                 if (!ok) {
                     const firstInvalid = form.querySelector('.is-invalid, .is-invalid-group');
