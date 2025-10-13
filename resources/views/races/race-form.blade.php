@@ -444,14 +444,10 @@
                 // airsoft gun radios
                 container.querySelectorAll('input[name="extra_fields[has_airsoft_gun]"]').forEach(function (radio) {
                     radio.addEventListener('change', function () {
-                        const modelInput = container.querySelector('input[name="extra_fields[airsoft_gun_model]"]');
                         const distanceRadios = container.querySelectorAll('.custom-radio-group.airsoft_gun input[type="radio"]');
                         const distanceLabels = container.querySelectorAll('.custom-radio-group.airsoft_gun label');
 
                         if (this.value === 'own') {
-                            modelInput.style.display = 'block';
-                            modelInput.setAttribute('required', 'required');
-
                             // показуємо тільки першу дистанцію і її ціну
                             distanceRadios.forEach((r, idx) => {
                                 r.style.display = idx === 0 ? 'inline-block' : 'none';
@@ -461,11 +457,6 @@
                                 l.style.display = idx === 0 ? 'inline-block' : 'none';
                             });
                         } else {
-                            modelInput.style.display = 'none';
-                            modelInput.removeAttribute('required');
-                            modelInput.value = '';
-                            modelInput.classList.remove('is-invalid', 'is-valid');
-
                             // показуємо тільки другу дистанцію і її ціну
                             distanceRadios.forEach((r, idx) => {
                                 r.style.display = idx === 1 ? 'inline-block' : 'none';
