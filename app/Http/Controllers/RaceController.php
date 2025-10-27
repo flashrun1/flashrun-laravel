@@ -113,6 +113,8 @@ class RaceController extends Controller
         $newOrder = Order::createFromRequest($request);
 
         if ($price) {
+            $orderId = substr(sha1($newOrder->id . random_int(1, PHP_INT_MAX)), 0, 12);
+
             $paymentRequest = [
                 'public_key' => config('liqpay.public_key'),
                 'version' => '3',
@@ -120,7 +122,7 @@ class RaceController extends Controller
                 'amount' => $price,
                 'currency' => LiqPay::CURRENCY_UAH,
                 'description' => $description,
-                'order_id' => $newOrder->id,
+                'order_id' => $orderId,
             ];
 
             $paymentRequestText = json_encode($paymentRequest);
@@ -148,7 +150,7 @@ class RaceController extends Controller
                 'amount' => $request->price,
                 'currency' => 'UAH',
                 'description' => $description,
-                'order_id' => $newOrder->id,
+                'order_id' => $orderId,
                 'version' => '3',
                 'result_url' => route('callback-status'),
                 'sender_last_name' => $request->name,
