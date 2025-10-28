@@ -113,7 +113,13 @@ class RaceController extends Controller
         $newOrder = Order::createFromRequest($request);
 
         if ($price) {
-            $orderId = substr(sha1($newOrder->id . random_int(1, PHP_INT_MAX)), 0, 12);
+            $orderId = openssl_encrypt(
+                (string)$newOrder->id,
+                'AES-256-CBC',
+                config('liqpay.private_key'),
+                0,
+                substr(hash('sha256', config('liqpay.public_key')), 0, 16)
+            );
 
             $paymentRequest = [
                 'public_key' => config('liqpay.public_key'),

@@ -49,7 +49,16 @@ class OrderController extends Controller
 
         if ($sign == $req_sign) {
             $data = json_decode(base64_decode($request->data));
-            $order = Order::query()->where('id', $data->order_id)->first();
+
+            $orderId = openssl_decrypt(
+                (string)$data->order_id,
+                'AES-256-CBC',
+                config('liqpay.private_key'),
+                0,
+                substr(hash('sha256', config('liqpay.public_key')), 0, 16)
+            );
+
+            $order = Order::query()->where('id', $orderId)->first();
 
             if ($order) {
                 if ($data->status == 'success') {
